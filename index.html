@@ -9,100 +9,120 @@
     <style>
         .chat-container { height: calc(100vh - 200px); }
         .bg-gradient-custom { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        /* Yükleme animasyonu */
+        .typing-dots span {
+            animation: blink 1.4s infinite both;
+            height: 6px; width: 6px;
+            background-color: #4B5563;
+            display: inline-block;
+            border-radius: 50%;
+            margin: 0 1px;
+        }
+        .typing-dots span:nth-child(2) { animation-delay: .2s; }
+        .typing-dots span:nth-child(3) { animation-delay: .4s; }
+        @keyframes blink { 0% { opacity: .2; } 20% { opacity: 1; } 100% { opacity: .2; } }
     </style>
 </head>
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
-    <!-- Header -->
     <nav class="bg-gradient-custom p-4 shadow-lg text-white">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-2xl font-bold italic"><i class="fas fa-magic mr-2"></i>KartCini</h1>
-            <span class="text-sm opacity-80 italic">Akıllı Kampanya Rehberiniz v12.36</span>
+            <span class="text-sm opacity-80 italic">Akıllı Kampanya Rehberiniz v1.08</span>
         </div>
     </nav>
 
-    <!-- Main Container -->
     <div class="container mx-auto p-4 max-w-4xl">
-        
-        <!-- Chat Display Area -->
         <div id="chatWindow" class="chat-container bg-white rounded-lg shadow-xl overflow-y-auto p-4 mb-4 space-y-4">
-            <!-- Bot Welcome Message -->
+            <!-- Bot Welcome -->
             <div class="flex items-start">
-                <div class="bg-purple-100 text-purple-800 p-3 rounded-lg max-w-[80%]">
-                    Hoş geldin! Ben KartCini. Bugün hangi harcaman için en iyi kampanyayı bulmamı istersin? (Örn: Market, Akaryakıt, Giyim...)
+                <div class="bg-purple-100 text-purple-800 p-3 rounded-lg max-w-[80%] shadow-sm">
+                    Hoş geldin! Ben KartCini. Bugün hangi harcaman için en iyi kampanyayı bulmamı istersin?
                 </div>
             </div>
         </div>
 
-        <!-- Input Area -->
-        <div class="bg-white rounded-lg shadow-lg p-4">
+        <div class="bg-white rounded-lg shadow-lg p-4 relative">
             <form id="searchForm" class="flex space-x-2">
                 <input type="text" id="userQuery" 
                        placeholder="Hangi kampanyayı arıyorsunuz?" 
                        class="flex-1 border rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 shadow-inner"
-                       required>
-                <button type="submit" id="sendBtn" class="bg-purple-600 hover:bg-purple-700 text-white p-3 rounded-full transition duration-300">
+                       required autocomplete="off">
+                <button type="submit" id="sendBtn" class="bg-purple-600 hover:bg-purple-700 text-white p-3 rounded-full transition duration-300 disabled:bg-gray-400">
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </form>
-            
-            <!-- Filters (Optional) -->
-            <div class="mt-2 flex space-x-2 text-xs text-gray-500">
-                <span>Popüler:</span>
-                <button onclick="quickSearch('Market')" class="hover:text-purple-600">Market</button>
-                <button onclick="quickSearch('Benzin')" class="hover:text-purple-600">Benzin</button>
-                <button onclick="quickSearch('Online')" class="hover:text-purple-600">Online</button>
-            </div>
-        </div>
 
-        <!-- Retrieved Campaigns Source List -->
-        <div id="campaignList" class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 hidden">
-            <!-- Cards will be injected here -->
+            <!-- Hata ve Tekrar Dene Alanı -->
+            <div id="retryContainer" class="hidden mt-2 p-2 bg-red-50 border border-red-200 rounded flex items-center justify-between">
+                <span class="text-red-600 text-sm"><i class="fas fa-exclamation-triangle mr-2"></i>Bir hata oluştu.</span>
+                <button onclick="retryLastSearch()" class="text-red-700 font-bold text-sm underline hover:text-red-800">
+                    <i class="fas fa-redo-alt mr-1"></i> Tekrar Dene
+                </button>
+            </div>
         </div>
     </div>
 
     <script>
-        const API_URL = "https://kartcini-api.onrender.com/search"; // KENDİ RENDER URL'İNLE DEĞİŞTİR
+        const API_URL = "https://kartcini-api.onrender.com/search";
+        
+        let chatHistory = [];
+        let lastSentQuery = ""; // Hata durumunda tekrar denemek için
 
         const chatWindow = document.getElementById('chatWindow');
         const searchForm = document.getElementById('searchForm');
         const userQuery = document.getElementById('userQuery');
-        const campaignList = document.getElementById('campaignList');
+        const retryContainer = document.getElementById('retryContainer');
         const sendBtn = document.getElementById('sendBtn');
 
-        function addMessage(text, isUser = false) {
+        function addMessage(text, isUser = false, isTyping = false) {
             const div = document.createElement('div');
             div.className = isUser ? "flex items-end justify-end" : "flex items-start";
             
-            const p = document.createElement('p');
-            p.className = isUser 
+            const content = document.createElement('div');
+            content.className = isUser 
                 ? "bg-purple-600 text-white p-3 rounded-lg max-w-[80%] shadow-md" 
                 : "bg-gray-200 text-gray-800 p-3 rounded-lg max-w-[80%] shadow-md";
             
-            // Linkleri tıklanabilir yap
-            p.innerHTML = text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" class="underline font-bold font-blue-600 text-xs block mt-1">$1</a>');
+            if (isTyping) {
+                content.innerHTML = `<div class="typing-dots"><span></span><span></span><span></span></div>`;
+                div.id = "typingIndicator";
+            } else {
+                // Linkleri tıkla-yap
+                const formattedText = text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" class="underline font-bold block mt-1">$1</a>');
+                content.innerHTML = formattedText;
+            }
             
-            div.appendChild(p);
+            div.appendChild(content);
             chatWindow.appendChild(div);
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
-        function quickSearch(tag) {
-            userQuery.value = tag + " harcaması için ne var?";
-            searchForm.dispatchEvent(new Event('submit'));
+        // Tekrar Dene Fonksiyonu
+        function retryLastSearch() {
+            if (lastSentQuery) {
+                userQuery.value = lastSentQuery; // Metni kutuya geri koy (opsiyonel)
+                retryContainer.classList.add('hidden');
+                performSearch(lastSentQuery);
+            }
         }
-
-        // HAFIZA BURADA TUTULUYOR
-        let chatHistory = []; 
 
         searchForm.onsubmit = async (e) => {
             e.preventDefault();
             const query = userQuery.value.trim();
             if(!query) return;
 
-            addMessage(query, true); // Kullanıcı mesajını ekrana bas
+            retryContainer.classList.add('hidden'); // Yeni aramada hatayı gizle
+            lastSentQuery = query; // Soruyu yedekle
+            
+            addMessage(query, true);
             userQuery.value = "";
-            addMessage("KartCini düşünüyor... ✨");
+            await performSearch(query);
+        };
+
+        async function performSearch(query) {
+            sendBtn.disabled = true;
+            addMessage("", false, true); // Yükleniyor animasyonunu ekle
 
             try {
                 const response = await fetch(API_URL, {
@@ -110,45 +130,29 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
                         query: query,
-                        history: chatHistory // GEÇMİŞİ GÖNDER
+                        history: chatHistory 
                     })
                 });
 
+                if (!response.ok) throw new Error("API Hatası");
+
                 const data = await response.json();
+                
+                // Typing animasyonunu kaldır
+                document.getElementById('typingIndicator').remove();
 
-                // "Düşünüyor" mesajını sil
-                chatWindow.lastChild.remove();
-
-                // Gemini yanıtını bas
+                // Cevabı ve hafızayı güncelle
                 addMessage(data.llm_answer);
-
-                // HAFIZAYI GÜNCELLE
                 chatHistory = data.history;
 
-                // Eğer kampanya geldiyse kartları göster
-                if(data.retrieved_campaigns && data.retrieved_campaigns.length > 0) {
-                    showCampaignCards(data.retrieved_campaigns);
-                }
-
             } catch (error) {
-                addMessage("Bağlantı hatası!");
                 console.error(error);
-            }
-        };
-
-        function showCampaignCards(campaigns) {
-            campaignList.innerHTML = "";
-            if(campaigns.length > 0) {
-                campaignList.classList.remove('hidden');
-                campaigns.forEach(c => {
-                    const card = `
-                        <div class="bg-white p-3 rounded shadow border-l-4 border-purple-500 text-sm">
-                            <h4 class="font-bold text-gray-700">${c.summary || 'Kampanya Detayı'}</h4>
-                            <a href="${c.url}" target="_blank" class="text-blue-500 text-xs truncate block mt-1 italic">Kampanyaya Git →</a>
-                        </div>
-                    `;
-                    campaignList.insertAdjacentHTML('beforeend', card);
-                });
+                if (document.getElementById('typingIndicator')) document.getElementById('typingIndicator').remove();
+                
+                addMessage("Üzgünüm, şu an cevap veremiyorum. Lütfen internetini kontrol et veya tekrar dene.");
+                retryContainer.classList.remove('hidden'); // Tekrar dene butonunu göster
+            } finally {
+                sendBtn.disabled = false;
             }
         }
     </script>
