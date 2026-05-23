@@ -28,7 +28,7 @@
     <nav class="bg-gradient-custom p-4 shadow-lg text-white">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-2xl font-bold italic"><i class="fas fa-magic mr-2"></i>KartCini</h1>
-            <span class="text-sm opacity-80 italic">Akıllı Kampanya Rehberiniz v1.05.16</span>
+            <span class="text-sm opacity-80 italic">Akıllı Kampanya Rehberiniz v1.05.27</span>
         </div>
     </nav>
 
@@ -52,6 +52,14 @@
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </form>
+
+            <!-- Filters (Optional) -->
+            <div class="mt-2 flex space-x-2 text-xs text-gray-500">
+                <span>Popüler:</span>
+                <button onclick="quickSearch('Market')" class="hover:text-purple-600">Market</button>
+                <button onclick="quickSearch('Benzin')" class="hover:text-purple-600">Benzin</button>
+                <button onclick="quickSearch('Online')" class="hover:text-purple-600">Online</button>
+            </div>
 
             <!-- Hata ve Tekrar Dene Alanı -->
             <div id="retryContainer" class="hidden mt-2 p-2 bg-red-50 border border-red-200 rounded flex items-center justify-between">
@@ -96,6 +104,11 @@
             div.appendChild(content);
             chatWindow.appendChild(div);
             chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        function quickSearch(tag) {
+            userQuery.value = tag + " harcaması için ne var?";
+            searchForm.dispatchEvent(new Event('submit'));
         }
 
         // Tekrar Dene Fonksiyonu
