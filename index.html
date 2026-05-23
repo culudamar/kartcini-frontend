@@ -28,7 +28,7 @@
     <nav class="bg-gradient-custom p-4 shadow-lg text-white">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-2xl font-bold italic"><i class="fas fa-magic mr-2"></i>KartCini</h1>
-            <span class="text-sm opacity-80 italic">Akıllı Kampanya Rehberiniz v1.08</span>
+            <span class="text-sm opacity-80 italic">Akıllı Kampanya Rehberiniz v1.05.16</span>
         </div>
     </nav>
 
@@ -123,7 +123,7 @@
         async function performSearch(query) {
             sendBtn.disabled = true;
             addMessage("", false, true); // Yükleniyor animasyonunu ekle
-
+        
             try {
                 const response = await fetch(API_URL, {
                     method: 'POST',
@@ -133,27 +133,76 @@
                         history: chatHistory 
                     })
                 });
-
-                if (!response.ok) throw new Error("API Hatası");
-
+        
+                // Backend'den gelen JSON verisini al (Hata olsa bile veri gelir)
                 const data = await response.json();
-                
-                // Typing animasyonunu kaldır
-                document.getElementById('typingIndicator').remove();
-
-                // Cevabı ve hafızayı güncelle
+        
+                // Typing animasyonunu her durumda kaldır
+                const indicator = document.getElementById('typingIndicator');
+                if (indicator) indicator.remove();
+        
+                if (!response.ok) {
+                    // BACKEND HATASI (429, 500, 503 vb.)
+                    const errorMsg = data.message || "Sunucu şu an yanıt veremiyor.";
+                    const retrySeconds = data.retry_after; // Backend'den gelen saniye
+        
+                    addMessage(`<i class="fas fa-exclamation-circle mr-2"></i>${errorMsg}`);
+                    
+                    if (retrySeconds) {
+                        startRetryCountdown(Math.ceil(retrySeconds));
+                    } else {
+                        // Saniye yoksa bile retry butonunu normal göster
+                        document.getElementById('retryContainer').classList.remove('hidden');
+                    }
+                    return; // Fonksiyondan çık
+                }
+        
+                // BAŞARILI YANIT
                 addMessage(data.llm_answer);
                 chatHistory = data.history;
-
+                
+                // Başarılıysa retry butonunu gizle
+                document.getElementById('retryContainer').classList.add('hidden');
+        
             } catch (error) {
-                console.error(error);
+                // AĞ HATASI (İnternet yok, Sunucu kapalı vb.)
                 if (document.getElementById('typingIndicator')) document.getElementById('typingIndicator').remove();
                 
-                addMessage("Üzgünüm, şu an cevap veremiyorum. Lütfen internetini kontrol et veya tekrar dene.");
-                retryContainer.classList.remove('hidden'); // Tekrar dene butonunu göster
+                addMessage("Bağlantı hatası! İnternetini kontrol edip tekrar dener misin?");
+                document.getElementById('retryContainer').classList.remove('hidden');
+                console.error("Network Error:", error);
             } finally {
                 sendBtn.disabled = false;
             }
+        }
+
+        let countdownInterval = null;
+
+        //Bu fonksiyon, "Tekrar Dene" butonunu süre bitene kadar kilitler:
+        function startRetryCountdown(seconds) {
+            const retryContainer = document.getElementById('retryContainer');
+            const retryBtn = retryContainer.querySelector('button');
+            
+            retryContainer.classList.remove('hidden');
+            retryBtn.disabled = true;
+            retryBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        
+            let timeLeft = seconds;
+        
+            // Eğer zaten çalışan bir sayaç varsa durdur
+            if (countdownInterval) clearInterval(countdownInterval);
+        
+            countdownInterval = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    retryBtn.innerHTML = `<i class="fas fa-redo-alt mr-1"></i> Şimdi Tekrar Dene`;
+                    retryBtn.disabled = false;
+                    retryBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                } else {
+                    retryBtn.innerHTML = `<i class="fas fa-hourglass-half mr-1"></i> ${timeLeft}s Bekleyin...`;
+                    timeLeft--;
+                }
+            }, 1000);
         }
     </script>
 </body>
