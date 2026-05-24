@@ -60,7 +60,7 @@
     <nav class="bg-gradient-custom p-4 shadow-lg text-white">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-2xl font-bold italic"><i class="fas fa-magic mr-2"></i>KartCini</h1>
-            <span class="text-sm opacity-80 italic">Akıllı Kampanya Rehberiniz v1.23.53</span>
+            <span class="text-sm opacity-80 italic">Akıllı Kampanya Rehberiniz v1.00.29</span>
         </div>
     </nav>
 
@@ -145,8 +145,31 @@
             } else {
                 selectedBanks = selectedBanks.filter(b => b !== bankName);
             }
+            // SEÇİMLERİ KAYDET: Diziyi string'e çevirip 'kartcini_banks' adıyla sakla
+            localStorage.setItem('kartcini_banks', JSON.stringify(selectedBanks));
         }
-
+        
+        function loadSavedBanks() {
+            const saved = localStorage.getItem('kartcini_banks');
+            if (saved) {
+                selectedBanks = JSON.parse(saved); // String'i tekrar diziye çevir
+                
+                // Ekrandaki pill'leri bul ve listede olanları aktif yap
+                const pills = document.querySelectorAll('.bank-pill');
+                pills.forEach(pill => {
+                    // Pill'in üzerindeki banka adını (veya fonksiyona gönderilen parametreyi) kontrol et
+                    // toggleBank içinde kullandığın bankName parametreleriyle eşleşmeli
+                    const bankName = pill.getAttribute('onclick').match(/'([^']+)'/)[1];
+                    if (selectedBanks.includes(bankName)) {
+                        pill.classList.add('active');
+                    }
+                });
+            }
+        }
+        
+        // SAYFA YÜKLENDİĞİNDE ÇALIŞTIR
+        window.onload = loadSavedBanks;
+        
         function addMessage(text, isUser = false, isTyping = false) {
             const div = document.createElement('div');
             div.className = isUser ? "flex items-end justify-end" : "flex items-start";
