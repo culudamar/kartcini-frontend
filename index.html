@@ -9,6 +9,16 @@
     <style>
         .chat-container { height: calc(100vh - 200px); }
         .bg-gradient-custom { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        
+        /* --- YENİ: Banka Filtreleme Stilleri --- */
+        .bank-pill { cursor: pointer; transition: all 0.2s; border: 1px solid #e2e8f0; }
+        .bank-pill.active { 
+            background-color: #7c3aed; 
+            color: white; 
+            border-color: #7c3aed; 
+            box-shadow: 0 2px 4px rgba(124, 58, 237, 0.3); 
+        }
+
         /* Yükleme animasyonu */
         .typing-dots span {
             animation: blink 1.4s infinite both;
@@ -21,6 +31,28 @@
         .typing-dots span:nth-child(2) { animation-delay: .2s; }
         .typing-dots span:nth-child(3) { animation-delay: .4s; }
         @keyframes blink { 0% { opacity: .2; } 20% { opacity: 1; } 100% { opacity: .2; } }
+
+        /* Gelen tablolar için profesyonel çizgiler */
+        #chatWindow table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.85rem;
+            background: white;
+        }
+        #chatWindow th, #chatWindow td {
+            border: 1px solid #e2e8f0;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        #chatWindow th {
+            background-color: #f8fafc;
+            font-weight: bold;
+            color: #475569;
+        }
+        #chatWindow tr:nth-child(even) {
+            background-color: #f1f5f9;
+        }
     </style>
 </head>
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
@@ -28,7 +60,7 @@
     <nav class="bg-gradient-custom p-4 shadow-lg text-white">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-2xl font-bold italic"><i class="fas fa-magic mr-2"></i>KartCini</h1>
-            <span class="text-sm opacity-80 italic">Akıllı Kampanya Rehberiniz v1.07.49</span>
+            <span class="text-sm opacity-80 italic">Akıllı Kampanya Rehberiniz v1.23.53</span>
         </div>
     </nav>
 
@@ -45,6 +77,19 @@
         </div>
 
         <div class="bg-white rounded-lg shadow-lg p-4 relative">
+            
+            <!-- --- YENİ: Banka Filtre Butonları --- -->
+            <div id="bankFilters" class="flex flex-wrap gap-2 mb-3">
+                <button type="button" onclick="toggleBank(this, 'bonus')" class="bank-pill px-3 py-1 rounded-full text-xs text-gray-600 hover:bg-purple-50">Garanti</button>
+                <button type="button" onclick="toggleBank(this, 'axess')" class="bank-pill px-3 py-1 rounded-full text-xs text-gray-600 hover:bg-purple-50">Akbank</button>
+                <button type="button" onclick="toggleBank(this, 'world')" class="bank-pill px-3 py-1 rounded-full text-xs text-gray-600 hover:bg-purple-50">Yapı Kredi</button>
+                <button type="button" onclick="toggleBank(this, 'teb')" class="bank-pill px-3 py-1 rounded-full text-xs text-gray-600 hover:bg-purple-50">Teb Bonus</button>
+                <button type="button" onclick="toggleBank(this, 'deniz')" class="bank-pill px-3 py-1 rounded-full text-xs text-gray-600 hover:bg-purple-50">DenizBank Bonus</button>
+                <button type="button" onclick="toggleBank(this, 'hadi')" class="bank-pill px-3 py-1 rounded-full text-xs text-gray-600 hover:bg-purple-50">Hadi (TomBank)</button>
+                <button type="button" onclick="toggleBank(this, 'on')" class="bank-pill px-3 py-1 rounded-full text-xs text-gray-600 hover:bg-purple-50">ON (BurganBank)</button>
+                <button type="button" onclick="toggleBank(this, 'qnb')" class="bank-pill px-3 py-1 rounded-full text-xs text-gray-600 hover:bg-purple-50">QNB First</button>
+            </div>
+
             <form id="searchForm" class="flex space-x-2">
                 <input type="text" id="userQuery" 
                        placeholder="Hangi kampanyayı arıyorsunuz?" 
@@ -82,6 +127,7 @@
         const API_URL = "https://kartcini-api.onrender.com/search";
         
         let chatHistory = [];
+        let selectedBanks = []; // --- YENİ: Seçili bankaları tutan dizi ---
         let lastSentQuery = ""; // Hata durumunda tekrar denemek için
 
         const chatWindow = document.getElementById('chatWindow');
@@ -89,6 +135,17 @@
         const userQuery = document.getElementById('userQuery');
         const retryContainer = document.getElementById('retryContainer');
         const sendBtn = document.getElementById('sendBtn');
+        const campaignList = document.getElementById('campaignList');
+
+        // --- YENİ: Banka Seçim Fonksiyonu ---
+        function toggleBank(element, bankName) {
+            element.classList.toggle('active');
+            if (element.classList.contains('active')) {
+                selectedBanks.push(bankName);
+            } else {
+                selectedBanks = selectedBanks.filter(b => b !== bankName);
+            }
+        }
 
         function addMessage(text, isUser = false, isTyping = false) {
             const div = document.createElement('div');
@@ -129,7 +186,7 @@
 
         function showCampaignCards(campaigns) {
             campaignList.innerHTML = "";
-            if(campaigns.length > 0) {
+            if(campaigns && campaigns.length > 0) {
                 campaignList.classList.remove('hidden');
                 campaigns.forEach(c => {
                     const card = `
@@ -140,6 +197,8 @@
                     `;
                     campaignList.insertAdjacentHTML('beforeend', card);
                 });
+            } else {
+                campaignList.classList.add('hidden');
             }
         }
         
@@ -166,13 +225,15 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
                         query: query,
-                        history: chatHistory 
+                        history: chatHistory,
+                        // --- YENİ: Seçili bankaları JSON body'e ekle ---
+                        selected_banks: selectedBanks.length > 0 ? selectedBanks : null
                     })
                 });
-        
+
                 // Backend'den gelen JSON verisini al (Hata olsa bile veri gelir)
                 const data = await response.json();
-        
+
                 // Typing animasyonunu her durumda kaldır
                 const indicator = document.getElementById('typingIndicator');
                 if (indicator) indicator.remove();
@@ -188,15 +249,15 @@
                         startRetryCountdown(Math.ceil(retrySeconds));
                     } else {
                         // Saniye yoksa bile retry butonunu normal göster
-                        document.getElementById('retryContainer').classList.remove('hidden');
+                        retryContainer.classList.remove('hidden');
                     }
-                    return; // Fonksiyondan çık
+                    return;
                 }
-        
+
                 // BAŞARILI YANIT
                 addMessage(data.llm_answer);
                 chatHistory = data.history;
-                
+
                 // Başarılıysa retry butonunu gizle
                 document.getElementById('retryContainer').classList.add('hidden');
 
@@ -207,9 +268,8 @@
             } catch (error) {
                 // AĞ HATASI (İnternet yok, Sunucu kapalı vb.)
                 if (document.getElementById('typingIndicator')) document.getElementById('typingIndicator').remove();
-                
                 addMessage("Bağlantı hatası! İnternetini kontrol edip tekrar dener misin?");
-                document.getElementById('retryContainer').classList.remove('hidden');
+                retryContainer.classList.remove('hidden');
                 console.error("Network Error:", error);
             } finally {
                 sendBtn.disabled = false;
@@ -228,7 +288,7 @@
             retryBtn.classList.add('opacity-50', 'cursor-not-allowed');
         
             let timeLeft = seconds;
-        
+
             // Eğer zaten çalışan bir sayaç varsa durdur
             if (countdownInterval) clearInterval(countdownInterval);
             
