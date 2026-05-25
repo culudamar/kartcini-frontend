@@ -77,8 +77,10 @@
         </div>
 
         <div class="bg-white rounded-lg shadow-lg p-4 relative">
+            <!-- Hepsi Seçeneği -->
+            <button type="button" id="allBanksBtn" onclick="toggleAllBanks(this)" class="bank-pill px-3 py-1 rounded-full text-xs font-bold text-gray-600 border-purple-400 hover:bg-purple-50">HEPSİ</button>
             
-            <!-- --- YENİ: Banka Filtre Butonları --- -->
+            <!-- --- Diğer Banka Filtre Butonları --- -->
             <div id="bankFilters" class="flex flex-wrap gap-2 mb-3">
                 <button type="button" onclick="toggleBank(this, 'bonus')" class="bank-pill px-3 py-1 rounded-full text-xs text-gray-600 hover:bg-purple-50">Bonus</button>
                 <button type="button" onclick="toggleBank(this, 'axess')" class="bank-pill px-3 py-1 rounded-full text-xs text-gray-600 hover:bg-purple-50">Axess</button>
@@ -146,25 +148,69 @@
             } else {
                 selectedBanks = selectedBanks.filter(b => b !== bankName);
             }
+
+            // AKILLI KONTROL: Eğer biri bırakıldıysa "HEPSİ"yi söndür, hepsi seçildiyse yak
+            const allBtn = document.getElementById('allBanksBtn');
+            const totalBanks = document.querySelectorAll('.bank-pill:not(#allBanksBtn)').length;
+
+            if (selectedBanks.length === totalBanks) {
+                allBtn.classList.add('active');
+            } else {
+                allBtn.classList.remove('active');
+            }
+            
+            saveToStorage();
+        }
+
+        // Ortak kaydetme fonksiyonu
+        function saveToStorage() {
             // SEÇİMLERİ KAYDET: Diziyi string'e çevirip 'kartcini_banks' adıyla sakla
             localStorage.setItem('kartcini_banks', JSON.stringify(selectedBanks));
+        }
+
+        // "HEPSİ" BUTONUNA TIKLANDIĞINDA
+        function toggleAllBanks(allBtn) {
+            const isActive = allBtn.classList.toggle('active');
+            const otherPills = document.querySelectorAll('.bank-pill:not(#allBanksBtn)');
+            
+            selectedBanks = []; // Diziyi sıfırla
+    
+            otherPills.forEach(pill => {
+                const bankName = pill.getAttribute('onclick').split("'")[1];
+                if (isActive) {
+                    pill.classList.add('active');
+                    selectedBanks.push(bankName);
+                } else {
+                    pill.classList.remove('active');
+                }
+            });
+    
+            saveToStorage();
         }
         
         function loadSavedBanks() {
             const saved = localStorage.getItem('kartcini_banks');
+            const allBtn = document.getElementById('allBanksBtn');
+            const otherPills = document.querySelectorAll('.bank-pill:not(#allBanksBtn)');
+    
             if (saved) {
-                selectedBanks = JSON.parse(saved); // String'i tekrar diziye çevir
+                selectedBanks = JSON.parse(saved);
                 
-                // Ekrandaki pill'leri bul ve listede olanları aktif yap
-                const pills = document.querySelectorAll('.bank-pill');
-                pills.forEach(pill => {
-                    // Pill'in üzerindeki banka adını (veya fonksiyona gönderilen parametreyi) kontrol et
-                    // toggleBank içinde kullandığın bankName parametreleriyle eşleşmeli
-                    const bankName = pill.getAttribute('onclick').match(/'([^']+)'/)[1];
-                    if (selectedBanks.includes(bankName)) {
-                        pill.classList.add('active');
+                otherPills.forEach(pill => {
+                    // onclick="toggleBank(this, 'akbank')" içindeki 'akbank' kısmını güvenlice alır
+                    const match = pill.getAttribute('onclick').match(/'([^']+)'/);
+                    if (match) {
+                        const bankName = match[1];
+                        if (selectedBanks.includes(bankName)) {
+                            pill.classList.add('active');
+                        }
                     }
                 });
+    
+                // Eğer tüm bankalar seçiliyse "HEPSİ" butonunu aktif yap
+                if (selectedBanks.length === otherPills.length && otherPills.length > 0) {
+                    allBtn.classList.add('active');
+                }
             }
         }
         
