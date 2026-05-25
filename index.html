@@ -4,135 +4,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KartCini | Akıllı Kampanya Asistanı</title>
+    
+    <!-- Dış Kaynaklar: Tasarım için Tailwind CSS, ikonlar için FontAwesome -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
     <style>
-        .chat-container { height: calc(100vh - 200px); }
+        /* Mesaj penceresinin yüksekliğini ekran boyuna göre ayarlar */
+        .chat-container { height: calc(100vh - 250px); }
+        
+        /* KartCini temasına özel gradyan arka plan */
         .bg-gradient-custom { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
         
-        /* --- YENİ: Banka Filtreleme Stilleri --- */
-        .bank-pill { cursor: pointer; transition: all 0.2s; border: 1px solid #e2e8f0; }
+        /* Banka filtreleme butonlarının (Pill) genel ve seçili halleri */
+        .bank-pill { 
+            cursor: pointer; transition: all 0.2s; border: 1px solid #e2e8f0; 
+            padding-top: 4px !important; padding-bottom: 4px !important;
+            font-size: 11px !important; flex-shrink: 0;
+        }
         .bank-pill.active { 
-            background-color: #7c3aed; 
-            color: white; 
-            border-color: #7c3aed; 
+            background-color: #7c3aed; color: white; border-color: #7c3aed; 
             box-shadow: 0 2px 4px rgba(124, 58, 237, 0.3); 
         }
+        
+        /* Yatay kaydırma çubuğunu gizleyen yardımcı sınıf */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
 
-        /* Yükleme animasyonu */
+        /* Yazıyor... (Typing) animasyonu için noktaların yanıp sönme efekti */
         .typing-dots span {
             animation: blink 1.4s infinite both;
-            height: 6px; width: 6px;
-            background-color: #4B5563;
-            display: inline-block;
-            border-radius: 50%;
-            margin: 0 1px;
+            height: 6px; width: 6px; background-color: #4B5563;
+            display: inline-block; border-radius: 50%; margin: 0 1px;
         }
         .typing-dots span:nth-child(2) { animation-delay: .2s; }
         .typing-dots span:nth-child(3) { animation-delay: .4s; }
         @keyframes blink { 0% { opacity: .2; } 20% { opacity: 1; } 100% { opacity: .2; } }
 
-        /* Gelen tablolar için profesyonel çizgiler */
-        #chatWindow table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 15px 0;
-            font-size: 0.85rem;
-            background: white;
-        }
-        #chatWindow th, #chatWindow td {
-            border: 1px solid #e2e8f0;
-            padding: 8px 12px;
-            text-align: left;
-        }
-        #chatWindow th {
-            background-color: #f8fafc;
-            font-weight: bold;
-            color: #475569;
-        }
-        #chatWindow tr:nth-child(even) {
-            background-color: #f1f5f9;
-        }
+        /* Gemini'den gelen HTML tablolarının şık ve çizgili görünmesi için CSS kuralları */
+        #chatWindow table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.85rem; background: white; }
+        #chatWindow th, #chatWindow td { border: 1px solid #e2e8f0; padding: 8px 12px; text-align: left; }
+        #chatWindow th { background-color: #f8fafc; font-weight: bold; color: #475569; }
+        #chatWindow tr:nth-child(even) { background-color: #f1f5f9; }
     </style>
 </head>
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
+    <!-- Üst Başlık ve Logo Alanı -->
     <nav class="bg-gradient-custom p-4 shadow-lg text-white">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-2xl font-bold italic"><i class="fas fa-magic mr-2"></i>KartCini</h1>
-            <span class="text-sm opacity-80 italic">Akıllı Kampanya Rehberiniz v1.10.20</span>
+            <span class="text-sm opacity-80 italic">Akıllı Kampanya Rehberiniz v1.15.12</span>
         </div>
     </nav>
 
-    <!-- Main Container -->
     <div class="container mx-auto p-4 max-w-4xl">
-        <!-- Chat Display Area -->
+        <!-- Mesajlaşma Alanı -->
         <div id="chatWindow" class="chat-container bg-white rounded-lg shadow-xl overflow-y-auto p-4 mb-4 space-y-4">
-            <!-- Bot Welcome -->
             <div class="flex items-start">
-                <div class="bg-purple-100 text-purple-800 p-3 rounded-lg max-w-[80%] shadow-sm">
+                <div class="bg-purple-100 text-purple-800 p-3 rounded-lg max-w-[80%] shadow-sm text-sm">
                     Hoş geldin! Ben KartCini. Bugün hangi harcaman için en iyi kampanyayı bulmamı istersin? (Örn: Market, Akaryakıt, Giyim...)
                 </div>
             </div>
         </div>
 
+        <!-- Giriş ve Kontrol Paneli -->
         <div class="bg-white rounded-lg shadow-lg p-4 relative">
-            <!-- Hepsi Seçeneği -->
-            <button type="button" id="allBanksBtn" onclick="toggleAllBanks(this)" class="bank-pill px-3 py-1 rounded-full text-xs font-bold text-gray-600 border-purple-400 hover:bg-purple-50">HEPSİ</button>
             
-            <!-- --- Diğer Banka Filtre Butonları --- -->
-            <div id="bankFilters" class="flex flex-wrap gap-2 mb-3">
-                <button type="button" onclick="toggleBank(this, 'bonus')" class="bank-pill px-3 py-1 rounded-full text-xs text-gray-600 hover:bg-purple-50">Bonus</button>
-                <button type="button" onclick="toggleBank(this, 'axess')" class="bank-pill px-3 py-1 rounded-full text-xs text-gray-600 hover:bg-purple-50">Axess</button>
-                <button type="button" onclick="toggleBank(this, 'world')" class="bank-pill px-3 py-1 rounded-full text-xs text-gray-600 hover:bg-purple-50">World</button>
-                <button type="button" onclick="toggleBank(this, 'teb')" class="bank-pill px-3 py-1 rounded-full text-xs text-gray-600 hover:bg-purple-50">Teb Bonus</button>
-                <button type="button" onclick="toggleBank(this, 'deniz')" class="bank-pill px-3 py-1 rounded-full text-xs text-gray-600 hover:bg-purple-50">DenizBank Bonus</button>
-                <button type="button" onclick="toggleBank(this, 'hadi')" class="bank-pill px-3 py-1 rounded-full text-xs text-gray-600 hover:bg-purple-50">Hadi (TomBank)</button>
-                <button type="button" onclick="toggleBank(this, 'on')" class="bank-pill px-3 py-1 rounded-full text-xs text-gray-600 hover:bg-purple-50">ON (BurganBank)</button>
-                <button type="button" onclick="toggleBank(this, 'qnb')" class="bank-pill px-3 py-1 rounded-full text-xs text-gray-600 hover:bg-purple-50">QNB First</button>
-                <button type="button" onclick="toggleBank(this, 'vakif')" class="bank-pill px-3 py-1 rounded-full text-xs text-gray-600 hover:bg-purple-50">Vakıf World</button>
+            <!-- Banka Filtreleri: Yatayda kaydırılabilir yapı -->
+            <div class="mb-3">
+                <div id="bankFilters" class="flex overflow-x-auto py-1 gap-2 no-scrollbar whitespace-nowrap px-1 border-b border-gray-50 pb-2">
+                    <button type="button" id="allBanksBtn" onclick="toggleAllBanks(this)" class="bank-pill px-4 py-1 rounded-full font-bold text-gray-600 border-purple-400">HEPSİ</button>
+                    <!-- Banka butonları: Parametreler backend'deki 'issuer' isimleriyle eşleşmeli -->
+                    <button type="button" onclick="toggleBank(this, 'bonus')" class="bank-pill px-4 py-1 rounded-full text-gray-600">Bonus</button>
+                    <button type="button" onclick="toggleBank(this, 'axess')" class="bank-pill px-4 py-1 rounded-full text-gray-600">Axess</button>
+                    <button type="button" onclick="toggleBank(this, 'world')" class="bank-pill px-4 py-1 rounded-full text-gray-600">World</button>
+                    <button type="button" onclick="toggleBank(this, 'teb')" class="bank-pill px-4 py-1 rounded-full text-gray-600">Teb Bonus</button>
+                    <button type="button" onclick="toggleBank(this, 'deniz')" class="bank-pill px-4 py-1 rounded-full text-gray-600">DenizBank</button>
+                    <button type="button" onclick="toggleBank(this, 'hadi')" class="bank-pill px-4 py-1 rounded-full text-gray-600">Hadi</button>
+                    <button type="button" onclick="toggleBank(this, 'on')" class="bank-pill px-4 py-1 rounded-full text-gray-600">ON</button>
+                    <button type="button" onclick="toggleBank(this, 'qnb')" class="bank-pill px-4 py-1 rounded-full text-gray-600">QNB First</button>
+                    <button type="button" onclick="toggleBank(this, 'vakif')" class="bank-pill px-4 py-1 rounded-full text-gray-600">Vakıf World</button>
+                </div>
             </div>
 
+            <!-- Sorgu Giriş Formu -->
             <form id="searchForm" class="flex space-x-2">
-                <input type="text" id="userQuery" 
-                       placeholder="Hangi kampanyayı arıyorsunuz?" 
-                       class="flex-1 border rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 shadow-inner"
+                <input type="text" id="userQuery" placeholder="Hangi kampanyayı arıyorsunuz?" 
+                       class="flex-1 border rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 shadow-inner text-sm" 
                        required autocomplete="off">
                 <button type="submit" id="sendBtn" class="bg-purple-600 hover:bg-purple-700 text-white p-3 rounded-full transition duration-300 disabled:bg-gray-400">
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </form>
 
-            <!-- Filters (Optional) -->
+            <!-- Hızlı Öneri Etiketleri -->
             <div class="mt-2 flex space-x-2 text-xs text-gray-500">
                 <span>Popüler:</span>
-                <button onclick="quickSearch('Market')" class="hover:text-purple-600">Market</button>
-                <button onclick="quickSearch('Benzin')" class="hover:text-purple-600">Benzin</button>
-                <button onclick="quickSearch('Online')" class="hover:text-purple-600">Online</button>
+                <button onclick="quickSearch('Market')" class="hover:text-purple-600 underline">Market</button>
+                <button onclick="quickSearch('Benzin')" class="hover:text-purple-600 underline">Benzin</button>
+                <button onclick="quickSearch('Online Alışveriş')" class="hover:text-purple-600 underline">Online</button>
             </div>
 
-            <!-- Hata ve Tekrar Dene Alanı -->
+            <!-- Hata Mesajı ve Tekrar Dene Butonu -->
             <div id="retryContainer" class="hidden mt-2 p-2 bg-red-50 border border-red-200 rounded flex items-center justify-between">
-                <span class="text-red-600 text-sm"><i class="fas fa-exclamation-triangle mr-2"></i>Bir hata oluştu.</span>
-                <button onclick="retryLastSearch()" class="text-red-700 font-bold text-sm underline hover:text-red-800">
-                    <i class="fas fa-redo-alt mr-1"></i> Tekrar Dene
-                </button>
+                <span class="text-red-600 text-sm italic"><i class="fas fa-exclamation-triangle mr-2"></i>Bir sorun oluştu.</span>
+                <button onclick="retryLastSearch()" class="text-red-700 font-bold text-sm underline"><i class="fas fa-redo-alt mr-1"></i> Tekrar Dene</button>
             </div>
         </div>
         
-        <!-- Retrieved Campaigns Source List -->
+        <!-- Kaynak Kampanyalar: RAG sisteminden dönen ham verilerin dikey/grid listesi -->
         <div id="campaignList" class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 hidden">
-            <!-- Cards will be injected here -->
+            <!-- JavaScript tarafından doldurulur -->
         </div>
     </div>
 
     <script>
+        // API Adresi (Kendi Render URL'inle güncellediğinden emin ol)
         const API_URL = "https://kartcini-api.onrender.com/search";
         
-        let chatHistory = [];
-        let selectedBanks = []; // --- YENİ: Seçili bankaları tutan dizi ---
-        let lastSentQuery = ""; // Hata durumunda tekrar denemek için
+        // Uygulama Durum Yönetimi (State)
+        let chatHistory = [];      // Sohbet geçmişini (RAG hafızası) saklar
+        let selectedBanks = [];    // Seçili banka ID'lerini saklar
+        let lastSentQuery = "";    // Hata durumunda tekrar denemek için son soruyu saklar
+        let countdownInterval = null;
 
+        // DOM Elementleri
         const chatWindow = document.getElementById('chatWindow');
         const searchForm = document.getElementById('searchForm');
         const userQuery = document.getElementById('userQuery');
@@ -140,54 +137,66 @@
         const sendBtn = document.getElementById('sendBtn');
         const campaignList = document.getElementById('campaignList');
 
-        // --- YENİ: Banka Seçim Fonksiyonu ---
+        /**
+         * Tekli banka butonu tıklama yönetimi
+         */
         function toggleBank(element, bankName) {
             element.classList.toggle('active');
             if (element.classList.contains('active')) {
-                selectedBanks.push(bankName);
+                if (!selectedBanks.includes(bankName)) selectedBanks.push(bankName);
             } else {
                 selectedBanks = selectedBanks.filter(b => b !== bankName);
             }
-
-            // AKILLI KONTROL: Eğer biri bırakıldıysa "HEPSİ"yi söndür, hepsi seçildiyse yak
-            const allBtn = document.getElementById('allBanksBtn');
-            const totalBanks = document.querySelectorAll('.bank-pill:not(#allBanksBtn)').length;
-
-            if (selectedBanks.length === totalBanks) {
-                allBtn.classList.add('active');
-            } else {
-                allBtn.classList.remove('active');
-            }
-            
-            saveToStorage();
+            checkAllBanksStatus(); // HEPSİ butonunun durumunu güncelle
+            saveToStorage();       // Tarayıcı hafızasına kaydet
         }
 
-        // Ortak kaydetme fonksiyonu
-        function saveToStorage() {
-            // SEÇİMLERİ KAYDET: Diziyi string'e çevirip 'kartcini_banks' adıyla sakla
-            localStorage.setItem('kartcini_banks', JSON.stringify(selectedBanks));
-        }
-
-        // "HEPSİ" BUTONUNA TIKLANDIĞINDA
+        /**
+         * HEPSİ butonuna basıldığında tüm bankaları seçer veya kaldırır
+         */
         function toggleAllBanks(allBtn) {
             const isActive = allBtn.classList.toggle('active');
             const otherPills = document.querySelectorAll('.bank-pill:not(#allBanksBtn)');
             
-            selectedBanks = []; // Diziyi sıfırla
-    
+            selectedBanks = []; 
             otherPills.forEach(pill => {
-                const bankName = pill.getAttribute('onclick').split("'")[1];
-                if (isActive) {
-                    pill.classList.add('active');
-                    selectedBanks.push(bankName);
-                } else {
-                    pill.classList.remove('active');
+                const match = pill.getAttribute('onclick').match(/'([^']+)'/);
+                if (match) {
+                    const bankName = match[1];
+                    if (isActive) {
+                        pill.classList.add('active');
+                        selectedBanks.push(bankName);
+                    } else {
+                        pill.classList.remove('active');
+                    }
                 }
             });
-    
             saveToStorage();
         }
-        
+
+        /**
+         * Bankalar manuel tek tek seçildiğinde HEPSİ butonunu otomatik yakar/söndürür
+         */
+        function checkAllBanksStatus() {
+            const allBtn = document.getElementById('allBanksBtn');
+            const totalBanks = document.querySelectorAll('.bank-pill:not(#allBanksBtn)').length;
+            if (selectedBanks.length === totalBanks && totalBanks > 0) {
+                allBtn.classList.add('active');
+            } else {
+                allBtn.classList.remove('active');
+            }
+        }
+
+        /**
+         * Banka tercihlerini tarayıcı kapansa da hatırlamak için kaydeder
+         */
+        function saveToStorage() {
+            localStorage.setItem('kartcini_banks', JSON.stringify(selectedBanks));
+        }
+
+        /**
+         * Sayfa açıldığında tarayıcı hafızasındaki bankaları yükler
+         */
         function loadSavedBanks() {
             const saved = localStorage.getItem('kartcini_banks');
             const allBtn = document.getElementById('allBanksBtn');
@@ -195,84 +204,77 @@
     
             if (saved) {
                 selectedBanks = JSON.parse(saved);
-                
                 otherPills.forEach(pill => {
-                    // onclick="toggleBank(this, 'akbank')" içindeki 'akbank' kısmını güvenlice alır
                     const match = pill.getAttribute('onclick').match(/'([^']+)'/);
                     if (match) {
-                        const bankName = match[1];
-                        if (selectedBanks.includes(bankName)) {
-                            pill.classList.add('active');
-                        }
+                        const bankId = match[1];
+                        if (selectedBanks.includes(bankId)) pill.classList.add('active');
                     }
                 });
-    
-                // Eğer tüm bankalar seçiliyse "HEPSİ" butonunu aktif yap
-                if (selectedBanks.length === otherPills.length && otherPills.length > 0) {
-                    allBtn.classList.add('active');
-                }
-            }
-            else {
-                // 2. DURUM: İLK KEZ GELEN KULLANICI
-                // Sadece "HEPSİ" butonuna tıklanmış gibi yapıyoruz
-                console.log("İlk ziyaret: Tüm bankalar otomatik seçiliyor...");
-                if (allBtn) {
-                    toggleAllBanks(allBtn); 
-                }
+                checkAllBanksStatus();
+            } else {
+                // Eğer hafıza boşsa (ilk ziyaret), HEPSİ tıkla
+                if (allBtn) toggleAllBanks(allBtn); 
             }
         }
         
-        // SAYFA YÜKLENDİĞİNDE ÇALIŞTIR
-        window.onload = loadSavedBanks;
+        window.onload = loadSavedBanks; // Başlangıçta ayarları yükle
         
+        /**
+         * Ekrana mesaj balonu ekler (Kullanıcı veya Bot için)
+         */
         function addMessage(text, isUser = false, isTyping = false) {
             const div = document.createElement('div');
             div.className = isUser ? "flex items-end justify-end" : "flex items-start";
-            
             const content = document.createElement('div');
-            // max-w-full ekleyerek tablonun taşmasını önlüyoruz
+            
+            // max-w-full ve overflow-x-auto sayesinde gelen tablolar düzgün görünür
             content.className = isUser 
-                ? "bg-purple-600 text-white p-3 rounded-lg max-w-[90%] shadow-md" 
-                : "bg-white text-gray-800 p-3 rounded-lg max-w-full shadow-md border border-gray-200 overflow-x-auto";
+                ? "bg-purple-600 text-white p-3 rounded-lg max-w-[90%] shadow-md text-sm" 
+                : "bg-white text-gray-800 p-3 rounded-lg max-w-full shadow-md border border-gray-200 overflow-x-auto text-sm";
         
             if (isTyping) {
                 content.innerHTML = `<div class="typing-dots"><span></span><span></span><span></span></div>`;
                 div.id = "typingIndicator";
             } else {
-                // Tailwind sınıfları içeren HTML burada işlenecek
-                content.innerHTML = text; 
+                content.innerHTML = text; // Gemini'den gelen HTML/Tablo verisini render et
             }
-            
             div.appendChild(content);
             chatWindow.appendChild(div);
-            chatWindow.scrollTop = chatWindow.scrollHeight;
+            chatWindow.scrollTop = chatWindow.scrollHeight; // Yeni mesajda aşağı kaydır
         }
 
+        /**
+         * Öneri etiketlerine tıklandığında otomatik arama yapar
+         */
         function quickSearch(tag) {
             userQuery.value = tag + " harcaması için ne var?";
             searchForm.dispatchEvent(new Event('submit'));
         }
 
-        // Tekrar Dene Fonksiyonu
+        /**
+         * Hata sonrası son sorguyu tekrar gönderir
+         */
         function retryLastSearch() {
             if (lastSentQuery) {
-                userQuery.value = lastSentQuery; // Metni kutuya geri koy (opsiyonel)
                 retryContainer.classList.add('hidden');
                 performSearch(lastSentQuery);
             }
         }
 
+        /**
+         * Gemini cevabının altındaki ham kampanya kartlarını oluşturur
+         */
         function showCampaignCards(campaigns) {
             campaignList.innerHTML = "";
             if(campaigns && campaigns.length > 0) {
                 campaignList.classList.remove('hidden');
                 campaigns.forEach(c => {
                     const card = `
-                        <div class="bg-white p-3 rounded shadow border-l-4 border-purple-500 text-sm">
-                            <h4 class="font-bold text-gray-700">${c.summary || 'Kampanya Detayı'}</h4>
-                            <a href="${c.url}" target="_blank" class="text-blue-500 text-xs truncate block mt-1 italic">Kampanyaya Git →</a>
-                        </div>
-                    `;
+                        <div class="bg-white p-3 rounded shadow border-l-4 border-purple-500 text-xs">
+                            <h4 class="font-bold text-gray-700 truncate">${c.summary || 'Kampanya'}</h4>
+                            <a href="${c.url}" target="_blank" class="text-blue-500 underline block mt-2 italic font-bold">Kampanyaya Git →</a>
+                        </div>`;
                     campaignList.insertAdjacentHTML('beforeend', card);
                 });
             } else {
@@ -280,23 +282,27 @@
             }
         }
         
+        /**
+         * Form gönderimini yakalar
+         */
         searchForm.onsubmit = async (e) => {
             e.preventDefault();
             const query = userQuery.value.trim();
             if(!query) return;
-
-            retryContainer.classList.add('hidden'); // Yeni aramada hatayı gizle
-            lastSentQuery = query; // Soruyu yedekle
-            
+            retryContainer.classList.add('hidden');
+            lastSentQuery = query; // Sorguyu yedekle
             addMessage(query, true);
             userQuery.value = "";
             await performSearch(query);
         };
 
+        /**
+         * Backend API ile iletişimi kuran ana asenkron fonksiyon
+         */
         async function performSearch(query) {
             sendBtn.disabled = true;
-            addMessage("", false, true); // Yükleniyor animasyonunu ekle
-        
+            addMessage("", false, true); // Typing indicator ekle
+            
             try {
                 const response = await fetch(API_URL, {
                     method: 'POST',
@@ -304,75 +310,52 @@
                     body: JSON.stringify({ 
                         query: query,
                         history: chatHistory,
-                        // --- YENİ: Seçili bankaları JSON body'e ekle ---
                         selected_banks: selectedBanks.length > 0 ? selectedBanks : null
                     })
                 });
-
-                // Backend'den gelen JSON verisini al (Hata olsa bile veri gelir)
+                
                 const data = await response.json();
-
-                // Typing animasyonunu her durumda kaldır
                 const indicator = document.getElementById('typingIndicator');
-                if (indicator) indicator.remove();
+                if (indicator) indicator.remove(); // Typing bitti
         
                 if (!response.ok) {
-                    // BACKEND HATASI (429, 500, 503 vb.)
+                    // API taraflı hata yönetimi (Kota 429 vb.)
                     const errorMsg = data.message || "Sunucu şu an yanıt veremiyor.";
-                    const retrySeconds = data.retry_after; // Backend'den gelen saniye
-        
-                    addMessage(`<i class="fas fa-exclamation-circle mr-2"></i>${errorMsg}`);
-                    
-                    if (retrySeconds) {
-                        startRetryCountdown(Math.ceil(retrySeconds));
-                    } else {
-                        // Saniye yoksa bile retry butonunu normal göster
-                        retryContainer.classList.remove('hidden');
-                    }
+                    const retrySeconds = data.retry_after;
+                    addMessage(`<i class="fas fa-exclamation-circle mr-2 text-red-500"></i>${errorMsg}`);
+                    if (retrySeconds) startRetryCountdown(Math.ceil(retrySeconds));
+                    else retryContainer.classList.remove('hidden');
                     return;
                 }
-
-                // BAŞARILI YANIT
+                
+                // Başarılı yanıt: Hafızayı güncelle ve placeholder değiştir
                 addMessage(data.llm_answer);
                 chatHistory = data.history;
-
-                // Eğer ilk arama başarıyla tamamlandıysa (history artık doluysa) placeholder'ı değiştir
-                if (chatHistory.length > 0) {
-                    userQuery.placeholder = "Bu kampanyalarla ilgili başka ne öğrenmek istersiniz?";
-                }
+                if (chatHistory.length > 0) userQuery.placeholder = "Bu kampanyalarla ilgili başka ne öğrenmek istersiniz?";
                 
-                // Başarılıysa retry butonunu gizle
                 document.getElementById('retryContainer').classList.add('hidden');
-
-                // Eğer kampanya geldiyse kartları göster
-                if(data.retrieved_campaigns && data.retrieved_campaigns.length > 0) {
-                    showCampaignCards(data.retrieved_campaigns);
-                }
+                if(data.retrieved_campaigns) showCampaignCards(data.retrieved_campaigns);
+                
             } catch (error) {
-                // AĞ HATASI (İnternet yok, Sunucu kapalı vb.)
+                // Bağlantı veya internet hatası
                 if (document.getElementById('typingIndicator')) document.getElementById('typingIndicator').remove();
-                addMessage("Bağlantı hatası! İnternetini kontrol edip tekrar dener misin?");
+                addMessage("<i class='fas fa-wifi mr-2'></i> Bağlantı hatası! Lütfen internetini kontrol edin.");
                 retryContainer.classList.remove('hidden');
-                console.error("Network Error:", error);
             } finally {
                 sendBtn.disabled = false;
             }
         }
 
-        let countdownInterval = null;
-
-        //Bu fonksiyon, "Tekrar Dene" butonunu süre bitene kadar kilitler:
+        /**
+         * Kota aşımı hatasında butonu kilitler ve saniyeyi geri saydırır
+         */
         function startRetryCountdown(seconds) {
-            const retryContainer = document.getElementById('retryContainer');
             const retryBtn = retryContainer.querySelector('button');
-            
             retryContainer.classList.remove('hidden');
             retryBtn.disabled = true;
             retryBtn.classList.add('opacity-50', 'cursor-not-allowed');
-        
+            
             let timeLeft = seconds;
-
-            // Eğer zaten çalışan bir sayaç varsa durdur
             if (countdownInterval) clearInterval(countdownInterval);
             
             countdownInterval = setInterval(() => {
@@ -383,7 +366,7 @@
                     retryBtn.classList.remove('opacity-50', 'cursor-not-allowed');
                     sendBtn.disabled = false;
                 } else {
-                    sendBtn.disabled = true;
+                    sendBtn.disabled = false;
                     retryBtn.innerHTML = `<i class="fas fa-hourglass-half mr-1"></i> ${timeLeft}s Bekleyin...`;
                     timeLeft--;
                 }
