@@ -60,7 +60,7 @@
     <nav class="bg-gradient-custom p-4 shadow-lg text-white">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-2xl font-bold italic"><i class="fas fa-magic mr-2"></i>KartCini</h1>
-            <span class="text-sm opacity-80 italic">Akıllı Kampanya Rehberiniz v1.09.41</span>
+            <span class="text-sm opacity-80 italic">Akıllı Kampanya Rehberiniz v1.10.20</span>
         </div>
     </nav>
 
@@ -328,6 +328,11 @@
                 addMessage(data.llm_answer);
                 chatHistory = data.history;
 
+                // Eğer ilk arama başarıyla tamamlandıysa (history artık doluysa) placeholder'ı değiştir
+                if (chatHistory.length > 0) {
+                    userQuery.placeholder = "Bu kampanyalarla ilgili başka ne öğrenmek istersiniz?";
+                }
+                
                 // Başarılıysa retry butonunu gizle
                 document.getElementById('retryContainer').classList.add('hidden');
 
