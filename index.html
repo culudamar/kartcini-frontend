@@ -54,7 +54,7 @@
     <nav class="bg-gradient-custom p-4 shadow-lg text-white">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-2xl font-bold italic"><i class="fas fa-magic mr-2"></i>KartCini</h1>
-            <span class="text-sm opacity-80 italic">Akıllı Kampanya Rehberiniz v1.15.12</span>
+            <span class="text-sm opacity-80 italic">Akıllı Kampanya Rehberiniz v1.2321</span>
         </div>
     </nav>
 
@@ -301,19 +301,27 @@
          */
         async function performSearch(query) {
             sendBtn.disabled = true;
-            addMessage("", false, true); // Typing indicator ekle
-            
+            addMessage("", false, true); // Üç nokta (typing) göster
+        
+            // --- ZAMAN AŞIMI AYARI ---
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 300000); // 300.000 ms = 300 saniye = 5 dk
+        
             try {
                 const response = await fetch(API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
+                    signal: controller.signal, // Controller'ı fetch'e bağlıyoruz
                     body: JSON.stringify({ 
                         query: query,
                         history: chatHistory,
                         selected_banks: selectedBanks.length > 0 ? selectedBanks : null
                     })
                 });
-                
+        
+                // İstek başarılı olduysa zamanlayıcıyı temizle
+                clearTimeout(timeoutId);
+        
                 const data = await response.json();
                 const indicator = document.getElementById('typingIndicator');
                 if (indicator) indicator.remove(); // Typing bitti
@@ -327,24 +335,36 @@
                     else retryContainer.classList.remove('hidden');
                     return;
                 }
-                
+
                 // Başarılı yanıt: Hafızayı güncelle ve placeholder değiştir
                 addMessage(data.llm_answer);
                 chatHistory = data.history;
-                if (chatHistory.length > 0) userQuery.placeholder = "Bu kampanyalarla ilgili başka ne öğrenmek istersiniz?";
+        
+                // Placeholder güncelleme
+                if (chatHistory.length > 0) {
+                    userQuery.placeholder = "Bu kampanyalarla ilgili başka ne öğrenmek istersiniz?";
+                }
                 
                 document.getElementById('retryContainer').classList.add('hidden');
                 if(data.retrieved_campaigns) showCampaignCards(data.retrieved_campaigns);
-                
+        
             } catch (error) {
-                // Bağlantı veya internet hatası
+                // ZAMAN AŞIMI HATASI KONTROLÜ
+                if (error.name === 'AbortError') {
+                    addMessage("<i class='fas fa-clock mr-2 text-orange-500'></i> Yanıt süresi çok uzadı. Gemma şu an yoğun olabilir, lütfen tekrar deneyin.");
+                } else {
+                    addMessage("<i class='fas fa-wifi mr-2 text-red-500'></i> Bağlantı hatası! Lütfen internetinizi kontrol edin.");
+                }
+                
                 if (document.getElementById('typingIndicator')) document.getElementById('typingIndicator').remove();
-                addMessage("<i class='fas fa-wifi mr-2'></i> Bağlantı hatası! Lütfen internetini kontrol edin.");
                 retryContainer.classList.remove('hidden');
+                console.error("Fetch Error:", error);
             } finally {
                 sendBtn.disabled = false;
+                clearTimeout(timeoutId); // Her durumda temizle
             }
         }
+        
 
         /**
          * Kota aşımı hatasında butonu kilitler ve saniyeyi geri saydırır
