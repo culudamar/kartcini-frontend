@@ -54,7 +54,7 @@
     <nav class="bg-gradient-custom p-4 shadow-lg text-white">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-2xl font-bold italic"><i class="fas fa-magic mr-2"></i>KartCini</h1>
-            <span class="text-sm opacity-80 italic">Akıllı Kampanya Rehberiniz v1.2359</span>
+            <span class="text-sm opacity-80 italic">Akıllı Kampanya Rehberiniz v1.1017</span>
         </div>
     </nav>
 
@@ -287,8 +287,8 @@
          * Gemini cevabının altındaki ham kampanya kartlarını oluşturur
          */
         function showCampaignCards(campaigns) {
-            campaignList.innerHTML = "";
             if(campaigns && campaigns.length > 0) {
+                campaignList.innerHTML = "";
                 campaignList.classList.remove('hidden');
                 campaigns.forEach(c => {
                     const card = `
@@ -298,9 +298,8 @@
                         </div>`;
                     campaignList.insertAdjacentHTML('beforeend', card);
                 });
-            } else {
-                campaignList.classList.add('hidden');
-            }
+            } 
+            // Eğer kampanya yoksa, mevcut listeyi korur (siler veya gizlemez)
         }
         
         /**
