@@ -54,7 +54,7 @@
     <nav class="bg-gradient-custom p-4 shadow-lg text-white">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-2xl font-bold italic"><i class="fas fa-magic mr-2"></i>KartCini</h1>
-            <span class="text-sm opacity-80 italic">Akıllı Kampanya Rehberiniz v1.1419</span>
+            <span class="text-sm opacity-80 italic">Akıllı Kampanya Rehberiniz v1.2350</span>
         </div>
     </nav>
 
@@ -368,6 +368,10 @@
                     
                     // Paylaş butonu ekle
                     showShareButton(data.llm_answer);
+
+                    // Ajan modunda tek seferlik veri çekimi daha güvenlidir:
+                    userQuery.disabled = true;
+                    sendBtn.classList.add('hidden');
                 } else {
                     // Normal Bot Cevabı
                     addMessage(data.llm_answer);
@@ -379,7 +383,11 @@
                     modelSelect.disabled = true; // Seçimi etkisiz hale getir
                     modelSelect.classList.add('opacity-50', 'cursor-not-allowed'); // Görsel olarak belirt
                     
-                    userQuery.placeholder = "Bu kampanyalarla ilgili başka ne öğrenmek istersiniz?";
+                    if (selectedModel === "my-agent")
+                        // Bu modda placeholder'ı "Yeni arama için sayfayı yenile" yapıyoruz:
+                        userQuery.placeholder = "Yeni bir ajan seçimi için sayfayı yenileyin.";
+                    else
+                        userQuery.placeholder = "Bu kampanyalarla ilgili başka ne öğrenmek istersiniz?";
                 }
                 
                 document.getElementById('retryContainer').classList.add('hidden');
