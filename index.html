@@ -46,13 +46,30 @@
         #chatWindow th, #chatWindow td { border: 1px solid #e2e8f0; padding: 8px 12px; text-align: left; }
         #chatWindow th { background-color: #f8fafc; font-weight: bold; color: #475569; }
         #chatWindow tr:nth-child(even) { background-color: #f1f5f9; }
+
+        /* Mobilde başlık alanı düzeltmeleri */
+        @media (max-width: 640px) {
+            nav .container {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            nav .flex.items-center.gap-3 {
+                width: 100%;
+                justify-content: center;
+            }
+            nav span {
+                font-size: 0.65rem !important;
+                width: 100%;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
     <!-- Üst Başlık ve Logo Alanı -->
     <nav class="bg-gradient-custom p-4 shadow-lg text-white">
-        <div class="container mx-auto flex justify-between items-center">
+        <div class="container mx-auto flex justify-between items-center flex-wrap">
             <div class="flex items-center gap-3">
                 <img src="kartcini.svg" alt="KartCini Logo" class="w-10 h-10">
                 <h1 class="text-2xl font-bold italic">KartCini</h1>
@@ -370,7 +387,7 @@
                 // Başarılı yanıt: Hafızayı güncelle ve placeholder değiştir
                 // --- KENDİ AJANIM MODU ÖZEL UI ---
                 if (selectedModel === "my-agent") {
-                    addMessage("✨ Kampanya verilerini senin için hazırladım! Aşağıdaki butonu kullanarak verileri indirebilir ve kendi yapay zeka asistanınıza yükleyebilirsiniz. Yeni bir arama yapmak için lütfen sayfayı yenileyin!");
+                    addMessage("✨ Kampanya verilerini senin için hazırladım! Aşağıdaki butonu kullanarak verileri indirebilir ve kendi yapay zeka asistanınıza yükleyebilirsiniz. Yeni bir arama yapmak için sayfayı yenileyin.");
                     
                     // İndir butonu ekle
                     showDownloadButton(data.llm_answer);
