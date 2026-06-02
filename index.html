@@ -53,7 +53,10 @@
     <!-- Üst Başlık ve Logo Alanı -->
     <nav class="bg-gradient-custom p-4 shadow-lg text-white">
         <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold italic"><i class="fas fa-magic mr-2"></i>KartCini</h1>
+            <div class="flex items-center gap-3">
+                <img src="kartcini.svg" alt="KartCini Logo" class="w-10 h-10">
+                <h1 class="text-2xl font-bold italic">KartCini</h1>
+            </div>
             <span class="text-sm opacity-80 italic">Akıllı Kampanya Rehberiniz v1.0014</span>
         </div>
     </nav>
@@ -364,7 +367,7 @@
                 // Başarılı yanıt: Hafızayı güncelle ve placeholder değiştir
                 // --- KENDİ AJANIM MODU ÖZEL UI ---
                 if (selectedModel === "my-agent") {
-                    addMessage("✨ Kampanya verilerini senin için hazırladım! Aşağıdaki butonu kullanarak verileri indirebilir ve kendi yapay zeka asistanınıza yükleyebilirsiniz. Yeni bir arama için sayfayı yenileyin 🚀");
+                    addMessage("✨ Kampanya verilerini senin için hazırladım! Aşağıdaki butonu kullanarak verileri indirebilir ve kendi yapay zeka asistanınıza yükleyebilirsiniz. Yeni bir arama yapmak için lütfen sayfayı yenileyin!");
                     
                     // İndir butonu ekle
                     showDownloadButton(data.llm_answer);
