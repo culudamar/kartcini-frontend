@@ -80,7 +80,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1436</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1440</span>
                 </div>
             </div>
 
@@ -458,7 +458,7 @@
                 if (indicator) indicator.remove(); // Typing bitti
         
                 if (!response.ok) {
-                    / --- BACKEND'DEN GELEN MESAJI OKU ---
+                    // --- BACKEND'DEN GELEN MESAJI OKU ---
                     // detail (standard FastAPI) veya message (bizim custom)
                     let serverError = data.detail || data.message || "KartCini şu an cevap veremiyor.";
                     let bubbleContent = `⚠️ <b>Hata:</b> ${serverError}`;
