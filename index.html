@@ -95,7 +95,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1847</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.2212</span>
                 </div>
             </div>
 
@@ -457,14 +457,7 @@
             // --- ÖLÇÜM BAŞLANGICI ---
             const startTime = performance.now(); 
             
-            gtag('event', 'search_initiated', {
-                'query_text': query,
-                'query_length': query.length,               // Sorgu uzunluğu
-                'is_logged_in': sessionToken ? 'yes' : 'no', // Giriş yapmış mı?
-                'selected_model': selectedModel,
-                'bank_count': selectedBanks.length,        // Kaç banka filtrelenmiş?
-                'selected_banks': selectedBanks.join(',')
-            });
+            trackEvent('search', { 'search_term': query });
             
             // Eğer Gemini seçiliyse ama giriş yapılmamışsa uyar
             if (selectedModel !== "my-agent" && !sessionToken) {
@@ -506,11 +499,10 @@
                 const durationSec = parseFloat(((endTime - startTime) / 1000).toFixed(2)); // Saniyeye çevir
         
                 // Google Analytics'e Gönder
-                gtag('event', 'search_performance', {
-                    'model_id': selectedModel,
-                    'wait_time_sec': durationSec,      // Bekleme süresi (Örn: 3.45)
-                    'status': response.ok ? 'success' : 'error',
-                    'error_code': response.ok ? null : response.status
+                trackEvent('search_performance', { 
+                    'value': durationSec, 
+                    'status_code': response.status,
+                    'description': response.ok ? null : data.detail || data.message
                 });
         
                 // Loglarda da görelim (Debug için)
@@ -520,10 +512,6 @@
                 if (indicator) indicator.remove(); // Typing bitti
         
                 if (!response.ok) {
-                    gtag('event', 'error_encountered', {
-                        'error_status': response.status,
-                        'error_message': data.detail || data.message
-                    });
                     
                     // --- BACKEND'DEN GELEN MESAJI OKU ---
                     // detail (standard FastAPI) veya message (bizim custom)
@@ -599,11 +587,10 @@
                 const endTime = performance.now();
                 const durationSec = parseFloat(((endTime - startTime) / 1000).toFixed(2));
                 
-                gtag('event', 'search_performance', {
-                    'model_id': selectedModel,
-                    'wait_time_sec': durationSec,
-                    'error_status': response.status,
-                    'error_message': error.name || data.detail || data.message
+                trackEvent('exception', { 
+                    'value': durationSec, 
+                    'status_code': response.status,
+                    'description': error.name || data.detail || data.message
                 });
                 
                 // ZAMAN AŞIMI HATASI KONTROLÜ
@@ -635,7 +622,8 @@
             downloadBtn.innerHTML = `<i class="fas fa-download mr-2"></i> Verileri İndir`;
             
             downloadBtn.addEventListener('click', () => {
-                gtag('event', 'share_with_agent', {
+                trackEvent('share', { 
+                    'method': 'download', 
                     'content_type': 'campaign_data'
                 });
                 
@@ -695,7 +683,7 @@
                     const location = isChatLink ? 'chat_bubble' : 'campaign_card';
                     
                     // Google Analytics'e gönder
-                    gtag('event', 'campaign_click', {
+                    trackEvent('campaign_click', {
                         'link_url': targetLink.href,        // Hangi URL'e gidildi?
                         'link_text': targetLink.innerText.substring(0, 40), // Link metni (ilk 40 karakter)
                         'click_location': location         // Chat içinden mi karttan mı?
@@ -707,10 +695,23 @@
         });
         // Kahve tıklamasını ölçen özel fonksiyon
         function trackCoffeeClick(location) {
-            gtag('event', 'support_click', {
-                'click_location': location, // 'fixed_button' veya 'error_bubble'
-                'is_logged_in': sessionToken ? 'yes' : 'no'
+            trackEvent('support_click', {
+                'click_location': location // 'fixed_button' veya 'error_bubble'
             });
+        }
+
+        // Tüm event'lerde ortak olan parametreleri (model, banka sayısı vb.) tek elden yönetir.
+        function trackEvent(eventName, params = {}) {
+            const selectedModel = document.getElementById('modelSelect') ? document.getElementById('modelSelect').value : 'unknown';
+            
+            const defaultParams = {
+                'ai_model': selectedModel,
+                'logged_in_status': sessionToken ? 'logged_in' : 'guest',
+                'bank_count': selectedBanks.length,
+                'selected_banks': selectedBanks.join(',')
+            };
+        
+            gtag('event', eventName, { ...defaultParams, ...params });
         }
         
     </script>
