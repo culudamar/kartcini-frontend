@@ -398,9 +398,28 @@
             const modelSelect = document.getElementById('modelSelect');
             
             if (session) {
-                gtag('event', 'login', { 'method': 'Google' });
-                // Kullanıcı ID'sini GA'ya bağla (User-ID takibi için)
-                gtag('set', {'user_id': session.user.id});
+                // --- YENİ: KAYIT MI GİRİŞ Mİ TESPİT ET ---
+                const createdAt = new Date(session.user.created_at).getTime();
+                const lastSignIn = new Date(session.user.last_sign_in_at).getTime();
+                
+                // Eğer yaratılma ve son giriş zamanı arasındaki fark 10 saniyeden azsa: Yeni Kayıt
+                // (OAuth yönlendirmeleri arasındaki milisaniyelik farkları kompanse etmek için 10sn pay bırakıyoruz)
+                const isNewUser = Math.abs(lastSignIn - createdAt) < 10000;
+        
+                if (isNewUser) {
+                    // STANDART EVENT: sign_up
+                    gtag('event', 'sign_up', { 
+                        'method': 'Google',
+                        'user_id': session.user.id 
+                    });
+                    console.log("🎉 Yeni kullanıcı kayıt oldu!");
+                } else {
+                    // STANDART EVENT: login
+                    gtag('event', 'login', { 
+                        'method': 'Google',
+                        'user_id': session.user.id 
+                    });
+                }
                 
                 sessionToken = session.access_token;
                 currentUserId = session.user.id; // ID'yi kaydet
