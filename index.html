@@ -121,7 +121,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.0945</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1725</span>
                 </div>
             </div>
 
@@ -183,7 +183,7 @@
             </form>
 
             <!-- Hızlı Öneri Etiketleri -->
-            <div class="mt-2 flex space-x-2 text-xs text-gray-500">
+            <div id="quickSearchArea" class="mt-2 flex space-x-2 text-xs text-gray-500">
                 <span>Popüler:</span>
                 <button onclick="quickSearch('Market')" class="hover:text-purple-600 underline">Market</button>
                 <button onclick="quickSearch('Benzin')" class="hover:text-purple-600 underline">Benzin</button>
@@ -606,6 +606,11 @@
                     // Ajan modunda tek seferlik veri çekimi daha güvenlidir:
                     userQuery.disabled = true;
                     sendBtn.classList.add('hidden');
+                    
+                    // Hızlı arama seçeneklerini kapat (Gizle)
+                    if (quickSearchArea) {
+                        quickSearchArea.classList.add('hidden');
+                    }
                 } else {
                     // Normal Bot Cevabı
                     addMessage(data.llm_answer);
