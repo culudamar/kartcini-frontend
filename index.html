@@ -106,9 +106,9 @@
 </head>
 <script>
     // API Adresi (Kendi Render URL'inle güncellediğinden emin ol)
-    const API_URL = "https://kartcini-api.onrender.com/search";
-    //const API_URL = "https://psychic-journey-gp976wx4pj4hw49r-8000.app.github.dev/search";
-    const SUPABASE_SCHEMA = "public";
+    //const API_URL = "https://kartcini-api.onrender.com/search";
+    const API_URL = "https://solid-orbit-5gq4w9466pf45wx-8000.app.github.dev/search";
+    const SUPABASE_SCHEMA = "test";
 </script>
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
@@ -312,7 +312,17 @@
             }
         }
         
+        function getOrCreateGuestId() {
+            let guestId = localStorage.getItem('kartcini_guest_id');
+            if (!guestId) {
+                guestId = 'guest_' + Math.random().toString(36).substr(2, 9) + Date.now();
+                localStorage.setItem('kartcini_guest_id', guestId);
+            }
+            return guestId;
+        }
+        
         window.onload = () => {
+            getOrCreateGuestId(); // Misafir kimliğini mühürle
             loadSavedBanks(); // issuer seçimini hatırla
 
             // Sadece oturum varsa eski seçimi hatırla, yoksa 'my-agent' kalmaya zorla
