@@ -122,7 +122,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.0642</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.0657</span>
                 </div>
             </div>
 
@@ -325,15 +325,19 @@
             getOrCreateGuestId(); // Misafir kimliğini mühürle
             loadSavedBanks(); // issuer seçimini hatırla
 
-            // Sadece oturum varsa eski seçimi hatırla, yoksa 'my-agent' kalmaya zorla
+            const savedModel = localStorage.getItem('kartcini_selected_model');
+            if (savedModel) {
+                document.getElementById('modelSelect').value = savedModel;
+            }
+
+            // Oturum durumunu UI (Giriş yap butonu vb.) için kontrol et
             _supabase.auth.getSession().then(({ data: { session } }) => {
                 if (session) {
-                    const savedModel = localStorage.getItem('kartcini_selected_model');
-                    if (savedModel) {
-                        document.getElementById('modelSelect').value = savedModel;
-                    }
-                } else {
-                    document.getElementById('modelSelect').value = "my-agent";
+                    sessionToken = session.access_token;
+                    currentUserId = session.user.id;
+                    document.getElementById('loginBtn').classList.add('hidden');
+                    document.getElementById('userProfile').classList.remove('hidden');
+                    updateQuotaDisplay(currentUserId);
                 }
             });
         };
@@ -510,12 +514,6 @@
             const startTime = performance.now(); 
             
             trackEvent('search', { 'search_term': query });
-            
-            // Eğer Gemini seçiliyse ama giriş yapılmamışsa uyar
-            if (selectedModel !== "my-agent" && !sessionToken) {
-                addMessage("💬 Giriş yapmadan sadece 'Kendi Ajanını' kullanabilirsin. Sağ üstten giriş yaparak ücretsiz günlük limitin dahilinde isteğin modeli kullanabilirsin.");
-                return;
-            }
             
             sendBtn.disabled = true;
             addMessage("", false, true); // Üç nokta (typing) göster
