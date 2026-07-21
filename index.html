@@ -106,8 +106,8 @@
 </head>
 <script>
     // API Adresi (Kendi Render URL'inle güncellediğinden emin ol)
-    //const API_URL = "https://kartcini-api.onrender.com/search";
-    const API_URL = "https://verbose-chainsaw-w46gxjvr49wfvgrq-8000.app.github.dev/search";
+    const API_URL = "https://kartcini-api.onrender.com/search";
+    //const API_URL = "https://verbose-chainsaw-w46gxjvr49wfvgrq-8000.app.github.dev/search";
     const SUPABASE_SCHEMA = "public";
 </script>
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
@@ -122,7 +122,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1026</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1336</span>
                 </div>
             </div>
 
@@ -784,122 +784,147 @@
     <section class="container mx-auto p-4 mt-10 border-t border-gray-200">
         <h2 class="text-lg font-bold text-gray-700 mb-4 text-center">Bu Ayın En İyi Market Kampanyaları</h2>
         <table class="min-w-full border-collapse border border-gray-200 shadow-sm rounded-lg overflow-hidden">
-          <thead>
-            <tr>
-              <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">Banka</th>
-              <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">Kampanya Özeti</th>
-              <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">% Getiri</th>
-              <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">Toplam Getiri</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-semibold">İş Bankası (Maximum)</td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">
-                <a href="https://www.maximum.com.tr/kampanyalar/market-harcamalariniza-maxipuan-firsati" target="_blank" class="text-purple-700 hover:underline font-medium">Market, Birikimli Market ve Yüksek Sepet kampanyaları ile 3.000 TL'ye varan MaxiPuan!</a>
-                <p class="mt-1 text-[9px] text-gray-500">Bonus, Chip-para ve İndirim fırsatlarını arayanlar için Maximum'dan dev kampanya!</p>
-              </td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">%12 - %15</td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-bold text-purple-900">3.000 TL MaxiPuan</td>
-            </tr>
-            <tr>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-semibold">Garanti BBVA (Bonus)</td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">
-                <a href="https://www.bonus.com.tr/kampanyalar/bonus-alisveris-market-kampanyalari" target="_blank" class="text-purple-700 hover:underline font-medium">Market alışverişlerinize 1.200 TL, BonusFlaş ile ödemelere 1.500 TL bonus!</a>
-                <p class="mt-1 text-[9px] text-gray-500">Market harcamalarınıza özel ekstra Bonus, Chip-para ve anında İndirim avantajı.</p>
-              </td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">%6 - %7.5</td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-bold text-purple-900">1.500 TL Bonus</td>
-            </tr>
-            <tr>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-semibold">Yapı Kredi (World)</td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">
-                <a href="https://www.worldcard.com.tr/kampanyalar/gida-marketi-alisverislerinize-1200-tl-world-pay-ile-odemelerde-ek-300-tl-toplamda-1500-tlye-varan-w" target="_blank" class="text-purple-700 hover:underline font-medium">Gıda marketi alışverişlerinize 1.200 TL, World Pay ile ek 300 TL, toplam 1.500 TL Worldpuan!</a>
-                <p class="mt-1 text-[9px] text-gray-500">Worldcard ile Gıda alışverişlerinde geçerli Bonus, Chip-para ve İndirim ayrıcalığı.</p>
-              </td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">%6.25 - %7.5</td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-bold text-purple-900">1.500 TL Worldpuan</td>
-            </tr>
-          </tbody>
-        </table>
+  <thead>
+    <tr>
+      <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">Banka</th>
+      <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">Kampanya Özeti</th>
+      <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">% Getiri</th>
+      <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">Toplam Getiri</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-medium">Yapı Kredi (World)</td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">
+        <a href="https://www.worldcard.com.tr/kampanyalar/gida-marketi-alisverislerinize-1200-tl-world-pay-ile-odemelerde-ek-300-tl-toplamda-1500-tlye-varan-w" target="_blank" rel="noopener noreferrer" class="text-purple-700 hover:underline font-semibold">
+          Gıda marketi alışverişlerinize 1.200 TL, World Pay ile ödemelerde ek 300 TL, toplamda 1.500 TL <span class="font-bold">Bonus</span> ve <span class="font-bold">Chip-para</span> muadili Worldpuan kazanımı!
+        </a>
+      </td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-semibold">%6,25</td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-bold text-purple-900">1.500 TL Worldpuan</td>
+    </tr>
+    <tr>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-medium">VakıfBank (Worldcard)</td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">
+        <a href="https://www.vakifkart.com.tr/kampanyalar/gida-marketi-alisverislerinize-1200-tl-worldpuan-40462" target="_blank" rel="noopener noreferrer" class="text-purple-700 hover:underline font-semibold">
+          Gıda marketi alışverişlerinize özel 1.200 TL Worldpuan <span class="font-bold">İndirim</span> ve kart puanı fırsatı!
+        </a>
+      </td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-semibold">%4,62</td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-bold text-purple-900">1.200 TL Worldpuan</td>
+    </tr>
+    <tr>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-medium">Hayat Pay</td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">
+        <a href="https://hayatpay.com.tr/kampanya/nakitpara-hayatpara-iade" target="_blank" rel="noopener noreferrer" class="text-purple-700 hover:underline font-semibold">
+          Market ve gıda harcamalarınıza %10 nakit iade + %10 hayatpara kazanımı ile yüksek <span class="font-bold">İndirim</span> ve <span class="font-bold">Chip-para</span> alternatifi!
+        </a>
+      </td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-semibold">%20,00</td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-bold text-purple-900">1.000 TL (500 TL İade + 500 Hayatpara)</td>
+    </tr>
+  </tbody>
+</table>
         <br>
         <h2 class="text-lg font-bold text-gray-700 mb-4 text-center">Bu Ayın En İyi Akaryakıt Kampanyaları</h2>
         <table class="min-w-full border-collapse border border-gray-200 shadow-sm rounded-lg overflow-hidden">
-          <thead>
-            <tr>
-              <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">Banka</th>
-              <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">Kampanya Özeti</th>
-              <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">% Getiri</th>
-              <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">Toplam Getiri</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">Burgan Bank (ON)</td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">
-                <a href="https://on.com.tr/on-kredi-karti-akaryakit-kampanyasi-3260" target="_blank" rel="noopener noreferrer" class="text-purple-700 hover:underline">Akaryakıt sektöründe tek seferde yapacağınız 4. 1.000 TL ve üzeri harcamanıza 400 TL <strong>iade</strong> fırsatı.</a>
-              </td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">%10,00</td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">400 TL</td>
-            </tr>
-            <tr>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">Yapı Kredi</td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">
-                <a href="https://www.worldcard.com.tr/kampanyalar/shell-istasyonlarinda-4-adet-1400-tl-ve-uzeri-akaryakit-alimina-yapi-kredi-world-ile-temmuz-2026" target="_blank" rel="noopener noreferrer" class="text-purple-700 hover:underline">Shell istasyonlarında 4 adet 1.400 TL ve üzeri akaryakıt alımına 400 TL <strong>Worldpuan</strong> kazanımı.</a>
-              </td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">%7,14</td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">400 TL</td>
-            </tr>
-            <tr>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">TOM Bank (Hadi)</td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">
-                <a href="https://tombankhadi.com/kampanyalar/hadi-black-kredi-karti-ile-akaryakit-harcamalarina-toplam-400-tl-iade" target="_blank" rel="noopener noreferrer" class="text-purple-700 hover:underline">Hadi Black Kredi Kartı ile farklı günlerde tek seferde 1.500 TL ve üzeri 4. harcamanıza 400 TL <strong>iade</strong> imkanı.</a>
-              </td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">%6,67</td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">400 TL</td>
-            </tr>
-            <tr>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">Garanti BBVA</td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">
-                <a href="https://www.bonus.com.tr/kampanyalar/bonus-akaryakit-harcama-kampanyasi" target="_blank" rel="noopener noreferrer" class="text-purple-700 hover:underline">Bonus üye iş yeri benzin istasyonlarında ayrı günlerde 3 defa 1.500 TL ve üzeri harcamaya 250 TL <strong>Bonus</strong> kazanımı.</a>
-              </td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">%5,56</td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">250 TL</td>
-            </tr>
-          </tbody>
-        </table>
+  <thead>
+    <tr>
+      <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">Banka</th>
+      <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">Kampanya Özeti</th>
+      <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">% Getiri</th>
+      <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">Toplam Getiri</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">ON (Burgan Bank)</td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">
+        <a href="https://on.com.tr/kasko-akaryakit-kampanyasi" target="_blank" class="text-purple-700 underline font-semibold">ON Kasko Akaryakıt Kampanyası</a> - ON Mobil üzerinden Kasko yaptırarak Petrol Ofisi'nde geçerli 2.500 TL değerinde bedelsiz akaryakıt ve <b>bonus</b> hediyesi kazanma imkanı[cite: 2]. (Tahmini 20.000 TL poliçe primi üzerinden)
+      </td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">%12.50</td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-bold">2.500 TL</td>
+    </tr>
+    <tr>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">Hayat Pay</td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">
+        <a href="https://hayatpay.com.tr/kampanya/nakitpara-hayatpara-iade" target="_blank" class="text-purple-700 underline font-semibold">Hayat Pay Akaryakıt Nakit İade Kampanyası</a> - Dijital Kart ile yapılan akaryakıt alımlarında geçerli %10 anında nakit iade ve <b>chip-para</b> benzeri puan kazanma ayrıcalığı[cite: 2].
+      </td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">%10.00</td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-bold">500 TL</td>
+    </tr>
+    <tr>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">ON (Burgan Bank)</td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">
+        <a href="https://on.com.tr/kampanyalar/trafik-sigortasi-akaryakit-kampanyasi" target="_blank" class="text-purple-700 underline font-semibold">ON Trafik Sigortası Akaryakıt Kampanyası</a> - ON Mobil'den Trafik Sigortası yaptıran sürücülere özel 500 TL tutarında yakıt ve akaryakıt <b>indirim</b> avantajı[cite: 2]. (Tahmini 10.000 TL poliçe primi üzerinden)
+      </td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">%5.00</td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-bold">500 TL</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="mt-4 p-4 border border-gray-200 rounded-lg shadow-sm bg-purple-50">
+  <h3 class="text-[12px] font-bold text-purple-900 uppercase mb-2">
+    Kampanya Getiri Hesaplama Notu
+  </h3>
+  <p class="text-[10px] text-gray-600 leading-relaxed mb-2">
+    Poliçe bazlı akaryakıt kampanyalarında elde edilen % getiri oranı, kazanılan akaryakıt hediyesinin ödenen poliçe primine oranlanmasıyla bulunur:
+  </p>
+  <blockquote class="bg-white border-l-2 border-purple-900 px-3 py-1 my-2 text-[10px] text-gray-700 font-mono rounded-r">
+    Getiri Oranı (%) = (Kazanılan Akaryakıt Tutarı / Ödenen Poliçe Primi) x 100
+  </blockquote>
+  <p class="text-[10px] text-gray-600 leading-relaxed">
+    Kasko ve Trafik Sigortası primleri; araç modeli, basamağı ve risk parametrelerine göre değiştiği için tablodaki % getiri oranları 2026 yılı piyasa ortalamaları (Kasko için ~20.000 TL, Trafik Sigortası için ~10.000 TL) baz alınarak hesaplanmıştır. Net poliçe tutarınıza göre kazanacağınız getiri oranı değişkenlik gösterebilir.
+  </p>
+</div>
         <br>
-        <h2 class="text-lg font-bold text-gray-700 mb-4 text-center">Bu Ayın En İyi Giyim Kampanyaları</h2>
+        <h2 class="text-lg font-bold text-gray-700 mb-4 text-center">Bu Ayın En İyi Online Alışveriş Kampanyaları</h2>
         <table class="min-w-full border-collapse border border-gray-200 shadow-sm rounded-lg overflow-hidden">
-          <thead>
-            <tr>
-              <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">Banka</th>
-              <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">Kampanya Özeti</th>
-              <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">% Getiri</th>
-              <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">Toplam Getiri</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">DenizBank</td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600"><a href="https://www.denizbonus.com/kampanyalar/secili-sektorlere-ozel-3000-tlye-varan-bonus" target="_blank" class="text-purple-700 hover:underline font-medium">DenizBonus Seçili Giyim Sektörlerine Özel 3.000 TL’ye Varan Bonus Kazanım Kampanyası</a></td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">%6,00</td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-semibold">3.000 TL Bonus</td>
-            </tr>
-            <tr>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">Garanti BBVA</td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600"><a href="https://www.bonus.com.tr/kampanyalar/bonus-giyim-kozmetik-kampanyalari" target="_blank" class="text-purple-700 hover:underline font-medium">Garanti Bonus ile Giyim, Aksesuar ve Kozmetik Harcamalarınıza Ekstra İndirim ve 1.500 TL Bonus</a></td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">%5,00</td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-semibold">1.500 TL Bonus</td>
-            </tr>
-            <tr>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">Akbank</td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600"><a href="https://www.axess.com.tr/axess/kampanyalar/axess-giyim-alisverislerinizde-1200-tlye-varan-chip-para" target="_blank" class="text-purple-700 hover:underline font-medium">Axess Kart ile Giyim Alışverişlerinizde 1.200 TL'ye Varan Chip-para ve Özel İndirim Fırsatı</a></td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">%3,00</td>
-              <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-semibold">1.200 TL Chip-para</td>
-            </tr>
-          </tbody>
-        </table>
+  <thead>
+    <tr>
+      <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">Banka</th>
+      <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">Kampanya Özeti</th>
+      <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">% Getiri</th>
+      <th class="bg-purple-50 border border-gray-200 px-3 py-2 text-left text-[10px] font-bold text-purple-900 uppercase">Toplam Getiri</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-semibold uppercase">DenizBank</td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">
+        <a href="https://www.denizbonus.com/kampanyalar/internet-alisverislerinize-4000-tlye-varan-bonus" target="_blank" rel="noopener noreferrer" class="text-purple-700 hover:underline font-medium">
+          İnternet Alışverişlerinize 4.000 TL’ye Varan Bonus!
+        </a>
+        <p class="mt-1 text-[9px] text-gray-500">Trendyol, Amazon ve N11 e-ticaret harcamalarınızda 2. işlemden itibaren geçerli 4.000 TL <strong>Bonus</strong> fırsatı.</p>
+      </td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-bold">%8</td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-bold text-purple-900">4.000 TL</td>
+    </tr>
+    <tr>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-semibold uppercase">VakıfBank</td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">
+        <a href="https://www.vakifkart.com.tr/kampanyalar/secili-e-ticaret-alisverislerinize-1500-tl-worldpuan-40433" target="_blank" rel="noopener noreferrer" class="text-purple-700 hover:underline font-medium">
+          Seçili e-ticaret alışverişlerinize 1.500 TL Worldpuan!
+        </a>
+        <p class="mt-1 text-[9px] text-gray-500">Hepsiburada, Trendyol ve Çiçeksepeti online alışverişlerinize özel yüksek <strong>İndirim</strong> değerinde puan kazanımı.</p>
+      </td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-bold">%6</td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-bold text-purple-900">1.500 TL</td>
+    </tr>
+    <tr>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-semibold uppercase">TEB</td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600">
+        <a href="https://www.teb.com.tr/sizin-icin/eticaret-bonus/" target="_blank" rel="noopener noreferrer" class="text-purple-700 hover:underline font-medium">
+          E-Ticaret Harcamalarınıza Toplam 1.050 TL Bonus!
+        </a>
+        <p class="mt-1 text-[9px] text-gray-500">Online e-ticaret sitelerindeki harcamalarınıza özel <strong>Chip-para</strong> avantajlı <strong>Bonus</strong> kazanma imkanı.</p>
+      </td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-bold">%5.83</td>
+      <td class="border border-gray-200 px-3 py-2 text-[10px] text-gray-600 font-bold text-purple-900">1.050 TL</td>
+    </tr>
+  </tbody>
+</table>
         <p class="mt-4 text-xs text-gray-400 text-center leading-relaxed">
             KartCini, bankaların güncel <strong>kredi kartı kampanyalarını</strong> AI desteğiyle analiz eden bir platformdur. 
             En güncel <em>kart kampanyaları</em>, chip-para, bonus ve taksit seçeneklerini sorgulamak için asistanımızı kullanın.
