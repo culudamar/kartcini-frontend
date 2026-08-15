@@ -122,7 +122,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1501</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1519</span>
                 </div>
             </div>
 
@@ -377,6 +377,9 @@
             div.appendChild(content);
             chatWindow.appendChild(div);
             chatWindow.scrollTop = chatWindow.scrollHeight; // Yeni mesajda aşağı kaydır
+
+            // Oluşturulan mesaj balonunu geri döndür
+            return div;
         }
 
         /**
@@ -510,19 +513,16 @@
             location.reload();
         }
 
-        function updateLastBubble(content) {
-            const lastMessage = chatWindow.lastElementChild;
+        function updateStreamingBubble(messageElement, content) {
+            if (!messageElement) return;
         
-            if (!lastMessage) return;
+            const textElement = messageElement.querySelector('.text-sm');
         
-            const textElement = lastMessage.querySelector('.text-sm');
-        
-            if (!textElement) {
-                console.warn('Streaming mesaj balonu bulunamadı.');
-                return;
-            }
+            if (!textElement) return;
         
             textElement.innerHTML = content;
+        
+            chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
         function trackSearchPerformance(startTime, status_code, description) {
@@ -560,7 +560,7 @@
             sendBtn.disabled = true;
             
             // Boş bir mesaj balonu oluştur (Akış buraya yazılacak)
-            addMessage("", false, true); // Üç nokta (typing) göster
+            const streamingMessage = addMessage("", false, true); // Üç nokta (typing) göster
             let fullLLMAnswer = "";
             
             // --- ZAMAN AŞIMI AYARI ---
@@ -639,9 +639,6 @@
                 // Backend'in stream sırasında hata gönderip göndermediğini takip ediyoruz.
                 let streamError = "";
 
-                // Response artık geldiği için typing indicator'ı kaldır.
-                removeTypingIndicator();
-
                 // Stream line dispatcher helper
                 const handleStreamLine = (line) => {
                     if (!line.trim()) return;
@@ -668,12 +665,12 @@
                     else if (line.startsWith("__ERROR__:")) { 
                         streamError = "Stream error: " + line; 
                         fullLLMAnswer += "⚠️ Bir hata oluştu: " + line; 
-                        updateLastBubble(fullLLMAnswer); 
+                        updateStreamingBubble(streamingMessage, fullLLMAnswer);
                     } 
                     else { 
                         // Normal Gemini text'i 
                         fullLLMAnswer += line; 
-                        updateLastBubble(fullLLMAnswer); 
+                        updateStreamingBubble(streamingMessage, fullLLMAnswer);
                     } 
                 }
                 
