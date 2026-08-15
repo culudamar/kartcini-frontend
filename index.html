@@ -122,7 +122,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1530</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1547</span>
                 </div>
             </div>
 
@@ -555,10 +555,6 @@
             console.log(`⏱️ API Yanıt Süresi: ${durationSec} saniye`);
         }
 
-        function removeTypingIndicator() {
-            const indicator = document.getElementById('typingIndicator');
-            if (indicator) indicator.remove(); // Typing bitti
-        }
         /**
          * Backend API ile iletişimi kuran ana asenkron fonksiyon
          */
@@ -603,7 +599,8 @@
                 // HTTP HATASI (403, 429, 500 vb.) 
                 // =========================================================
                 if (!response.ok) {
-                    removeTypingIndicator();
+                    // Typing balonunu doğrudan elimizdeki referanstan kaldır
+                    streamingMessage.remove();
             
                     // --- BACKEND'DEN GELEN MESAJI OKU ---
                     const data = await response.json();
@@ -676,40 +673,46 @@
                             streamError = "History parse error"; 
                         } 
                     } 
-                    else if (line.startsWith("__ERROR__:")) { 
-                        streamError = "Stream error: " + line; 
-                        fullLLMAnswer += "⚠️ Bir hata oluştu: " + line; 
-                        updateStreamingBubble(streamingMessage, fullLLMAnswer);
-                    } 
+                    else if (line.startsWith("__ERROR__:")) {
+                        const errorMessage = line.substring("__ERROR__:".length).trim();
+                    
+                        streamError = errorMessage;
+                        fullLLMAnswer = `⚠️ ${errorMessage}`;
+                    
+                        updateStreamingBubble(
+                            streamingMessage,
+                            fullLLMAnswer
+                        );
+                    }
                     else { 
                         // Normal Gemini text'i 
                         fullLLMAnswer += line; 
                         updateStreamingBubble(streamingMessage, fullLLMAnswer);
                     } 
                 }
-                
+
                 while (true) {
                     const { value, done } = await reader.read();
-
-                    buffer += decoder.decode(value, { stream: !done });
-
+                
+                    if (value) {
+                        buffer += decoder.decode(value, { stream: !done });
+                    } else if (done) {
+                        buffer += decoder.decode();
+                    }
+                
                     const lines = buffer.split('\n');
-                    
+                
                     if (done) {
-                        // Stream tamamen bitti.
-                        // Buffer'ın tamamı artık işlenebilir.
-                    
+                        // Son tamamlanmış / tamamlanmamış parçayı da işle
                         for (const line of lines) {
                             handleStreamLine(line);
                         }
-                    
+                
                         break;
                     }
-                    
-                    // Son parça tamamlanmamış olabilir.
-                    // Bir sonraki chunk ile birleştirmek üzere sakla.
+                
                     buffer = lines.pop();
-                    
+                
                     for (const line of lines) {
                         handleStreamLine(line);
                     }
@@ -785,6 +788,11 @@
                     'description': error.name || error.message || 'Unknown error'
                 });
                 
+                // Network / timeout / fetch hatasında typing balonunu kaldır
+                if (streamingMessage) {
+                    streamingMessage.remove();
+                }
+                
                 // ZAMAN AŞIMI HATASI KONTROLÜ
                 if (error.name === 'AbortError') {
                     addMessage("<i class='fas fa-clock mr-2 text-orange-500'></i> Yanıt süresi çok uzadı. Gemma şu an yoğun olabilir, lütfen tekrar deneyin.");
@@ -792,7 +800,6 @@
                     addMessage("<i class='fas fa-wifi mr-2 text-red-500'></i> Bağlantı hatası! Lütfen internetinizi kontrol edin.");
                 }
                 
-                removeTypingIndicator();
                 retryContainer.classList.remove('hidden');
                 console.error("Fetch Error:", error);
             } finally {
