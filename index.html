@@ -122,7 +122,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1441</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1501</span>
                 </div>
             </div>
 
@@ -508,6 +508,21 @@
         async function logout() {
             await _supabase.auth.signOut();
             location.reload();
+        }
+
+        function updateLastBubble(content) {
+            const lastMessage = chatWindow.lastElementChild;
+        
+            if (!lastMessage) return;
+        
+            const textElement = lastMessage.querySelector('.text-sm');
+        
+            if (!textElement) {
+                console.warn('Streaming mesaj balonu bulunamadı.');
+                return;
+            }
+        
+            textElement.innerHTML = content;
         }
 
         function trackSearchPerformance(startTime, status_code, description) {
