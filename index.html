@@ -107,7 +107,7 @@
 <script>
     // API Adresi (Kendi Render URL'inle güncellediğinden emin ol)
     //const API_URL = "https://kartcini-backend-7tprkrr4wq-ew.a.run.app/search";
-    const API_URL = "https://laughing-space-zebra-jg6q9wrjw5r2p995-8000.app.github.dev/search";
+    const API_URL = "https://legendary-goggles-596x5pvgp7j37wv7-8000.app.github.dev/search";
     const SUPABASE_SCHEMA = "public";
 </script>
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
@@ -122,7 +122,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.2100</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1441</span>
                 </div>
             </div>
 
@@ -509,7 +509,27 @@
             await _supabase.auth.signOut();
             location.reload();
         }
-        
+
+        function trackSearchPerformance(startTime, status_code, description) {
+            // --- ÖLÇÜM BİTİŞİ VE HESAPLAMA ---
+            const endTime = performance.now();
+            const durationSec = parseFloat(((endTime - startTime) / 1000).toFixed(2)); // Saniyeye çevir
+
+            // Google Analytics'e Gönder
+            trackEvent('search_performance', { 
+                'wait_time': durationSec, 
+                'status_code': status_code,
+                'description': description
+            });
+            
+            // Loglarda da görelim (Debug için)
+            console.log(`⏱️ API Yanıt Süresi: ${durationSec} saniye`);
+        }
+
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) indicator.remove(); // Typing bitti
+        }
         /**
          * Backend API ile iletişimi kuran ana asenkron fonksiyon
          */
@@ -523,8 +543,11 @@
             trackEvent('search', { 'search_term': query });
             
             sendBtn.disabled = true;
+            
+            // Boş bir mesaj balonu oluştur (Akış buraya yazılacak)
             addMessage("", false, true); // Üç nokta (typing) göster
-        
+            let fullLLMAnswer = "";
+            
             // --- ZAMAN AŞIMI AYARI ---
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 300000); // 300.000 ms = 300 saniye = 5 dk
@@ -546,32 +569,18 @@
                         model_name: selectedModel // model seçimi
                     })
                 });
-        
-                // İstek başarılı olduysa zamanlayıcıyı temizle
-                clearTimeout(timeoutId);
-        
-                const data = await response.json();
 
-                // --- ÖLÇÜM BİTİŞİ VE HESAPLAMA ---
-                const endTime = performance.now();
-                const durationSec = parseFloat(((endTime - startTime) / 1000).toFixed(2)); // Saniyeye çevir
-        
-                // Google Analytics'e Gönder
-                trackEvent('search_performance', { 
-                    'wait_time': durationSec, 
-                    'status_code': response.status,
-                    'description': response.ok ? null : data.detail || data.message
-                });
-        
-                // Loglarda da görelim (Debug için)
-                console.log(`⏱️ API Yanıt Süresi: ${durationSec} saniye [Model: ${selectedModel}]`);
-                
-                const indicator = document.getElementById('typingIndicator');
-                if (indicator) indicator.remove(); // Typing bitti
-        
+                // =========================================================
+                // HTTP HATASI (403, 429, 500 vb.) 
+                // =========================================================
                 if (!response.ok) {
-                    
+                    removeTypingIndicator();
+            
                     // --- BACKEND'DEN GELEN MESAJI OKU ---
+                    const data = await response.json();
+
+                    trackSearchPerformance(startTime, response.status, data.detail || data.message);
+                    
                     // detail (standard FastAPI) veya message (bizim custom)
                     let serverError = data.detail || data.message || "KartCini şu an cevap veremiyor.";
                     let bubbleContent = `⚠️ <b>Hata:</b> ${serverError}`;
@@ -580,6 +589,7 @@
                     
                     // 1. KOTA DOLDU (403)
                     if (response.status === 403) {
+                        retryContainer.classList.add('hidden');
                         bubbleContent = `🚫 ${serverError}
                             <div class="mt-3 pt-2 border-t border-purple-200">
                                 <p class="text-[10px] mb-2 italic text-gray-500">Geliştirici limitleri artırmama yardımcı ol:</p>
@@ -602,15 +612,100 @@
                     return;
                 }
 
-                // Başarılı yanıt: Hafızayı güncelle ve placeholder değiştir
+                // =========================================================
+                // BAŞARILI HTTP RESPONSE - STREAMING 
+                // =========================================================
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
 
-                // kotayı hemen güncelle:
-                if (currentUserId) {
-                    updateQuotaDisplay(currentUserId);
+                // Stream içerisinde tamamlanmış satırlardan ayrılmamış son parçayı burada tutacağız.
+                let buffer = "";
+
+                // Backend'in stream sırasında hata gönderip göndermediğini takip ediyoruz.
+                let streamError = "";
+
+                // Response artık geldiği için typing indicator'ı kaldır.
+                removeTypingIndicator();
+
+                // Stream line dispatcher helper
+                const handleStreamLine = (line) => {
+                    if (!line.trim()) return;
+                    
+                    if (line.startsWith("__METADATA__:")) { 
+                        try { 
+                            const meta = JSON.parse( line.substring("__METADATA__:".length) ); 
+                            showCampaignCards(meta.campaigns); 
+                        } 
+                        catch (parseError) { 
+                            console.error( "Metadata JSON parse hatası:", parseError ); 
+                            streamError = "Metadata parse error"; 
+                        } 
+                    } 
+                    else if (line.startsWith("__HISTORY__:")) { 
+                        try { 
+                            chatHistory = JSON.parse( line.substring("__HISTORY__:".length) ); 
+                        } 
+                        catch (parseError) { 
+                            console.error( "History JSON parse hatası:", parseError ); 
+                            streamError = "History parse error"; 
+                        } 
+                    } 
+                    else if (line.startsWith("__ERROR__:")) { 
+                        streamError = "Stream error: " + line; 
+                        fullLLMAnswer += "⚠️ Bir hata oluştu: " + line; 
+                        updateLastBubble(fullLLMAnswer); 
+                    } 
+                    else { 
+                        // Normal Gemini text'i 
+                        fullLLMAnswer += line; 
+                        updateLastBubble(fullLLMAnswer); 
+                    } 
+                }
+                
+                while (true) {
+                    const { value, done } = await reader.read();
+
+                    buffer += decoder.decode(value, { stream: !done });
+
+                    const lines = buffer.split('\n');
+                    
+                    if (done) {
+                        // Stream tamamen bitti.
+                        // Buffer'ın tamamı artık işlenebilir.
+                    
+                        for (const line of lines) {
+                            handleStreamLine(line);
+                        }
+                    
+                        break;
+                    }
+                    
+                    // Son parça tamamlanmamış olabilir.
+                    // Bir sonraki chunk ile birleştirmek üzere sakla.
+                    buffer = lines.pop();
+                    
+                    for (const line of lines) {
+                        handleStreamLine(line);
+                    }
+                }
+
+                if (streamError === "") {
+                    trackSearchPerformance(startTime, 200, null);
+                    if (currentUserId) {
+                        updateQuotaDisplay(currentUserId);
+                    }
+
+                    // Başarılıysa retry alanını gizle.
+                    document.getElementById('retryContainer').classList.add('hidden');
+                } else {
+                    trackSearchPerformance(startTime, 500, streamError);
+
+                    // Kullanıcının tekrar denemesine izin ver. 
+                    document .getElementById('retryContainer') .classList.remove('hidden');
                 }
                 
                 // --- KENDİ AJANIM MODU ÖZEL UI ---
-                if (selectedModel === "my-agent") {
+                if (selectedModel === "my-agent" && streamError === "") {
                     addMessage("✨ Kampanya verisi hazır! Aşağıdaki butonu kullanarak veriyi indirebilir ve kendi yapay zeka asistanınıza yükleyebilirsiniz. Yeni bir arama yapmak için sayfayı yenileyin.");
                     
                     if (!sessionToken)
@@ -618,21 +713,15 @@
                         addMessage("✨ Giriş yaparak KartCini'ni daha kolay kullanabilirsiniz!");
                     
                     // İndir butonu ekle
-                    showDownloadButton(data.llm_answer);
+                    showDownloadButton(fullLLMAnswer);
 
                     // Ajan modunda tek seferlik veri çekimi daha güvenlidir:
                     userQuery.disabled = true;
                     sendBtn.classList.add('hidden');
                     
                     // Hızlı arama seçeneklerini kapat (Gizle)
-                    if (quickSearchArea) {
-                        quickSearchArea.classList.add('hidden');
-                    }
-                } else {
-                    // Normal Bot Cevabı
-                    addMessage(data.llm_answer);
+                    document.getElementById('quickSearchArea').classList.add('hidden');
                 }
-                chatHistory = data.history;
         
                 // Placeholder güncelleme
                 if (chatHistory.length > 0) {
@@ -646,18 +735,28 @@
                         userQuery.placeholder = "Bu kampanyalarla ilgili başka ne öğrenmek istersiniz?";
                 }
                 
-                document.getElementById('retryContainer').classList.add('hidden');
-                if(data.retrieved_campaigns) showCampaignCards(data.retrieved_campaigns);
         
             } catch (error) {
+                // ========================================================= 
+                // FETCH / NETWORK / TIMEOUT HATASI 
+                // =========================================================
+                
                 // Hata durumunda da süreyi ölçelim (Kullanıcı ne kadar bekleyip hata aldı?)
                 const endTime = performance.now();
                 const durationSec = parseFloat(((endTime - startTime) / 1000).toFixed(2));
-                
-                trackEvent('exception', { 
-                    'wait_time': durationSec, 
-                    'status_code': response.status,
-                    'description': error.name || data.detail || data.message
+
+                trackEvent('exception', {
+                    'wait_time': durationSec,
+                    // ChatGPT: catch burada network/timeout/abort hatasını temsil ediyor. 
+                    //HTTP status varsa zaten response.ok === false bloğunda yakalıyorsun.
+                    //response değişkeni try bloğunun içinde tanımlanmış.
+                    //fetch() başarısız olursa response hiç initialize edilmeden catch'e geçilebilir.
+                    //Bu durumda optional chaining:
+                    //response?.status
+                    //ReferenceError'ı engellemez.
+                    //'status_code': response?.status || 0,
+                    'status_code': 0,
+                    'description': error.name || error.message || 'Unknown error'
                 });
                 
                 // ZAMAN AŞIMI HATASI KONTROLÜ
@@ -667,7 +766,7 @@
                     addMessage("<i class='fas fa-wifi mr-2 text-red-500'></i> Bağlantı hatası! Lütfen internetinizi kontrol edin.");
                 }
                 
-                if (document.getElementById('typingIndicator')) document.getElementById('typingIndicator').remove();
+                removeTypingIndicator();
                 retryContainer.classList.remove('hidden');
                 console.error("Fetch Error:", error);
             } finally {
