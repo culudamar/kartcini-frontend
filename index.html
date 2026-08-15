@@ -122,7 +122,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1600</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1602</span>
                 </div>
             </div>
 
@@ -688,9 +688,12 @@
                         // Normal Gemini text'i
                         fullLLMAnswer += line;
                     
-                        // Kendi Ajanım modunda LLM cevabını kullanıcıya gösterme.
-                        // Cevap sadece arka planda toplanıp indirme için kullanılacak.
-                        if (selectedModel !== "my-agent") {
+                        if (selectedModel === "my-agent") {
+                            // Kendi Ajanım modunda LLM cevabını gösterme.
+                            // İlk gerçek yanıt geldiğinde typing indicator'ı kaldır.
+                            streamingMessage?.remove();
+                        } else {
+                            // Normal modlarda cevabı canlı olarak göster.
                             updateStreamingBubble(streamingMessage, fullLLMAnswer);
                         }
                     }
