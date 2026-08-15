@@ -122,7 +122,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1519</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1530</span>
                 </div>
             </div>
 
@@ -229,7 +229,8 @@
         let selectedBanks = [];    // Seçili banka ID'lerini saklar
         let lastSentQuery = "";    // Hata durumunda tekrar denemek için son soruyu saklar
         let countdownInterval = null;
-
+        let shouldAutoScroll = true;
+        
         // DOM Elementleri
         const chatWindow = document.getElementById('chatWindow');
         const searchForm = document.getElementById('searchForm');
@@ -336,6 +337,17 @@
             if (savedModel) {
                 document.getElementById('modelSelect').value = savedModel;
             }
+
+            chatWindow.addEventListener('scroll', () => {
+                const distanceFromBottom =
+                    chatWindow.scrollHeight -
+                    chatWindow.scrollTop -
+                    chatWindow.clientHeight;
+            
+                // Kullanıcı aşağıya yakınsa otomatik scroll devam etsin.
+                // Yukarı çıktıysa otomatik scroll durur.
+                shouldAutoScroll = distanceFromBottom < 50;
+            });
 
             // Oturum durumunu UI (Giriş yap butonu vb.) için kontrol et
             _supabase.auth.getSession().then(({ data: { session } }) => {
@@ -521,8 +533,10 @@
             if (!textElement) return;
         
             textElement.innerHTML = content;
-        
-            chatWindow.scrollTop = chatWindow.scrollHeight;
+
+            if (shouldAutoScroll) {
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            }
         }
 
         function trackSearchPerformance(startTime, status_code, description) {
