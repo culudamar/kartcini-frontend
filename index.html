@@ -106,8 +106,8 @@
 </head>
 <script>
     // API Adresi (Kendi Render URL'inle güncellediğinden emin ol)
-    //const API_URL = "https://kartcini-backend-7tprkrr4wq-ew.a.run.app/search";
-    const API_URL = "https://effective-barnacle-9xvjw467w4rf7974-8000.app.github.dev/search";
+    const API_URL = "https://kartcini-backend-7tprkrr4wq-ew.a.run.app/search";
+    //const API_URL = "https://effective-barnacle-9xvjw467w4rf7974-8000.app.github.dev/search";
     const SUPABASE_SCHEMA = "public";
 </script>
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
@@ -122,7 +122,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.0038</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1045</span>
                 </div>
             </div>
 
@@ -578,6 +578,14 @@
             const timeoutId = setTimeout(() => controller.abort(), 300000); // 300.000 ms = 300 saniye = 5 dk
         
             try {
+                console.log("🚨 SEARCH FETCH", {
+                    time: new Date().toISOString(),
+                    query,
+                    selectedModel,
+                    guestId: localStorage.getItem('kartcini_guest_id'),
+                    stack: new Error().stack
+                });
+                
                 const response = await fetch(API_URL, {
                     method: 'POST',
                     headers: { 
