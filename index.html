@@ -127,7 +127,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1355</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1401</span>
                 </div>
             </div>
 
@@ -828,13 +828,16 @@
                 });
 
                 let errorMsg = "Yanıt kullanıcı tarafından durduruldu."
-                
+                let icon = "fa-stop-circle text-gray-400"; // Durdurma için gri durdur ikonu
+
                 // ZAMAN AŞIMI HATASI KONTROLÜ
                 if (error.name === 'AbortError') {
+                    // Not: Hem zaman aşımı hem kullanıcı durdurması AbortError fırlatır.
                     trackEvent('search_interrupted', { 'duration': (performance.now() - startTime)/1000 });
                 } else {
                     
                     errorMsg = "Bağlantı hatası! Lütfen internetinizi kontrol edin. Sorun yoksa sayfanın sonundaki butonu kullanarak Bize Yazın.";
+                    icon = "fa-exclamation-triangle text-red-500"; // Hata için kırmızı uyarı ikonu
                     
                     retryContainer.classList.remove('hidden');
                     console.error("Fetch Error:", error);
@@ -842,7 +845,12 @@
 
                 // şu ana kadar gelmiş LLM yanıtını kaybetmemek için 
                 // her durumda mevcut balona hata mesajını ekliyoruz:
-                updateStreamingBubble(streamingMessage, fullLLMAnswer + "<i class='fas fa-clock mr-2 text-orange-500'></i> " + errorMsg);
+                const statusHtml = `
+                    <p class="text-[10px] mt-2 pt-2 border-t border-gray-100 italic flex items-center">
+                        <i class="fas ${icon} mr-2"></i> ${errorMsg}
+                    </p>`;
+                
+                updateStreamingBubble(streamingMessage, fullLLMAnswer + statusHtml);
                 
             } finally {
                 // UI State: Show send, hide stop
