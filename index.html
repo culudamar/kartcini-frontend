@@ -127,7 +127,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1343</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1355</span>
                 </div>
             </div>
 
@@ -826,22 +826,24 @@
                     'status_code': 0,
                     'description': error.name || error.message || 'Unknown error'
                 });
-                
-                // Network / timeout / fetch hatasında typing balonunu kaldır
-                if (streamingMessage) {
-                    streamingMessage.remove();
-                }
+
+                let errorMsg = "Yanıt kullanıcı tarafından durduruldu."
                 
                 // ZAMAN AŞIMI HATASI KONTROLÜ
                 if (error.name === 'AbortError') {
-                    updateStreamingBubble(streamingMessage, fullLLMAnswer + "<i class='fas fa-clock mr-2 text-orange-500'></i> Yanıt kullanıcı tarafından durduruldu.");
                     trackEvent('search_interrupted', { 'duration': (performance.now() - startTime)/1000 });
                 } else {
-                    addMessage("<i class='fas fa-wifi mr-2 text-red-500'></i> Bağlantı hatası! Lütfen internetinizi kontrol edin. Sorun yoksa sayfanın sonundaki butonu kullanarak Bize Yazın.");
+                    
+                    errorMsg = "Bağlantı hatası! Lütfen internetinizi kontrol edin. Sorun yoksa sayfanın sonundaki butonu kullanarak Bize Yazın.";
                     
                     retryContainer.classList.remove('hidden');
                     console.error("Fetch Error:", error);
                 }
+
+                // şu ana kadar gelmiş LLM yanıtını kaybetmemek için 
+                // her durumda mevcut balona hata mesajını ekliyoruz:
+                updateStreamingBubble(streamingMessage, fullLLMAnswer + "<i class='fas fa-clock mr-2 text-orange-500'></i> " + errorMsg);
+                
             } finally {
                 // UI State: Show send, hide stop
                 sendBtn.classList.remove('hidden');
