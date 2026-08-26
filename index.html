@@ -127,7 +127,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.2335</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1318</span>
                 </div>
             </div>
 
@@ -187,6 +187,11 @@
                 <button type="submit" id="sendBtn" class="bg-purple-600 hover:bg-purple-700 text-white p-3 rounded-full transition duration-300 disabled:bg-gray-400">
                     <i class="fas fa-paper-plane"></i>
                 </button>
+                
+                <!-- STOP BUTTON -->
+                <button type="button" id="stopBtn" onclick="stopGeneration()" class="hidden bg-red-500 hover:bg-red-600 text-white p-3 rounded-full transition duration-300">
+                    <i class="fas fa-stop"></i>
+                </button>
             </form>
 
             <!-- Hızlı Öneri Etiketleri -->
@@ -236,7 +241,8 @@
         let lastSentQuery = "";    // Hata durumunda tekrar denemek için son soruyu saklar
         let countdownInterval = null;
         let shouldAutoScroll = true;
-        
+        let currentAbortController = null; 
+
         // DOM Elementleri
         const chatWindow = document.getElementById('chatWindow');
         const searchForm = document.getElementById('searchForm');
@@ -244,7 +250,15 @@
         const retryContainer = document.getElementById('retryContainer');
         const sendBtn = document.getElementById('sendBtn');
         const campaignList = document.getElementById('campaignList');
-
+        
+        // Stop function
+        function stopGeneration() {
+            if (currentAbortController) {
+                currentAbortController.abort(); // This cancels the fetch request
+                console.log("🛑 Kullanıcı üretimi durdurdu.");
+            }
+        }
+        
         /**
          * Tekli banka butonu tıklama yönetimi
          */
@@ -567,13 +581,16 @@
         async function performSearch(query) {
             const modelSelect = document.getElementById('modelSelect');
             const selectedModel = modelSelect.value; 
+            const stopBtn = document.getElementById('stopBtn');
 
             // --- ÖLÇÜM BAŞLANGICI ---
             const startTime = performance.now(); 
             
             trackEvent('search', { 'search_term': query });
             
-            sendBtn.disabled = true;
+            // UI State: Hide send, show stop
+            sendBtn.classList.add('hidden');
+            stopBtn.classList.remove('hidden');
             
             // Boş bir mesaj balonu oluştur (Akış buraya yazılacak)
             const streamingMessage = addMessage("", false, true); // Üç nokta (typing) göster
@@ -817,15 +834,18 @@
                 
                 // ZAMAN AŞIMI HATASI KONTROLÜ
                 if (error.name === 'AbortError') {
-                    addMessage("<i class='fas fa-clock mr-2 text-orange-500'></i> Yanıt süresi çok uzadı. Gemma şu an yoğun olabilir, lütfen tekrar deneyin.");
+                    updateStreamingBubble(streamingMessage, fullLLMAnswer + "<i class='fas fa-clock mr-2 text-orange-500'></i> Yanıt kullanıcı tarafından durduruldu.");
+                    trackEvent('search_interrupted', { 'duration': (performance.now() - startTime)/1000 });
                 } else {
-                    addMessage("<i class='fas fa-wifi mr-2 text-red-500'></i> Bağlantı hatası! Lütfen internetinizi kontrol edin.");
+                    addMessage("<i class='fas fa-wifi mr-2 text-red-500'></i> Bağlantı hatası! Lütfen internetinizi kontrol edin. Sorun yoksa sayfanın sonundaki butonu kullanarak Bize Yazın.");
+                    
+                    retryContainer.classList.remove('hidden');
+                    console.error("Fetch Error:", error);
                 }
-                
-                retryContainer.classList.remove('hidden');
-                console.error("Fetch Error:", error);
             } finally {
-                sendBtn.disabled = false;
+                // UI State: Show send, hide stop
+                sendBtn.classList.remove('hidden');
+                stopBtn.classList.add('hidden');
                 clearTimeout(timeoutId); // Her durumda temizle
             }
         }
