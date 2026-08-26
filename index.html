@@ -127,7 +127,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1338</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1343</span>
                 </div>
             </div>
 
@@ -241,7 +241,7 @@
         let lastSentQuery = "";    // Hata durumunda tekrar denemek için son soruyu saklar
         let countdownInterval = null;
         let shouldAutoScroll = true;
-        let currentAbortController = null; 
+        let controller = null; 
 
         // DOM Elementleri
         const chatWindow = document.getElementById('chatWindow');
@@ -253,8 +253,8 @@
         
         // Stop function
         function stopGeneration() {
-            if (currentAbortController) {
-                currentAbortController.abort(); // This cancels the fetch request
+            if (controller) {
+                controller.abort(); // This cancels the fetch request
                 console.log("🛑 Kullanıcı üretimi durdurdu.");
             }
         }
@@ -597,7 +597,7 @@
             let fullLLMAnswer = "";
             
             // --- ZAMAN AŞIMI AYARI ---
-            const controller = new AbortController();
+            controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 300000); // 300.000 ms = 300 saniye = 5 dk
         
             try {
@@ -836,7 +836,6 @@
                 if (error.name === 'AbortError') {
                     updateStreamingBubble(streamingMessage, fullLLMAnswer + "<i class='fas fa-clock mr-2 text-orange-500'></i> Yanıt kullanıcı tarafından durduruldu.");
                     trackEvent('search_interrupted', { 'duration': (performance.now() - startTime)/1000 });
-                    console.error("Search interrupted:", error);
                 } else {
                     addMessage("<i class='fas fa-wifi mr-2 text-red-500'></i> Bağlantı hatası! Lütfen internetinizi kontrol edin. Sorun yoksa sayfanın sonundaki butonu kullanarak Bize Yazın.");
                     
@@ -848,6 +847,7 @@
                 sendBtn.classList.remove('hidden');
                 stopBtn.classList.add('hidden');
                 clearTimeout(timeoutId); // Her durumda temizle
+                controller = null;
             }
         }
 
