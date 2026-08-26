@@ -127,7 +127,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1401</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1458</span>
                 </div>
             </div>
 
@@ -591,6 +591,11 @@
             // UI State: Hide send, show stop
             sendBtn.classList.add('hidden');
             stopBtn.classList.remove('hidden');
+
+            // geçmiş tamamen önyüz tarafından tutuluyor
+            // Kullanıcı sorusunu ANINDA geçmişe ekle (İyimser Güncelleme)
+            // Yanıt durdurulsa bile soru artık hafızada.
+            chatHistory.push({ role: "user", parts: [query] });
             
             // Boş bir mesaj balonu oluştur (Akış buraya yazılacak)
             const streamingMessage = addMessage("", false, true); // Üç nokta (typing) göster
@@ -695,15 +700,6 @@
                             streamError = "Metadata parse error"; 
                         } 
                     } 
-                    else if (line.startsWith("__HISTORY__:")) { 
-                        try { 
-                            chatHistory = JSON.parse( line.substring("__HISTORY__:".length) ); 
-                        } 
-                        catch (parseError) { 
-                            console.error( "History JSON parse hatası:", parseError ); 
-                            streamError = "History parse error"; 
-                        } 
-                    } 
                     else if (line.startsWith("__ERROR__:")) {
                         const errorMessage = line.substring("__ERROR__:".length).trim();
                     
@@ -765,6 +761,9 @@
 
                     // Başarılıysa retry alanını gizle.
                     document.getElementById('retryContainer').classList.add('hidden');
+
+                    // Yanıt BAŞARIYLA biterse model yanıtını geçmişe ekle
+                    chatHistory.push({ role: "model", parts: [fullLLMAnswer] });
                 } else {
                     trackSearchPerformance(startTime, 500, streamError);
 
@@ -832,6 +831,11 @@
 
                 // ZAMAN AŞIMI HATASI KONTROLÜ
                 if (error.name === 'AbortError') {
+                    // Yanıt DURDURULURSA o ana kadar gelen kısmı geçmişe ekle
+                    // Böylece bir sonraki soru "Nerede kalmıştık?" diyebilir.
+                    if (fullLLMAnswer.trim() !== "") {
+                        chatHistory.push({ role: "model", parts: [fullLLMAnswer + " (İşlem durduruldu)"] });
+                    
                     // Not: Hem zaman aşımı hem kullanıcı durdurması AbortError fırlatır.
                     trackEvent('search_interrupted', { 'duration': (performance.now() - startTime)/1000 });
                 } else {
@@ -853,6 +857,20 @@
                 updateStreamingBubble(streamingMessage, fullLLMAnswer + statusHtml);
                 
             } finally {
+                // BAŞARILI BİTTİĞİNDE (Eğer backend history göndermediyse - yedek plan)
+                // Eğer history backend'den geldiyse chatHistory zaten güncellendi.
+                // Eğer gelmediyse (kesinti olduysa), manuel ekleyelim:
+                const lastHistoryItem = chatHistory[chatHistory.length - 1];
+                
+                // Eğer son eklenen mesaj bu değilse (yani backend'den __HISTORY__ gelmediyse)
+                if (!lastHistoryItem || (lastHistoryItem.role === 'model' && lastHistoryItem.parts[0] !== fullLLMAnswer)) {
+                     // Sadece history henüz güncellenmemişse ekle (mükerrer kaydı önlemek için)
+                     if (fullLLMAnswer.trim() !== "") {
+                         chatHistory.push({ role: 'user', parts: [query] });
+                         chatHistory.push({ role: 'model', parts: [fullLLMAnswer] });
+                     }
+                }
+                
                 // UI State: Show send, hide stop
                 sendBtn.classList.remove('hidden');
                 stopBtn.classList.add('hidden');
