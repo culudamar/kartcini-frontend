@@ -127,7 +127,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1501</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1506</span>
                 </div>
             </div>
 
@@ -591,11 +591,6 @@
             // UI State: Hide send, show stop
             sendBtn.classList.add('hidden');
             stopBtn.classList.remove('hidden');
-
-            // geçmiş tamamen önyüz tarafından tutuluyor
-            // Kullanıcı sorusunu ANINDA geçmişe ekle (İyimser Güncelleme)
-            // Yanıt durdurulsa bile soru artık hafızada.
-            chatHistory.push({ role: "user", parts: [query] });
             
             // Boş bir mesaj balonu oluştur (Akış buraya yazılacak)
             const streamingMessage = addMessage("", false, true); // Üç nokta (typing) göster
@@ -630,6 +625,11 @@
                         model_name: selectedModel // model seçimi
                     })
                 });
+
+                // geçmiş tamamen önyüz tarafından tutuluyor
+                // Kullanıcı sorusunu ilk istekten hemen sonra geçmişe ekle
+                // Yanıt durdurulsa bile soru artık hafızada.
+                chatHistory.push({ role: "user", parts: [query] });
 
                 // =========================================================
                 // HTTP HATASI (403, 429, 500 vb.) 
