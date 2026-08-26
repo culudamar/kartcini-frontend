@@ -127,7 +127,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1458</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1501</span>
                 </div>
             </div>
 
@@ -833,7 +833,7 @@
                 if (error.name === 'AbortError') {
                     // Yanıt DURDURULURSA o ana kadar gelen kısmı geçmişe ekle
                     // Böylece bir sonraki soru "Nerede kalmıştık?" diyebilir.
-                    if (fullLLMAnswer.trim() !== "") {
+                    if (fullLLMAnswer.trim() !== "")
                         chatHistory.push({ role: "model", parts: [fullLLMAnswer + " (İşlem durduruldu)"] });
                     
                     // Not: Hem zaman aşımı hem kullanıcı durdurması AbortError fırlatır.
