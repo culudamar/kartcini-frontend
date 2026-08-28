@@ -144,7 +144,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1645</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1138</span>
                 </div>
             </div>
 
@@ -320,26 +320,13 @@
             const q = query.toLowerCase();
             const suggestions = [];
         
-            if (q.includes('market') || q.includes('migros') || q.includes('a101') || q.includes('bim')) {
-                suggestions.push('Akaryakıt kampanyaları neler?');
-                suggestions.push('Online alışveriş fırsatları var mı?');
-            } else if (q.includes('benzin') || q.includes('akaryakıt') || q.includes('shell') || q.includes('opet')) {
-                suggestions.push('Market kampanyaları neler?');
-                suggestions.push('Giyim kampanyaları göster');
-            } else if (q.includes('giyim') || q.includes('ayakkabı') || q.includes('zara') || q.includes('lcw')) {
-                suggestions.push('Market fırsatları neler?');
-                suggestions.push('Online alışveriş kampanyaları');
-            } else if (q.includes('online') || q.includes('internet') || q.includes('n11') || q.includes('trendyol')) {
-                suggestions.push('Market kampanyaları');
-                suggestions.push('Akaryakıt fırsatları');
-            } else {
-                // Genel öneriler
-                suggestions.push('Market kampanyaları');
-                suggestions.push('Akaryakıt kampanyaları');
+            suggestions.push('Hangi kampanyada üye işyeri şartı yok?');
+            if (!q.includes('benzin') && !q.includes('online')) {
+                suggestions.push('Hediye çeki yüklemesinde hangisi geçer?');
             }
         
-            // En fazla 2 öneri göster
-            return suggestions.slice(0, 2);
+            // En fazla 3 öneri göster
+            return suggestions.slice(0, 3);
         }
         
         /**
@@ -970,9 +957,6 @@
                 stopBtn.classList.add('hidden');
                 clearTimeout(timeoutId); // Her durumda temizle
                 controller = null;
-                
-                // Önerileri temizle
-                hideSuggestions();
             }
         }
 
