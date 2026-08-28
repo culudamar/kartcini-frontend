@@ -144,7 +144,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.2254</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.2306</span>
                 </div>
             </div>
 
@@ -902,12 +902,12 @@
                 const cleanPartial = (text) => {
                     if (!text) return "";
                     return text
-                        .replace(/^```html
+                        .replace(/^```html\s*/i, '')   // baştaki ```html
                         .replace(/^```\s*/i, '')       // baştaki ```
                         .replace(/```\s*$/i, '')       // sondaki ```
                         .trim();
                 };
-            
+                
                 let errorMsg = "Yanıt kullanıcı tarafından durduruldu.";
                 let icon = "fa-stop-circle text-gray-400";
             
