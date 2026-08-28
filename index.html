@@ -144,7 +144,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.2306</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.2348</span>
                 </div>
             </div>
 
@@ -679,6 +679,7 @@
             
             // --- ZAMAN AŞIMI AYARI ---
             controller = new AbortController();
+            const thisController = controller;   // yerel kopya
             const timeoutId = setTimeout(() => controller.abort(), 300000); // 300.000 ms = 300 saniye = 5 dk
         
             try {
@@ -964,12 +965,14 @@
                          chatHistory.push({ role: 'model', parts: [fullLLMAnswer] });
                      }
                 }
-                
-                // UI State: Show send, hide stop
-                sendBtn.classList.remove('hidden');
-                stopBtn.classList.add('hidden');
-                clearTimeout(timeoutId); // Her durumda temizle
-                controller = null;
+                // Sadece bu arama hâlâ güncelse butonları geri al
+                if (controller === thisController) {
+                    // UI State: Show send, hide stop
+                    sendBtn.classList.remove('hidden');
+                    stopBtn.classList.add('hidden');
+                    clearTimeout(timeoutId); // Her durumda temizle
+                    controller = null;
+                }
             }
         }
 
