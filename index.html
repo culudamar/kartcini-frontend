@@ -51,6 +51,23 @@
     <style>
         /* Mesaj penceresinin yüksekliğini ekran boyuna göre ayarlar */
         .chat-container { height: calc(100vh - 250px); }
+
+        /* Takip sorusu stilleri */
+        .suggestion-pill {
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #f3e8ff;
+            color: #6b21a8;
+            border: 1px solid #e9d5ff;
+            font-size: 11px;
+            padding: 6px 12px;
+            border-radius: 9999px;
+        }
+        .suggestion-pill:hover {
+            background: #7c3aed;
+            color: white;
+            border-color: #7c3aed;
+        }
         
         /* KartCini temasına özel gradyan arka plan */
         .bg-gradient-custom { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
@@ -127,7 +144,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.2013</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1645</span>
                 </div>
             </div>
 
@@ -154,6 +171,9 @@
                 </div>
             </div>
         </div>
+
+        <!-- Takip sorusu önerileri (yanıt beklerken görünür) -->
+        <div id="suggestionArea" class="hidden flex flex-wrap gap-2 mt-2 mb-2 px-1"></div>
 
         <!-- Giriş ve Kontrol Paneli -->
         <div class="bg-white rounded-lg shadow-lg p-4 relative">
@@ -257,6 +277,77 @@
                 controller.abort(); // This cancels the fetch request
                 console.log("🛑 Kullanıcı üretimi durdurdu.");
             }
+        }
+
+        // Takip sorusu ile ilgili kodlar:
+        // Öneri alanı referansı
+        const suggestionArea = document.getElementById('suggestionArea');
+        
+        /**
+         * Yanıt beklerken 1-2 takip sorusu gösterir
+         */
+        function showSuggestions(query) {
+            // Basit kural tabanlı öneriler (istersen daha akıllı hale getirebilirsin)
+            const suggestions = generateSuggestions(query);
+            
+            if (suggestions.length === 0) {
+                suggestionArea.classList.add('hidden');
+                return;
+            }
+        
+            suggestionArea.innerHTML = '';
+            suggestions.forEach(s => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'suggestion-pill';
+                btn.textContent = s;
+                btn.onclick = () => {
+                    // Mevcut aramayı iptal et ve yeni soruyu gönder
+                    stopGeneration();
+                    userQuery.value = s;
+                    searchForm.dispatchEvent(new Event('submit'));
+                };
+                suggestionArea.appendChild(btn);
+            });
+        
+            suggestionArea.classList.remove('hidden');
+        }
+        
+        /**
+         * Sorgudan basit öneriler üretir
+         */
+        function generateSuggestions(query) {
+            const q = query.toLowerCase();
+            const suggestions = [];
+        
+            if (q.includes('market') || q.includes('migros') || q.includes('a101') || q.includes('bim')) {
+                suggestions.push('Akaryakıt kampanyaları neler?');
+                suggestions.push('Online alışveriş fırsatları var mı?');
+            } else if (q.includes('benzin') || q.includes('akaryakıt') || q.includes('shell') || q.includes('opet')) {
+                suggestions.push('Market kampanyaları neler?');
+                suggestions.push('Giyim kampanyaları göster');
+            } else if (q.includes('giyim') || q.includes('ayakkabı') || q.includes('zara') || q.includes('lcw')) {
+                suggestions.push('Market fırsatları neler?');
+                suggestions.push('Online alışveriş kampanyaları');
+            } else if (q.includes('online') || q.includes('internet') || q.includes('n11') || q.includes('trendyol')) {
+                suggestions.push('Market kampanyaları');
+                suggestions.push('Akaryakıt fırsatları');
+            } else {
+                // Genel öneriler
+                suggestions.push('Market kampanyaları');
+                suggestions.push('Akaryakıt kampanyaları');
+            }
+        
+            // En fazla 2 öneri göster
+            return suggestions.slice(0, 2);
+        }
+        
+        /**
+         * Önerileri gizle
+         */
+        function hideSuggestions() {
+            suggestionArea.classList.add('hidden');
+            suggestionArea.innerHTML = '';
         }
         
         /**
@@ -595,6 +686,9 @@
             // Boş bir mesaj balonu oluştur (Akış buraya yazılacak)
             const streamingMessage = addMessage("", false, true); // Üç nokta (typing) göster
             let fullLLMAnswer = "";
+
+            // Önerileri göster
+            showSuggestions(query);
             
             // --- ZAMAN AŞIMI AYARI ---
             controller = new AbortController();
@@ -876,6 +970,9 @@
                 stopBtn.classList.add('hidden');
                 clearTimeout(timeoutId); // Her durumda temizle
                 controller = null;
+                
+                // Önerileri temizle
+                hideSuggestions();
             }
         }
 
