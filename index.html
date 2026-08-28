@@ -144,7 +144,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.2348</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.2351</span>
                 </div>
             </div>
 
@@ -965,14 +965,16 @@
                          chatHistory.push({ role: 'model', parts: [fullLLMAnswer] });
                      }
                 }
+                
                 // Sadece bu arama hâlâ güncelse butonları geri al
                 if (controller === thisController) {
-                    // UI State: Show send, hide stop
                     sendBtn.classList.remove('hidden');
                     stopBtn.classList.add('hidden');
-                    clearTimeout(timeoutId); // Her durumda temizle
                     controller = null;
                 }
+
+                // Her zaman bu aramanın timeout'unu temizle
+                clearTimeout(timeoutId);
             }
         }
 
