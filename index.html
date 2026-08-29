@@ -144,7 +144,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.0022</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.2015</span>
                 </div>
             </div>
 
@@ -305,7 +305,10 @@
                     // Mevcut aramayı iptal et ve yeni soruyu gönder
                     stopGeneration();
                     userQuery.value = s;
-                    searchForm.dispatchEvent(new Event('submit'));
+                    // Eski performSearch'teki finally'nin butonları bozmaması için kısa gecikme
+                    setTimeout(() => {
+                        searchForm.dispatchEvent(new Event('submit'));
+                    }, 60);
                 };
                 suggestionArea.appendChild(btn);
             });
@@ -959,20 +962,6 @@
                     updateStreamingBubble(streamingMessage, cleaned + statusHtml);
                 }
             } finally {
-                // BAŞARILI BİTTİĞİNDE (Eğer backend history göndermediyse - yedek plan)
-                // Eğer history backend'den geldiyse chatHistory zaten güncellendi.
-                // Eğer gelmediyse (kesinti olduysa), manuel ekleyelim:
-                const lastHistoryItem = chatHistory[chatHistory.length - 1];
-                
-                // Eğer son eklenen mesaj bu değilse (yani backend'den __HISTORY__ gelmediyse)
-                if (!lastHistoryItem || (lastHistoryItem.role === 'model' && lastHistoryItem.parts[0] !== fullLLMAnswer)) {
-                     // Sadece history henüz güncellenmemişse ekle (mükerrer kaydı önlemek için)
-                     if (fullLLMAnswer.trim() !== "") {
-                         chatHistory.push({ role: 'user', parts: [query] });
-                         chatHistory.push({ role: 'model', parts: [fullLLMAnswer] });
-                     }
-                }
-                
                 // Sadece bu arama hâlâ güncelse butonları geri al
                 if (controller === thisController) {
                     sendBtn.classList.remove('hidden');
