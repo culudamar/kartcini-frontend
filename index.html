@@ -144,7 +144,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.2015</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.2048</span>
                 </div>
             </div>
 
@@ -692,9 +692,6 @@
             const streamingMessage = addMessage("", false, true); // Üç nokta (typing) göster
             let fullLLMAnswer = "";
 
-            // Önerileri göster
-            showSuggestions(query);
-            
             // --- ZAMAN AŞIMI AYARI ---
             controller = new AbortController();
             const thisController = controller;   // yerel kopya
@@ -794,6 +791,9 @@
                         try { 
                             const meta = JSON.parse( line.substring("__METADATA__:".length) ); 
                             showCampaignCards(meta.campaigns); 
+                            
+                            // Önerileri göster
+                            showSuggestions(query);
                         } 
                         catch (parseError) { 
                             console.error( "Metadata JSON parse hatası:", parseError ); 
