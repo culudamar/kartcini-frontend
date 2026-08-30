@@ -144,7 +144,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1620</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1630</span>
                 </div>
             </div>
 
@@ -225,9 +225,9 @@
 
             <!-- Model Seçim Kutusu -->
             <select id="modelSelect" onchange="saveModelChoice()" class="ml-2 bg-gray-50 border border-purple-200 text-gray-700 text-[10px] rounded-lg focus:ring-purple-500 focus:border-purple-500 p-1">
-                <option value="my-agent">🚀 Kendi Ajanım (Ücretsiz)</option>
                 <option value="gemini-2.5-flash" selected>Gemini 2.5 Flash (Hızlı&Öfkeli)</option>
                 <option value="gemini-3.1-flash-lite">Gemini 3.1 Flash Lite (2.5 olmazsa)</option>
+                <option value="my-agent">🚀 Kendi Ajanım (Ücretsiz)</option>
             </select>
             <a href="https://kreosus.com/kartcinicom" target="_blank" onclick="trackCoffeeClick('fixed_button')"
                class="inline-flex items-center bg-white border border-orange-300 text-orange-600 px-3 py-1 rounded-full text-[10px] font-bold hover:bg-orange-50 transition ml-auto">
@@ -434,10 +434,18 @@
             loadSavedBanks(); // issuer seçimini hatırla
 
             const savedModel = localStorage.getItem('kartcini_selected_model');
-            if (savedModel) {
+            
+            // Kaydedilen model, mevcut <option> listesinde var mı diye kontrol et
+            const modelExists = Array.from(modelSelect.options).some(option => option.value === savedModel);
+            
+            if (savedModel && modelExists) {
                 document.getElementById('modelSelect').value = savedModel;
+            } else {
+                // Eğer model silinmişse veya listede yoksa, güvenli bir varsayılan modele (örn: ilkine veya flash olana) düşür
+                modelSelect.selectedIndex = 1; // veya aktif olan geçerli bir seçenek
+                saveModelChoice(); // Yeni geçerli seçimi hafızaya kaydet
             }
-
+            
             chatWindow.addEventListener('scroll', () => {
                 const distanceFromBottom =
                     chatWindow.scrollHeight -
