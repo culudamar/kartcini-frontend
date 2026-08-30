@@ -144,7 +144,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.2118</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.0034</span>
                 </div>
             </div>
 
@@ -269,6 +269,7 @@
         const retryContainer = document.getElementById('retryContainer');
         const sendBtn = document.getElementById('sendBtn');
         const campaignList = document.getElementById('campaignList');
+        const modelSelect = document.getElementById('modelSelect');
         
         // Stop function
         function stopGeneration() {
@@ -319,8 +320,14 @@
          * Sorgudan basit öneriler üretir
          */
         function generateSuggestions(query) {
-            const q = query.toLowerCase();
             const suggestions = [];
+            
+            const selectedModel = modelSelect.value; 
+            if (selectedModel === "my-agent")
+                // Kendi Ajanım modunda takip soru önerisi gösterme:
+                return suggestions;
+
+            const q = query.toLowerCase();
         
             suggestions.push('Hangi kampanyada üye işyeri şartı yok?');
             if (!q.includes('benzin') && !q.includes('online')) {
@@ -678,7 +685,6 @@
          * Backend API ile iletişimi kuran ana asenkron fonksiyon
          */
         async function performSearch(query) {
-            const modelSelect = document.getElementById('modelSelect');
             const selectedModel = modelSelect.value; 
             const stopBtn = document.getElementById('stopBtn');
 
