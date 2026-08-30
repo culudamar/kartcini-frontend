@@ -144,7 +144,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1630</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1633</span>
                 </div>
             </div>
 
@@ -442,7 +442,7 @@
                 document.getElementById('modelSelect').value = savedModel;
             } else {
                 // Eğer model silinmişse veya listede yoksa, güvenli bir varsayılan modele (örn: ilkine veya flash olana) düşür
-                modelSelect.selectedIndex = 1; // veya aktif olan geçerli bir seçenek
+                modelSelect.selectedIndex = 0; // 0 is supposed to be the default
                 saveModelChoice(); // Yeni geçerli seçimi hafızaya kaydet
             }
             
