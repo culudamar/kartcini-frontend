@@ -144,7 +144,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1633</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.2118</span>
                 </div>
             </div>
 
@@ -596,10 +596,6 @@
                 document.getElementById('loginBtn').classList.add('hidden');
                 document.getElementById('userProfile').classList.remove('hidden');
                 updateQuotaDisplay(session.user.id);
-
-                // Eğer şu an 'Kendi Ajanım' seçiliyse, otomatik olarak Gemini'ye geçiş yap
-                if (modelSelect.value === "my-agent")
-                    modelSelect.value = "gemini-2.5-flash";
             
             } else {
                 sessionToken = null;
@@ -890,7 +886,7 @@
                     // İndir butonu ekle
                     showDownloadButton(fullLLMAnswer);
 
-                    // Ajan modunda tek seferlik veri çekimi daha güvenlidir:
+                    // Ajan modunda takip sorusu kabul etmiyoruz:
                     userQuery.disabled = true;
                     sendBtn.classList.add('hidden');
                     
