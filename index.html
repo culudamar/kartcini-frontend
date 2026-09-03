@@ -144,7 +144,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1140</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1304</span>
                 </div>
             </div>
 
@@ -269,6 +269,7 @@
         const userQuery = document.getElementById('userQuery');
         const retryContainer = document.getElementById('retryContainer');
         const sendBtn = document.getElementById('sendBtn');
+        const stopBtn = document.getElementById('stopBtn');
         const campaignList = document.getElementById('campaignList');
         const modelSelect = document.getElementById('modelSelect');
         
@@ -686,17 +687,16 @@
          * Backend API ile iletişimi kuran ana asenkron fonksiyon
          */
         async function performSearch(query) {
+            // UI State: Hide send, show stop
+            sendBtn.classList.add('hidden');
+            stopBtn.classList.remove('hidden');
+            
             const selectedModel = modelSelect.value; 
-            const stopBtn = document.getElementById('stopBtn');
 
             // --- ÖLÇÜM BAŞLANGICI ---
             const startTime = performance.now(); 
             
             trackEvent('search', { 'search_term': query });
-            
-            // UI State: Hide send, show stop
-            sendBtn.classList.add('hidden');
-            stopBtn.classList.remove('hidden');
             
             // Boş bir mesaj balonu oluştur (Akış buraya yazılacak)
             const streamingMessage = addMessage("", false, true); // Üç nokta (typing) göster
