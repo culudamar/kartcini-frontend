@@ -120,6 +120,30 @@
             }
         }
     </style>
+    <style>
+        /* Mobilde başlık ve giriş butonunun hizalamasını koru */
+        @media (max-width: 640px) {
+            nav .container {
+                flex-direction: row !important; /* Alt alta kaymayı engelle, tek satırda tut */
+                align-items: center;
+                justify-content: space-between;
+            }
+            nav .flex.items-center.gap-3 {
+                width: auto !important;
+                justify-content: start;
+            }
+            nav span {
+                font-size: 0.6rem !important;
+                width: auto !important;
+                text-align: left !important;
+            }
+            #loginBtn {
+                padding: 4px 10px !important;
+                font-size: 10px !important;
+                white-space: nowrap; /* Buton metninin kırılmasını engeller */
+            }
+        }
+    </style>
 </head>
 <script>
     const urlParams = new URLSearchParams(window.location.search);
@@ -144,7 +168,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1304</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1430</span>
                 </div>
             </div>
 
