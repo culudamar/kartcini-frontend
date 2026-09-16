@@ -168,7 +168,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1430</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1442</span>
                 </div>
             </div>
 
@@ -201,7 +201,31 @@
 
         <!-- Giriş ve Kontrol Paneli -->
         <div class="bg-white rounded-lg shadow-lg p-4 relative">
+
+            <!-- Sorgu Giriş Formu -->
+            <form id="searchForm" class="flex space-x-2">
+                <input type="text" id="userQuery" placeholder="Hangi kampanyayı arıyorsunuz?" 
+                       class="flex-1 border rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 shadow-inner text-sm" 
+                       required autocomplete="off">
+                <button type="submit" id="sendBtn" class="bg-purple-600 hover:bg-purple-700 text-white p-3 rounded-full transition duration-300 disabled:bg-gray-400">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+                
+                <!-- STOP BUTTON -->
+                <button type="button" id="stopBtn" onclick="stopGeneration()" class="hidden bg-red-500 hover:bg-red-600 text-white p-3 rounded-full transition duration-300">
+                    <i class="fas fa-stop"></i>
+                </button>
+            </form>
             
+            <!-- Hızlı Öneri Etiketleri -->
+            <div id="quickSearchArea" class="mt-2 flex space-x-2 text-xs text-gray-500">
+                <span>Popüler:</span>
+                <button onclick="quickSearch('Market')" class="hover:text-purple-600 underline">Market</button>
+                <button onclick="quickSearch('Benzin')" class="hover:text-purple-600 underline">Benzin</button>
+                <button onclick="quickSearch('Giyim')" class="hover:text-purple-600 underline">Giyim</button>
+                <button onclick="quickSearch('Online')" class="hover:text-purple-600 underline">Online</button>
+            </div>
+
             <!-- Banka Filtreleri: Yatayda kaydırılabilir yapı -->
             <div class="mb-3">
                 <div id="bankFilters" class="flex overflow-x-auto py-1 gap-2 no-scrollbar whitespace-nowrap px-1 border-b border-gray-50 pb-2">
@@ -223,31 +247,7 @@
                     <button type="button" onclick="toggleBank(this, 'vpay')" class="bank-pill px-4 py-1 rounded-full text-gray-600">Vodafone Pay</button>
                 </div>
             </div>
-
-            <!-- Sorgu Giriş Formu -->
-            <form id="searchForm" class="flex space-x-2">
-                <input type="text" id="userQuery" placeholder="Hangi kampanyayı arıyorsunuz?" 
-                       class="flex-1 border rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 shadow-inner text-sm" 
-                       required autocomplete="off">
-                <button type="submit" id="sendBtn" class="bg-purple-600 hover:bg-purple-700 text-white p-3 rounded-full transition duration-300 disabled:bg-gray-400">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-                
-                <!-- STOP BUTTON -->
-                <button type="button" id="stopBtn" onclick="stopGeneration()" class="hidden bg-red-500 hover:bg-red-600 text-white p-3 rounded-full transition duration-300">
-                    <i class="fas fa-stop"></i>
-                </button>
-            </form>
-
-            <!-- Hızlı Öneri Etiketleri -->
-            <div id="quickSearchArea" class="mt-2 flex space-x-2 text-xs text-gray-500">
-                <span>Popüler:</span>
-                <button onclick="quickSearch('Market')" class="hover:text-purple-600 underline">Market</button>
-                <button onclick="quickSearch('Benzin')" class="hover:text-purple-600 underline">Benzin</button>
-                <button onclick="quickSearch('Giyim')" class="hover:text-purple-600 underline">Giyim</button>
-                <button onclick="quickSearch('Online')" class="hover:text-purple-600 underline">Online</button>
-            </div>
-
+            
             <!-- Model Seçim Kutusu -->
             <select id="modelSelect" onchange="saveModelChoice()" class="ml-2 bg-gray-50 border border-purple-200 text-gray-700 text-[10px] rounded-lg focus:ring-purple-500 focus:border-purple-500 p-1">
                 <option value="gemini-2.5-flash" selected>Gemini 2.5 Flash (Hızlı&Öfkeli)</option>
