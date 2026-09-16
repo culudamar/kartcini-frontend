@@ -50,8 +50,13 @@
     
     <style>
         /* Mesaj penceresinin yüksekliğini ekran boyuna göre ayarlar */
-        .chat-container { height: calc(100vh - 250px); }
-
+        /* Mobil Safari (iOS) adres çubuğu uyumlu dinamik yükseklik */
+        .chat-container { 
+            height: calc(100vh - 250px); /* Eski cihazlar için fallback */
+            height: calc(100dvh - 280px); /* iOS Safari ve modern mobil tarayıcılar için */
+            max-height: 60vh; /* Ekranın en fazla %60-70'ini kaplasın */
+        }
+        
         /* Takip sorusu stilleri */
         .suggestion-pill {
             cursor: pointer;
@@ -168,7 +173,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1442</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1450</span>
                 </div>
             </div>
 
