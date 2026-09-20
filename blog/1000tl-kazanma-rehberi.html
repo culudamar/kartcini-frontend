@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G0YC21LXFP"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-G0YC21LXFP');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kredi Kartları ile Market ve Benzin Harcamalarında Ayda 1.000 TL Tasarruf Rehberi | KartCini</title>
+
+    <!-- SEO Meta Etiketleri -->
+    <meta name="description" content="Farklı kart tiplerinin (Vakıf World, TEB Bonus, ON, Hadi, Hayat Pay, Vodafone Pay) market ve benzin kampanyalarını kullanarak en az harcamayla ayda 1.000 TL tasarruf sağlama rehberi.">
+    <meta name="keywords" content="market kampanyası, benzin kampanyası, akaryakıt indirimi, 1000 tl tasarruf, vakıfbank world, teb bonus, on kart, hadi kart, hayat pay, vodafone pay, kartcini">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.kartcini.com/blog/kart-tipleriyle-1000tl-tasarruf-rehberi">
+
+    <!-- Open Graph (Sosyal Medya Paylaşım Uyumu) -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.kartcini.com/blog/kart-tipleriyle-1000tl-tasarruf-rehberi">
+    <meta property="og:title" content="Kart Tiplerine Göre Market ve Benzin Stratejisiyle Ayda 1.000 TL Tasarruf">
+    <meta property="og:description" content="Farklı banka ve kart tiplerinin güncel market ve akaryakıt kampanyalarını birleştirerek minimum harcamayla ayda 1.000 TL indirim ve puan kazanma rehberi.">
+    <meta property="og:image" content="https://www.kartcini.com/social-preview.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:image" content="https://www.kartcini.com/social-preview.png">
+
+    <!-- İkon Tanımlamaları -->
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../favicon.png">
+    
+    <!-- Supabase Auth -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Tailwind CSS ve FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        .bg-gradient-custom { background: linear-gradient(135deg, #003399 0%, #001a4d 100%); }
+        
+        /* Makale İçi HTML Tablo Stilleri */
+        .article-content table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; background: white; }
+        .article-content th, .article-content td { border: 1px solid #e2e8f0; padding: 10px 14px; text-align: left; }
+        .article-content th { background-color: #f8fafc; font-weight: bold; color: #475569; }
+        .article-content tr:nth-child(even) { background-color: #f1f5f9; }
+
+        @media (max-width: 640px) {
+            nav .container {
+                flex-direction: row !important;
+                align-items: center;
+                justify-content: space-between;
+            }
+            nav .flex.items-center.gap-3 {
+                width: auto !important;
+                justify-content: start;
+            }
+            nav span {
+                font-size: 0.6rem !important;
+                width: auto !important;
+                text-align: left !important;
+            }
+            #loginBtn {
+                padding: 4px 10px !important;
+                font-size: 10px !important;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+    <!-- Navigasyon Alanı -->
+    <nav class="bg-gradient-custom p-4 shadow-lg text-white">
+        <div class="container mx-auto flex justify-between items-center">
+            
+            <!-- Sol Taraf: Logo ve Başlık -->
+            <a href="/" class="flex items-center gap-3 no-underline text-white">
+                <img src="../kartcini.svg" alt="KartCini Logo" class="w-10 h-10">
+                <div class="flex flex-col">
+                    <span class="text-xl md:text-2xl font-bold italic leading-none">KartCini</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1718</span>
+                </div>
+            </a>
+
+            <!-- Sağ Taraf: Giriş Alanı -->
+            <div id="authArea">
+                <button id="loginBtn" onclick="loginWithGoogle()" class="bg-white text-blue-900 px-4 py-1.5 rounded-full text-xs font-bold shadow-lg border border-blue-200 transition hover:bg-gray-100">
+                    <i class="fab fa-google mr-1"></i> Giriş Yap
+                </button>
+                <div id="userProfile" class="hidden flex items-center space-x-2 bg-white/10 p-1 px-3 rounded-full backdrop-blur-md border border-white/20">
+                    <span id="usageBadge" class="bg-orange-500 text-white text-[9px] px-2 py-0.5 rounded-full font-bold">...</span>
+                    <button onclick="logout()" class="text-white hover:text-red-300 text-sm"><i class="fas fa-sign-out-alt"></i></button>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+    
+    <!-- Ana İçerik Konteyneri -->
+<main class="max-w-4xl mx-auto px-4 py-10 bg-white my-8 rounded-lg shadow-sm">
+    <article>
+        <header class="mb-8">
+            <span class="text-xs font-semibold tracking-wider text-blue-600 uppercase bg-blue-50 px-3 py-1 rounded-full">Finansal İpuçları</span>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3 mb-4">Kart Tiplerine Göre Market ve Benzin Harcamalarında Ayda 1.000 TL Tasarruf Rehberi</h1>
+            <p class="text-gray-500 text-sm">Farklı Banka ve Fintek Kartlarının Market ve Akaryakıt Kampanyalarını Bütçeyi Yormayan Minimum Harcamalarla Optimize Etme Stratejisi</p>
+        </header>
+
+        <section class="prose max-w-none text-gray-700 space-y-6">
+            <p>Günlük yaşamın en temel iki gider kalemi olan market ve benzin harcamalarını akıllı kampanya kurgularıyla yöneterek her ay bütçenize net 1.000 TL geri kazandırmak mümkün. Sahip olduğunuz kart tipine özel olarak hazırladığımız bu rehberde, tek seferde yüksek tutarlı harcama yapmadan ve bütçenizi sarsmadan 1.000 TL indirim veya puan hedefine nasıl ulaşabileceğinizi anlatıyoruz.</p>
+
+            <h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Kart Tiplerine Göre Minimum Harcama Stratejileri</h2>
+            <p>Her kart programının sunduğu kazanç oranları ve harcama alt limitleri değişiklik gösterir. İşte elinizdeki kart türüne göre izleyebileceğiniz optimum tasarruf yolları:</p>
+
+            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">1. Vakıf World (Kredi Kartı ve Bankomat Kart)</h3>
+            <p>VakıfBank bireysel kredi kartları ile gıda marketlerinde farklı günlerde yapacağınız 2.000 TL altındaki alışverişlerin toplamı 10.000 TL'ye ulaştığında <strong>500 TL Worldpuan</strong> kazanılır. Akaryakıt tarafında ise Bankomat Kart ile farklı günlerde yapacağınız 4 adet 1.400 TL ve üzeri harcamaya <strong>400 TL Bankomat Para</strong> elde edilir. Ayrıca VakıfBank Worldcard ile Pazarama Market üzerinden tek seferde 1.000 TL üzeri ilk alışverişinizde <strong>200 TL ekstre indirimi</strong> alarak toplamda 1.100 TL kazanca ulaşabilirsiniz.</p>
+
+            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">2. TEB Bonus (Banka Kartı ve Kredi Kartı)</h3>
+            <p>TEB Bireysel Banka Kartları ile market ve gıda sektöründe tek seferde 2.000 TL ve üzeri her ikinci harcamanıza 150 TL (toplam 5 kez yararlanarak <strong>750 TL nakit iade</strong>) kazanabilirsiniz. Akaryakıt ihtiyacınızı ise TEB Bireysel Kredi Kartınız ile seçili TotalEnergies istasyonlarında farklı günlerde yapacağınız 4 adet 1.500 TL üzeri harcamayla CEPTETEB Mobil üzerinden katılarak <strong>450 TL indirim</strong> ile tamamlayabilirsiniz. Böylece toplam kazancınız 1.200 TL'ye ulaşır.</p>
+
+            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">3. ON (ON Dijital Banka Kartı ve Kredi Kartı)</h3>
+            <p>ON Banka Kartı ile market sektöründe tek seferde yapacağınız 1.500 TL ve üzeri 4. harcamanıza <strong>400 TL nakit iade</strong> verilir. Akaryakıt sektöründe yine ON Banka Kartı ile tek seferde 1.500 TL ve üzeri 4. harcamanıza <strong>400 TL nakit iade</strong> kazanılır. Eksik kalan tutar ise ON Kredi Kartı ile tek seferde yapacağınız 2. 1.500 TL üzeri market harcamanızdaki <strong>200 TL iade</strong> ile tamamlanarak tam 1.000 TL nakit iadeye ulaşılır.</p>
+
+            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">4. Hadi (Hadi Black Kredi Kartı & Çok Kazananlar Kulübü)</h3>
+            <p>Hadi Black Kredi Kartı sahipleri Çok Kazananlar Kulübü üyesi olduklarında, market harcamalarında 10.000 TL toplam harcamaya <strong>1.000 TL iade (%10)</strong> kazanabilirler. Akaryakıt tarafında ise 1.000 TL ve üzeri akaryakıt harcamalarında kulübe özel %10 iade fırsatı sunulur (aylık maksimum 250 TL). Sadece bu iki kategorideki harcamanızla 1.250 TL net iade elde edebilirsiniz.</p>
+
+            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">5. Hayat Pay (Dijital Kart / Premium)</h3>
+            <p>Hayat Pay Dijital Kart ile market ve akaryakıt sektörlerinde yapacağınız tek seferde 100 TL ve üzeri harcamalarınızda %5 nakit iade (Premium hesaplarda aylık maksimum <strong>500 TL</strong>) kazanabilirsiniz. Buna ek olarak market alışveriş fişlerinizi uygulamaya yükleyerek her fiş için 100 hayatpara (15 fişte toplam <strong>1.500 hayatpara / hediye bakiye</strong>) biriktirebilir ve 1.000 TL değerini rahatlıkla aşabilirsiniz.</p>
+
+            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">6. Vodafone Pay (Fiziksel / Sanal Kart ve QR)</h3>
+            <p>Vodafone Pay Kart ile tek seferde yapacağınız 1.500 TL ve üzeri akaryakıt harcamanıza <strong>300 TL nakit iade</strong> alabilirsiniz. Okula dönüş kampanyasında faturalı QR ödeme ile market harcamanıza <strong>100 TL indirim</strong> ve Vodafone Pay üzerinden yapacağınız İstanbulkart bakiye yüklemenize %10 nakit iade (<strong>100 TL</strong>) eklenerek rutin harcamalarınızda hızlı indirim imkanı sağlanır.</p>
+
+            <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-6">Kart Tiplerine Göre Öneri Harcama ve Kazanç Tablosu</h2>
+            <p>Aşağıdaki tabloda, her kart tipi için bütçeyi zorlamayacak minimum işlem tutarları ve ulaşılacak toplam kazançlar özetlenmiştir:</p>
+
+            <div class="overflow-x-auto my-6 article-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Kategori (Kullanılan Kampanya Linki)</th>
+                            <th>Harcanacak Min Tutar</th>
+                            <th>Harcanacak Toplam Tutar</th>
+                            <th>Kazanç</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Vakıf World -->
+                        <tr>
+                            <td>
+                                <a href="https://www.vakifkart.com.tr/kampanyalar/gida-marketi-alisverislerinize-500-tl-worldpuan-40745" target="_blank" class="text-blue-600 hover:underline font-semibold">Market - Vakıf World (Gıda Marketi Alışverişi)</a>
+                            </td>
+                            <td>Parçalı (2.000 TL Altı)</td>
+                            <td>10.000 TL Toplam</td>
+                            <td class="font-bold text-green-600">500 TL Worldpuan</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://www.vakifkart.com.tr/kampanyalar/bankomat-kart-ile-akaryakit-alisverislerinize-400-tl-bankomat-para-40824" target="_blank" class="text-blue-600 hover:underline font-semibold">Benzin - Vakıf World (Bankomat Kart Akaryakıt)</a>
+                            </td>
+                            <td>1.400 TL (4 İşlem)</td>
+                            <td>5.600 TL (4 x 1.400 TL)</td>
+                            <td class="font-bold text-green-600">400 TL Bankomat Para</td>
+                        </tr>
+
+                        <!-- TEB Bonus -->
+                        <tr>
+                            <td>
+                                <a href="https://www.teb.com.tr/sizin-icin/debit-market-kampanyasi/" target="_blank" class="text-blue-600 hover:underline font-semibold">Market - TEB Bonus (Banka Kartı Market)</a>
+                            </td>
+                            <td>2.000 TL (Her 2. Harcama)</td>
+                            <td>20.000 TL (10 x 2.000 TL)</td>
+                            <td class="font-bold text-green-600">750 TL Nakit İade</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://www.teb.com.tr/sizin-icin/totalenergies/" target="_blank" class="text-blue-600 hover:underline font-semibold">Benzin - TEB Bonus (TotalEnergies İndirimi)</a>
+                            </td>
+                            <td>1.500 TL (4 İşlem)</td>
+                            <td>6.000 TL (4 x 1.500 TL)</td>
+                            <td class="font-bold text-green-600">450 TL İndirim</td>
+                        </tr>
+
+                        <!-- ON Kart -->
+                        <tr>
+                            <td>
+                                <a href="https://on.com.tr/on-banka-karti-market-kampanyasi" target="_blank" class="text-blue-600 hover:underline font-semibold">Market - ON (ON Banka Kartı Market)</a>
+                            </td>
+                            <td>1.500 TL (4 İşlem)</td>
+                            <td>6.000 TL (4 x 1.500 TL)</td>
+                            <td class="font-bold text-green-600">400 TL Nakit İade</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://on.com.tr/on-banka-karti-akaryakit-kampanyasi" target="_blank" class="text-blue-600 hover:underline font-semibold">Benzin - ON (ON Banka Kartı Akaryakıt)</a>
+                            </td>
+                            <td>1.500 TL (4 İşlem)</td>
+                            <td>6.000 TL (4 x 1.500 TL)</td>
+                            <td class="font-bold text-green-600">400 TL Nakit İade</td>
+                        </tr>
+
+                        <!-- Hadi Kart -->
+                        <tr>
+                            <td>
+                                <a href="https://tombankhadi.com/kampanyalar/tum-market-harcamalarinda-secimini-yap-5-iade-kazan" target="_blank" class="text-blue-600 hover:underline font-semibold">Market - Hadi (Hadi Black Market İadesi)</a>
+                            </td>
+                            <td>5 Farklı Gün (Toplam)</td>
+                            <td>10.000 TL Toplam</td>
+                            <td class="font-bold text-green-600">1.000 TL İade (%10)</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://tombankhadi.com/kampanyalar/hadi-black-kredi-karti-ile-akaryakit-harcamalarina-toplam-500-tl-iade" target="_blank" class="text-blue-600 hover:underline font-semibold">Benzin - Hadi (Hadi Black Akaryakıt)</a>
+                            </td>
+                            <td>1.800 TL (4 İşlem)</td>
+                            <td>7.200 TL (4 x 1.800 TL)</td>
+                            <td class="font-bold text-green-600">500 TL İade</td>
+                        </tr>
+
+                        <!-- Hayat Pay -->
+                        <tr>
+                            <td>
+                                <a href="https://hayatpay.com.tr/kampanya/harcamalarindan-nakit-iade-kazan" target="_blank" class="text-blue-600 hover:underline font-semibold">Market - Hayat Pay (%5 Nakit İade)</a>
+                            </td>
+                            <td>100 TL Min. İşlem</td>
+                            <td>10.000 TL Toplam</td>
+                            <td class="font-bold text-green-600">500 TL Nakit İade</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://hayatpay.com.tr/kampanya/harcamalarindan-nakit-iade-kazan" target="_blank" class="text-blue-600 hover:underline font-semibold">Benzin - Hayat Pay (%5 Akaryakıt İadesi)</a>
+                            </td>
+                            <td>100 TL Min. İşlem</td>
+                            <td>10.000 TL Toplam</td>
+                            <td class="font-bold text-green-600">500 TL Nakit İade</td>
+                        </tr>
+
+                        <!-- Vodafone Pay -->
+                        <tr>
+                            <td>
+                                <a href="https://www.vodafonepay.com.tr/kampanyalar/okula-donuste-market-harcamana-100-tl-indirim" target="_blank" class="text-blue-600 hover:underline font-semibold">Market - Vodafone Pay (QR Market İndirimi)</a>
+                            </td>
+                            <td>100 TL (İlk İşlem)</td>
+                            <td>100 TL</td>
+                            <td class="font-bold text-green-600">100 TL İndirim</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://www.vodafonepay.com.tr/kampanyalar/akaryakit-harcamana-300tl-nakit-iade" target="_blank" class="text-blue-600 hover:underline font-semibold">Benzin - Vodafone Pay (Akaryakıt İadesi)</a>
+                            </td>
+                            <td>1.500 TL (Tek Sefer)</td>
+                            <td>1.500 TL</td>
+                            <td class="font-bold text-green-600">300 TL Nakit İade</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Püf Noktalar ve Katılım Kuralları</h2>
+            <p>Kampanya kazanımlarının hesabınıza eksiksiz ve zamanında yansıması için dikkat etmeniz gereken başlıca kurallar şunlardır:</p>
+            <ol class="list-decimal pl-6 space-y-2">
+                <li><strong>Önceden Katılım:</strong> Harcama yapmadan önce ilgili bankanın mobil uygulaması (MobilDeniz, CEPTETEB, ON Dijital, TOM Bank Hadi, VakıfBank Mobil) üzerinden "Hemen Katıl" butonuna basarak kampanyaya kaydolun.</li>
+                <li><strong>Farklı Gün Şartı:</strong> Kampanyaların birçoğunda aynı gün aynı iş yerinden yapılan birden fazla harcamanın yalnızca ilki geçerli sayılır. İşlemlerinizi farklı günlerde yapmaya özen gösterin.</li>
+                <li><strong>Sektör Kodu (MCC):</strong> Harcamanın yapılacağı üye iş yerinin POS cihazında sektör bilgisinin "Market" veya "Benzin İstasyonu / Akaryakıt" olarak tanımlı olduğundan emin olun.</li>
+            </ol>
+            <p>KartCini ile harcamalarınızı planlamak, bütçeniz üzerindeki yükü azaltırken aylık en az 1.000 TL tasarruf etmenizi sağlar. Burada bahsedilenler dışındaki kampanyaları incelemek için ana sayfamızda KartCini ile sohbet edebilirsiniz. </p>
+        </section>
+    </article>
+</main>
+
+    <!-- SEO Footer Section -->
+    <footer id="seoSection" class="container mx-auto p-4 mt-10 border-t border-gray-200 text-center">
+        <p class="text-xs text-gray-500 mb-2">
+            © 2026 KartCini - Akıllı Kampanya Rehberiniz. Tüm hakları saklıdır.
+        </p>
+        <p class="text-[11px] text-gray-400 max-w-2xl mx-auto">
+            KartCini, bankaların güncel kredi kartı kampanyalarını AI desteğiyle analiz eden bağımsız bir platformdur. Kampanya detayları bankaların resmi web sitelerinden derlenmiştir.
+        </p>
+    </footer>
+
+    <script>
+        const _supabase = supabase.createClient('https://jnphjmycmimgpdnctabe.supabase.co', 'sb_publishable_QNjdf_CpgMbpMwumVn7tiQ__l-IWZD3');
+        const SUPABASE_SCHEMA = "public";
+
+        window.onload = () => {
+            _supabase.auth.getSession().then(({ data: { session } }) => {
+                if (session) {
+                    document.getElementById('loginBtn').classList.add('hidden');
+                    document.getElementById('userProfile').classList.remove('hidden');
+                    updateQuotaDisplay(session.user.id);
+                }
+            });
+        };
+
+        async function updateQuotaDisplay(userId) {
+            const { data } = await _supabase.schema(SUPABASE_SCHEMA).from('Profile').select('*').eq('id', userId).single();
+            if (data) {
+                document.getElementById('usageBadge').innerText = `${data.usage_count} / ${data.max_limit} Hak`;
+            }
+        }
+
+        async function loginWithGoogle() {
+            await _supabase.auth.signInWithOAuth({
+                provider: 'google',
+                options: { redirectTo: window.location.origin + window.location.pathname }
+            });
+        }
+
+        async function logout() {
+            await _supabase.auth.signOut();
+            location.reload();
+        }
+    </script>
+</body>
+</html>

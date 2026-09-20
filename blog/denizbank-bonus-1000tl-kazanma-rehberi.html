@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G0YC21LXFP"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-G0YC21LXFP');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deniz Bonus ile Market ve Benzin Harcamalarında 1.000 TL Tasarruf Rehberi | KartCini</title>
+
+    <!-- SEO Meta Etiketleri -->
+    <meta name="description" content="Deniz Bonus market ve akaryakıt kampanyalarını birleştirerek minimum harcamayla ayda 1.000 TL bonus ve indirim kazanma rehberi.">
+    <meta name="keywords" content="deniz bonus, denizbank, market kampanyası, benzin kampanyası, akaryakıt indirimi, bonus kazanma, 1000 tl tasarruf, kartcini, denizbank kampanyaları">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.kartcini.com/blog/deniz-bonus-1000tl-tasarruf-rehberi">
+
+    <!-- Open Graph (Sosyal Medya Paylaşım Uyumu) -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.kartcini.com/blog/deniz-bonus-1000tl-tasarruf-rehberi">
+    <meta property="og:title" content="Deniz Bonus ile Market ve Akaryakıt Stratejisiyle 1.000 TL Tasarruf">
+    <meta property="og:description" content="Deniz Bonus market ve benzin kampanyalarını birleştirerek bütçeyi zorlamadan 1.000 TL avantaj sağlama stratejisi.">
+    <meta property="og:image" content="https://www.kartcini.com/social-preview.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:image" content="https://www.kartcini.com/social-preview.png">
+
+    <!-- İkon Tanımlamaları -->
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../favicon.png">
+    
+    <!-- Supabase Auth -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Tailwind CSS ve FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        .bg-gradient-custom { background: linear-gradient(135deg, #003399 0%, #001a4d 100%); }
+        
+        /* Makale İçi HTML Tablo Stilleri */
+        .article-content table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; background: white; }
+        .article-content th, .article-content td { border: 1px solid #e2e8f0; padding: 10px 14px; text-align: left; }
+        .article-content th { background-color: #f8fafc; font-weight: bold; color: #475569; }
+        .article-content tr:nth-child(even) { background-color: #f1f5f9; }
+
+        @media (max-width: 640px) {
+            nav .container {
+                flex-direction: row !important;
+                align-items: center;
+                justify-content: space-between;
+            }
+            nav .flex.items-center.gap-3 {
+                width: auto !important;
+                justify-content: start;
+            }
+            nav span {
+                font-size: 0.6rem !important;
+                width: auto !important;
+                text-align: left !important;
+            }
+            #loginBtn {
+                padding: 4px 10px !important;
+                font-size: 10px !important;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+    <!-- Navigasyon Alanı -->
+    <nav class="bg-gradient-custom p-4 shadow-lg text-white">
+        <div class="container mx-auto flex justify-between items-center">
+            
+            <!-- Sol Taraf: Logo ve Başlık -->
+            <a href="/" class="flex items-center gap-3 no-underline text-white">
+                <img src="../kartcini.svg" alt="KartCini Logo" class="w-10 h-10">
+                <div class="flex flex-col">
+                    <span class="text-xl md:text-2xl font-bold italic leading-none">KartCini</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1718</span>
+                </div>
+            </a>
+
+            <!-- Sağ Taraf: Giriş Alanı -->
+            <div id="authArea">
+                <button id="loginBtn" onclick="loginWithGoogle()" class="bg-white text-blue-900 px-4 py-1.5 rounded-full text-xs font-bold shadow-lg border border-blue-200 transition hover:bg-gray-100">
+                    <i class="fab fa-google mr-1"></i> Giriş Yap
+                </button>
+                <div id="userProfile" class="hidden flex items-center space-x-2 bg-white/10 p-1 px-3 rounded-full backdrop-blur-md border border-white/20">
+                    <span id="usageBadge" class="bg-orange-500 text-white text-[9px] px-2 py-0.5 rounded-full font-bold">...</span>
+                    <button onclick="logout()" class="text-white hover:text-red-300 text-sm"><i class="fas fa-sign-out-alt"></i></button>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+    
+    <!-- Ana İçerik Konteyneri -->
+<main class="max-w-4xl mx-auto px-4 py-10 bg-white my-8 rounded-lg shadow-sm">
+    <article>
+        <header class="mb-8">
+            <span class="text-xs font-semibold tracking-wider text-blue-600 uppercase bg-blue-50 px-3 py-1 rounded-full">Finansal İpuçları</span>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3 mb-4">Deniz Bonus ile Market ve Benzin Harcamalarında 1.000 TL Tasarruf Rehberi</h1>
+            <p class="text-gray-500 text-sm">Deniz Bonus Market ve Akaryakıt Fırsatlarını Akılcı Bütçe ile Birleştirerek En Az Harcamayla 1.000 TL Hedefine Ulaşma Stratejisi</p>
+        </header>
+
+        <section class="prose max-w-none text-gray-700 space-y-6">
+            <p>Aylık bütçeyi zorlamadan ve yüksek tutarlı harcamalara girmeden net 1.000 TL tasarruf sağlamanın anahtarı, doğru kampanya kombinasyonlarını oluşturmaktan geçer. Deniz Bonus’un sunduğu market ve akaryakıt avantajlarını makul harcama limitleriyle değerlendirerek 1.000 TL değerinde bonus ve indirim kazanabilirsiniz.</p>
+
+            <h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Minimum Harcama ile 1.000 TL Kazanma Stratejisi</h2>
+            <p>Yüksek harcama barajlarına takılmadan hedef tutara ulaşmak için günlük yaşamda sıklıkla tekrarlanan gıda ve akaryakıt ihtiyaçlarını kampanya şartlarına göre planlıyoruz. Bu stratejide market harcamalarında parça başı yüksek kazanç oranını kullanıp yakıt harcamalarıyla tasarrufu 1.000 TL sınırına tamamlıyoruz.</p>
+
+            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">1. Adım: Market Harcamaları (500 TL Bonus)</h3>
+            <p>Gıda ve market alışverişlerinizde tek seferde yüksek tutarlara ulaşmak yerine, gıda marketi, kasap, manav ve şarküteri harcamalarınızı optimize edebilirsiniz. Deniz Bonus ile farklı günlerde ve tek seferde yapacağınız 2.500 TL ve üzeri her gıda marketi alışverişinizde 120 TL bonus kazanılır. Bu kampanyayı 5 defa tekrarlayarak toplam 12.500 TL harcama karşılığında <strong>600 TL bonus</strong> elde edilebilir.</p>
+
+            <p>Ancak en az harcamayla 1.000 TL sınırına ulaşmak istediğimiz optimum senaryoda, bu kampanyadan 5 defa faydalanıp (12.500 TL harcama ile 600 TL bonus) veya gıda marketlerinde hedefe yönelik 4 işlem (10.000 TL harcama ile 480 TL bonus) yapabiliriz. Dengeli bir model için market harcamalarını akaryakıt indirimiyle birleştiriyoruz.</p>
+
+            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">2. Adım: Benzin ve Akaryakıt Harcamaları (500 TL İndirim)</h3>
+            <p>Akaryakıt tarafında ise 4 defa 2.000 TL ve üzeri akaryakıt ya da otogaz harcaması yapıldığında, 5. kez yapılacak 2.000 TL ve üzeri akaryakıt alımında <strong>500 TL net indirim</strong> kazanılmaktadır. Farklı günlerde toplam 5 defa 2.000 TL (toplam 10.000 TL) akaryakıt alımı yaparak direkt olarak ekstreye yansıyan 500 TL indirimi yakalayabilirsiniz.</p>
+
+            <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-6">Öneri Harcama ve Kazanç Tablosu</h2>
+            <p>Aşağıdaki tabloda, bütçeyi yormadan ve minimum harcama tutarları dikkate alınarak kurgulanan harcama planı yer almaktadır:</p>
+
+            <div class="overflow-x-auto my-6 article-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Kategori</th>
+                            <th>Harcanacak Min Tutar</th>
+                            <th>Harcanacak Toplam Tutar</th>
+                            <th>Kazanç</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a href="https://www.denizbonus.com/kampanyalar/market-alisverislerinize-1200tlye-varan-bonus" target="_blank" class="text-blue-600 hover:underline font-semibold">Market (5 Alışveriş)</a>
+                            </td>
+                            <td>2.500 TL</td>
+                            <td>12.500 TL (5 x 2.500 TL)</td>
+                            <td class="font-bold text-green-600">600 TL Bonus (5 x 120 TL)</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://www.denizbonus.com/kampanyalar/akaryakit-harcamalariniza-500tl-indirim" target="_blank" class="text-blue-600 hover:underline font-semibold">Benzin (5 Alışveriş)</a>
+                            </td>
+                            <td>2.000 TL</td>
+                            <td>10.000 TL (5 x 2.000 TL)</td>
+                            <td class="font-bold text-green-600">500 TL İndirim</td>
+                        </tr>
+                        <tr class="bg-blue-50 font-bold">
+                            <td>TOPLAM STRATEJİ</td>
+                            <td>-</td>
+                            <td>22.500 TL</td>
+                            <td class="text-green-700">1.100 TL Tasarruf (Bonus + İndirim)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Sonuç ve Dikkat Edilmesi Gerekenler</h2>
+            <p>Deniz Bonus’un sunduğu avantajlarla toplamda 22.500 TL’lik rutin market ve yakıt ihtiyacınızı bölerek gerçekleştirdiğinizde, 1.000 TL hedefinin üzerine çıkarak toplam 1.100 TL kazanç ve indirim elde etmiş olursunuz.</p>
+            <p>Kampanyalardan sorunsuz yararlanmak için dikkat etmeniz gereken kritik noktalar:</p>
+            <ol class="list-decimal pl-6 space-y-2">
+                <li>Alışveriş yapmadan önce mutlaka <strong>DenizKartım</strong> veya <strong>MobilDeniz</strong> uygulaması üzerinden “Hemen Katıl” butonuna tıklamalı ya da SMS ile katılım sağlamalısınız.</li>
+                <li>Aynı gün yapılan harcamaların yalnızca ilki kampanyalara dahil edilir. İşlemlerinizi mutlaka <strong>farklı günlerde</strong> yapmaya özen gösterin.</li>
+                <li>İşlemlerin ilgili sektör üye iş yeri kodu (MCC) üzerinden geçmesi gerekmektedir.</li>
+            </ol>
+            <p>KartCini ile harcamalarınızı planlamak, bütçeniz üzerindeki yükü azaltırken aylık en az 1.000 TL tasarruf etmenizi sağlar. Burada bahsedilenler dışındaki kampanyaları incelemek için ana sayfamızda KartCini ile sohbet edebilirsiniz. </p>
+        </section>
+    </article>
+</main>
+
+    <!-- SEO Footer Section -->
+    <footer id="seoSection" class="container mx-auto p-4 mt-10 border-t border-gray-200 text-center">
+        <p class="text-xs text-gray-500 mb-2">
+            © 2026 KartCini - Akıllı Kampanya Rehberiniz. Tüm hakları saklıdır.
+        </p>
+        <p class="text-[11px] text-gray-400 max-w-2xl mx-auto">
+            KartCini, bankaların güncel kredi kartı kampanyalarını AI desteğiyle analiz eden bağımsız bir platformdur. Kampanya detayları bankaların resmi web sitelerinden derlenmiştir.
+        </p>
+    </footer>
+
+    <script>
+        const _supabase = supabase.createClient('https://jnphjmycmimgpdnctabe.supabase.co', 'sb_publishable_QNjdf_CpgMbpMwumVn7tiQ__l-IWZD3');
+        const SUPABASE_SCHEMA = "public";
+
+        window.onload = () => {
+            _supabase.auth.getSession().then(({ data: { session } }) => {
+                if (session) {
+                    document.getElementById('loginBtn').classList.add('hidden');
+                    document.getElementById('userProfile').classList.remove('hidden');
+                    updateQuotaDisplay(session.user.id);
+                }
+            });
+        };
+
+        async function updateQuotaDisplay(userId) {
+            const { data } = await _supabase.schema(SUPABASE_SCHEMA).from('Profile').select('*').eq('id', userId).single();
+            if (data) {
+                document.getElementById('usageBadge').innerText = `${data.usage_count} / ${data.max_limit} Hak`;
+            }
+        }
+
+        async function loginWithGoogle() {
+            await _supabase.auth.signInWithOAuth({
+                provider: 'google',
+                options: { redirectTo: window.location.origin + window.location.pathname }
+            });
+        }
+
+        async function logout() {
+            await _supabase.auth.signOut();
+            location.reload();
+        }
+    </script>
+</body>
+</html>

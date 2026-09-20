@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G0YC21LXFP"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-G0YC21LXFP');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bankkart ile Makul Harcamalarla 1000 TL Tasarruf Rehberi | KartCini</title>
+
+    <!-- SEO Meta Etiketleri -->
+    <meta name="description" content="Bankkart A101, ŞOK Market ve akaryakıt kampanyaları birleşimiyle yüksek harcamalara girmeden ayda 1.000 TL Jest Lira kazanma rehberi.">
+    <meta name="keywords" content="bankkart, ziraat bankası bankkart, a101 kampanyası, şok market kampanyası, akaryakıt kampanyası, benzin kampanyası, jest lira, 1000 tl tasarruf, kartcini, bankkart kampanyaları">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.kartcini.com/blog/bankkart-1000tl-tasarruf-rehberi">
+
+    <!-- Open Graph (Sosyal Medya Paylaşım Uyumu) -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.kartcini.com/blog/bankkart-1000tl-tasarruf-rehberi">
+    <meta property="og:title" content="Bankkart ile Market ve Akaryakıt Stratejisiyle 1.000 TL Tasarruf">
+    <meta property="og:description" content="Bankkart A101, ŞOK ve akaryakıt kampanyalarını birleştirerek bütçeyi zorlamadan 1.000 TL Jest Lira kazanma stratejisi.">
+    <meta property="og:image" content="https://www.kartcini.com/social-preview.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:image" content="https://www.kartcini.com/social-preview.png">
+
+    <!-- İkon Tanımlamaları -->
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../favicon.png">
+    
+    <!-- Supabase Auth -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Tailwind CSS ve FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        .bg-gradient-custom { background: linear-gradient(135deg, #003399 0%, #001a4d 100%); }
+        
+        /* Makale İçi HTML Tablo Stilleri */
+        .article-content table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; background: white; }
+        .article-content th, .article-content td { border: 1px solid #e2e8f0; padding: 10px 14px; text-align: left; }
+        .article-content th { background-color: #f8fafc; font-weight: bold; color: #475569; }
+        .article-content tr:nth-child(even) { background-color: #f1f5f9; }
+
+        @media (max-width: 640px) {
+            nav .container {
+                flex-direction: row !important;
+                align-items: center;
+                justify-content: space-between;
+            }
+            nav .flex.items-center.gap-3 {
+                width: auto !important;
+                justify-content: start;
+            }
+            nav span {
+                font-size: 0.6rem !important;
+                width: auto !important;
+                text-align: left !important;
+            }
+            #loginBtn {
+                padding: 4px 10px !important;
+                font-size: 10px !important;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+    <!-- Navigasyon Alanı -->
+    <nav class="bg-gradient-custom p-4 shadow-lg text-white">
+        <div class="container mx-auto flex justify-between items-center">
+            
+            <!-- Sol Taraf: Logo ve Başlık -->
+            <a href="/" class="flex items-center gap-3 no-underline text-white">
+                <img src="../kartcini.svg" alt="KartCini Logo" class="w-10 h-10">
+                <div class="flex flex-col">
+                    <span class="text-xl md:text-2xl font-bold italic leading-none">KartCini</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1718</span>
+                </div>
+            </a>
+
+            <!-- Sağ Taraf: Giriş Alanı -->
+            <div id="authArea">
+                <button id="loginBtn" onclick="loginWithGoogle()" class="bg-white text-blue-900 px-4 py-1.5 rounded-full text-xs font-bold shadow-lg border border-blue-200 transition hover:bg-gray-100">
+                    <i class="fab fa-google mr-1"></i> Giriş Yap
+                </button>
+                <div id="userProfile" class="hidden flex items-center space-x-2 bg-white/10 p-1 px-3 rounded-full backdrop-blur-md border border-white/20">
+                    <span id="usageBadge" class="bg-orange-500 text-white text-[9px] px-2 py-0.5 rounded-full font-bold">...</span>
+                    <button onclick="logout()" class="text-white hover:text-red-300 text-sm"><i class="fas fa-sign-out-alt"></i></button>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+    
+    <!-- Ana İçerik Konteyneri -->
+<main class="max-w-4xl mx-auto px-4 py-10 bg-white my-8 rounded-lg shadow-sm">
+    <article>
+        <header class="mb-8">
+            <span class="text-xs font-semibold tracking-wider text-blue-600 uppercase bg-blue-50 px-3 py-1 rounded-full">Finansal İpuçları</span>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3 mb-4">Bankkart ile Yüksek Getirili Market ve Akaryakıt Stratejisi: Ayda 1.000 TL Tasarruf</h1>
+            <p class="text-gray-500 text-sm">A101, ŞOK Market ve Benzin Kampanyalarını Birleştirerek En Düşük Harcamayla 1.000 TL Jest Lira Hedefini Aşma Rehberi</p>
+        </header>
+
+        <section class="prose max-w-none text-gray-700 space-y-6">
+            <p>Tek seferde yüksek tutarlı harcamalara girmeden ayda 1.000 TL tasarruf hedefine ulaşmanın en verimli yolu, Bankkart'ın yüksek getiri oranına sahip A101 ve ŞOK Market kampanyalarını akaryakıt avantajlarıyla birleştirmektir. Günlük ihtiyaçlarınızı düşük harcama limitleriyle bölerek bütçenizi zorlamadan maksimum Jest Lira kazanabilirsiniz.</p>
+
+            <h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Maksimum Getiri Oranıyla Tasarruf Stratejisi</h2>
+            <p>A101 ve ŞOK Market kampanyaları, 2.500 TL'lik harcamaya 125 TL Jest Lira (%5 getiri) sağlayarak genel market kampanyalarına kıyasla çok daha yüksek bir oran sunar. Bu avantajı benzin harcamalarıyla tamamlayarak 1.000 TL hedefine en kısa yoldan ulaşıyoruz.</p>
+
+            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">1. Adım: A101 ve ŞOK Market Harcamaları (625 TL Jest Lira)</h3>
+            <p>A101 Marketler veya a101.com.tr'de Bankkart POS'undan tek seferde yapacağınız 2.500 TL ve üzeri her harcamaya 125 TL Jest Lira verilmektedir. Benzer şekilde ŞOK Marketler, CepteŞok veya sokmarket.com.tr'de yapacağınız 2.500 TL ve üzeri her alışveriş de 125 TL Jest Lira kazandırır. Örneğin 3 defa A101 (7.500 TL) ve 2 defa ŞOK Market (5.000 TL) alışverişi yaparak toplam 12.500 TL harcama ile <strong>625 TL Jest Lira</strong> elde edebilirsiniz.</p>
+
+            <p>A101'lerden cep telefonunuza SMS olarak gönderilen 2000₺'lik bir <strong>sanal hediye çeki</strong> alabilir, böylece alışverişinizi daha küçük tutarlara da bölebilirsiniz.</p>
+
+            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">2. Adım: Akaryakıt Harcamaları (400 TL Jest Lira)</h3>
+            <p>Anlaşmalı akaryakıt istasyonlarında Bankkart POS'undan farklı günlerde ve tek seferde yapacağınız 1.500 TL ve üzeri dördüncü akaryakıt veya otogaz harcamanıza <strong>400 TL Jest Lira</strong> yüklenmektedir. 4 defa 1.500 TL'lik benzin alımı yaparak (toplam 6.000 TL harcama) rutin yakıt ihtiyacınızı kazanca dönüştürebilirsiniz.</p>
+
+            <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-6">Öneri Harcama ve Kazanç Tablosu</h2>
+            <p>Mümkün olan en az harcamayla 1.000 TL hedefini aşıp 1.025 TL Jest Lira kazanmanızı sağlayan optimum harcama planı aşağıda sunulmuştur:</p>
+
+            <div class="overflow-x-auto my-6 article-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Kategori</th>
+                            <th>Harcanacak Min Tutar</th>
+                            <th>Harcanacak Toplam Tutar</th>
+                            <th>Kazanç</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a href="https://www.bankkart.com.tr/kampanyalar/market-ve-gida/a101-marketlerde-1500-tl-jest-lira" target="_blank" class="text-blue-600 hover:underline font-semibold">Market (A101 - 3 Alışveriş)</a>
+                            </td>
+                            <td>2.500 TL</td>
+                            <td>7.500 TL (3 x 2.500 TL)</td>
+                            <td class="font-bold text-green-600">375 TL Jest Lira (3 x 125 TL)</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://www.bankkart.com.tr/kampanyalar/market-ve-gida/sok-marketlerde-1500-tl-jest-lira" target="_blank" class="text-blue-600 hover:underline font-semibold">Market (ŞOK - 2 Alışveriş)</a>
+                            </td>
+                            <td>2.500 TL</td>
+                            <td>5.000 TL (2 x 2.500 TL)</td>
+                            <td class="font-bold text-green-600">250 TL Jest Lira (2 x 125 TL)</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://www.bankkart.com.tr/kampanyalar/akaryakit/akaryakit-harcamalariniza-400-tl-jest-lira" target="_blank" class="text-blue-600 hover:underline font-semibold">Benzin (4 Alışveriş)</a>
+                            </td>
+                            <td>1.500 TL</td>
+                            <td>6.000 TL (4 x 1.500 TL)</td>
+                            <td class="font-bold text-green-600">400 TL Jest Lira</td>
+                        </tr>
+                        <tr class="bg-blue-50 font-bold">
+                            <td>TOPLAM STRATEJİ</td>
+                            <td>-</td>
+                            <td>18.500 TL</td>
+                            <td class="text-green-700">1.025 TL Jest Lira / Tasarruf</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Sonuç ve İpuçları</h2>
+            <p>A101 ve ŞOK Market'in yüksek getiri oranlarını kullanarak toplam harcama tutarınızı düşürebilir, 18.500 TL toplam bütçe ile 1.025 TL Jest Lira kazanarak aylık 1.000 TL tasarruf barajını rahatlıkla geçebilirsiniz.</p>
+            <p>Kampanya katılımlarında dikkat edilmesi gereken temel hususlar:</p>
+            <ol class="list-decimal pl-6 space-y-2">
+                <li>Alışveriş yapmadan önce mutlaka <strong>Bankkart Mobil</strong> uygulaması, <strong>bankkart.com.tr</strong> veya SMS kanalıyla kampanyalara katılım sağlayın.</li>
+                <li>Harcamaların mutlaka Bankkart anlaşmalı üye işyerlerinde ve <strong>Bankkart POS</strong> cihazları üzerinden yapılması gerekmektedir.</li>
+                <li>Aynı gün aynı işyerinden yapılan harcamaların yalnızca birincisi kampanyaya dahil edileceğinden, işlemlerinizi <strong>farklı günlerde</strong> gerçekleştirmeye dikkat edin.</li>
+            </ol>
+            <p>KartCini ile harcamalarınızı planlamak, bütçeniz üzerindeki yükü azaltırken aylık en az 1.000 TL tasarruf etmenizi sağlar. Burada bahsedilenler dışındaki kampanyaları incelemek için ana sayfamızda KartCini ile sohbet edebilirsiniz. </p>
+        </section>
+    </article>
+</main>
+
+    <!-- SEO Footer Section -->
+    <footer id="seoSection" class="container mx-auto p-4 mt-10 border-t border-gray-200 text-center">
+        <p class="text-xs text-gray-500 mb-2">
+            © 2026 KartCini - Akıllı Kampanya Rehberiniz. Tüm hakları saklıdır.
+        </p>
+        <p class="text-[11px] text-gray-400 max-w-2xl mx-auto">
+            KartCini, bankaların güncel kredi kartı kampanyalarını AI desteğiyle analiz eden bağımsız bir platformdur. Kampanya detayları bankaların resmi web sitelerinden derlenmiştir.
+        </p>
+    </footer>
+
+    <script>
+        const _supabase = supabase.createClient('https://jnphjmycmimgpdnctabe.supabase.co', 'sb_publishable_QNjdf_CpgMbpMwumVn7tiQ__l-IWZD3');
+        const SUPABASE_SCHEMA = "public";
+
+        window.onload = () => {
+            _supabase.auth.getSession().then(({ data: { session } }) => {
+                if (session) {
+                    document.getElementById('loginBtn').classList.add('hidden');
+                    document.getElementById('userProfile').classList.remove('hidden');
+                    updateQuotaDisplay(session.user.id);
+                }
+            });
+        };
+
+        async function updateQuotaDisplay(userId) {
+            const { data } = await _supabase.schema(SUPABASE_SCHEMA).from('Profile').select('*').eq('id', userId).single();
+            if (data) {
+                document.getElementById('usageBadge').innerText = `${data.usage_count} / ${data.max_limit} Hak`;
+            }
+        }
+
+        async function loginWithGoogle() {
+            await _supabase.auth.signInWithOAuth({
+                provider: 'google',
+                options: { redirectTo: window.location.origin + window.location.pathname }
+            });
+        }
+
+        async function logout() {
+            await _supabase.auth.signOut();
+            location.reload();
+        }
+    </script>
+</body>
+</html>
