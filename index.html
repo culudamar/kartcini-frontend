@@ -173,7 +173,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1537</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1718</span>
                 </div>
             </div>
 
@@ -333,6 +333,13 @@
                 btn.className = 'suggestion-pill';
                 btn.textContent = s;
                 btn.onclick = () => {
+                    // ÖZEL SORU KONTROLÜ
+                    if (s === 'Kampanyalardan ayda 1000 lira nasıl kazanırım?') {
+                        handle1000TLQuestion(s);
+                        return;
+                    }
+        
+                    // Normal sorular için mevcut işleyiş
                     // Mevcut aramayı iptal et ve yeni soruyu gönder
                     stopGeneration();
                     userQuery.value = s;
@@ -358,7 +365,18 @@
                 // Kendi Ajanım modunda takip soru önerisi gösterme:
                 return suggestions;
 
+            // Sayfa ilk yüklendiğinde veya boş sorgularda özel sorumuzu ilk sırada öner
+            if (!query || query.trim() === "") {
+                suggestions.push('Kampanyalardan ayda 1000 lira nasıl kazanırım?');
+                return suggestions;
+            }
+        
             const q = query.toLowerCase();
+        
+            // Eğer tıklanan soru özel sorumuz ise ek takip önerileri sunma
+            if (q.includes('1000 lira nasıl kazanırım')) {
+                return suggestions;
+            }
         
             suggestions.push('Hangi kampanyada üye işyeri şartı yok?');
             if (!q.includes('benzin') && !q.includes('online')) {
@@ -367,7 +385,7 @@
         
             // En fazla 3 öneri göster
             return suggestions.slice(0, 3);
-        }
+        }        
         
         /**
          * Önerileri gizle
@@ -375,6 +393,56 @@
         function hideSuggestions() {
             suggestionArea.classList.add('hidden');
             suggestionArea.innerHTML = '';
+        }
+
+        /**
+         * 1000 TL özel sorusu seçildiğinde çalışan fonksiyon
+         */
+        function handle1000TLQuestion(questionText) {
+            // 1. Kullanıcı mesajını ekrana bas
+            addMessage(questionText, true);
+            hideSuggestions();
+        
+            // Banka slug - Relatif Blog URL eşleşme haritası
+            const blogLinks = {
+                'bonus': { name: 'Garanti Bonus', url: '/blog/garanti-bonus-1000tl-kazanma-rehberi' },
+                'axess': { name: 'Akbank Axess', url: '/blog/akbank-axess-1000tl-kazanma-rehberi' },
+                'max': { name: 'İş Bankası Maximum', url: '/blog/is-bankasi-maximum-1000tl-kazanma-rehberi' },
+                'world': { name: 'Yapı Kredi World', url: '/blog/yapi-kredi-world-1000tl-kazanma-rehberi' },
+                'teb': { name: 'TEB Bonus', url: '/blog/teb-bonus-1000tl-kazanma-rehberi' },
+                'paraf': { name: 'Halkbank Paraf', url: '/blog/halkbank-paraf-1000tl-kazanma-rehberi' },
+                'bankkart': { name: 'Ziraat Bankkart', url: '/blog/ziraat-bankkart-1000tl-kazanma-rehberi' },
+                'deniz': { name: 'DenizBank Bonus', url: '/blog/denizbank-bonus-1000tl-kazanma-rehberi' },
+                'hadi': { name: 'Hadi Black', url: '/blog/hadi-black-1000tl-kazanma-rehberi' },
+                'hayat': { name: 'Hayat Pay', url: '/blog/hayat-pay-1000tl-kazanma-rehberi' },
+                'on': { name: 'BURGAN ON', url: '/blog/burgan-on-1000tl-kazanma-rehberi' },
+                'qnb': { name: 'QNB CardFinans', url: '/blog/qnb-cardfinans-1000tl-kazanma-rehberi' },
+                'vakif': { name: 'VakıfBank World', url: '/blog/vakifbank-world-1000tl-kazanma-rehberi' },
+                'vpay': { name: 'Vodafone Pay', url: '/blog/vodafone-pay-1000tl-kazanma-rehberi' }
+            };
+        
+            // 2. Seçili kart tiplerini tespit et
+            let activeBanks = selectedBanks;
+            
+            // Eğer hiçbir kart seçilmediyse tüm kartları göster
+            if (!activeBanks || activeBanks.length === 0) {
+                activeBanks = Object.keys(blogLinks);
+            }
+        
+            // 3. Yanıt içeriğini hazırla
+            let responseHtml = `<p class="font-bold mb-2">Seçtiğiniz kart(lar) ile ayda 1000 TL üzeri bonus ve iade kazanma stratejilerini inceleyebilirsiniz:</p><ul class="list-disc pl-5 space-y-1">`;
+        
+            activeBanks.forEach(bankKey => {
+                if (blogLinks[bankKey]) {
+                    const item = blogLinks[bankKey];
+                    responseHtml += `<li><strong>${item.name}:</strong> <a href="${item.url}" target="_blank" class="text-blue-600 underline font-semibold hover:text-blue-800">${item.name} 1000 TL Kazanma Rehberi →</a></li>`;
+                }
+            });
+        
+            responseHtml += `</ul><p class="mt-3 text-xs text-gray-500">Detaylı bilgi için ilgilendiğiniz rehber linkine tıklayabilirsiniz.</p>`;
+        
+            // 4. Yanıtı ekrana bas
+            addMessage(responseHtml, false);
         }
         
         /**
@@ -505,6 +573,9 @@
                     updateQuotaDisplay(currentUserId);
                 }
             });
+
+            // ayda 1000₺ :
+            showSuggestions("");
         };
 
         // Model seçimini kaydet:
