@@ -173,7 +173,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1135</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1152</span>
                 </div>
             </div>
 
@@ -333,6 +333,13 @@
                 btn.className = 'suggestion-pill';
                 btn.textContent = s;
                 btn.onclick = () => {
+                    // GOOGLE ANALYTICS ETKİNLİK GÖNDERİMİ
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'click_suggestion', {
+                            'suggestion_text': s
+                        });
+                    }
+                    
                     // ÖZEL SORU KONTROLÜ
                     if (s === aydabinSorusu) {
                         handle1000TLQuestion(s);
