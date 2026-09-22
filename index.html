@@ -173,7 +173,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1940</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1124</span>
                 </div>
             </div>
 
@@ -334,7 +334,7 @@
                 btn.textContent = s;
                 btn.onclick = () => {
                     // ÖZEL SORU KONTROLÜ
-                    if (s === 'Kampanyalardan ayda 1000 lira nasıl kazanırım?') {
+                    if (s === 'Kampanyalardan ayda 1000₺ nasıl kazanırım?') {
                         handle1000TLQuestion(s);
                         return;
                     }
@@ -367,7 +367,7 @@
 
             // Sayfa ilk yüklendiğinde veya boş sorgularda özel sorumuzu ilk sırada öner
             if (!query || query.trim() === "") {
-                suggestions.push('Kampanyalardan ayda 1000 lira nasıl kazanırım?');
+                suggestions.push('Kampanyalardan ayda 1000₺ nasıl kazanırım?');
                 return suggestions;
             }
         
@@ -405,7 +405,7 @@
         
             // Banka slug - Relatif Blog URL eşleşme haritası
             const blogLinks = {
-                'bonus': { name: 'Garanti Bonus', url: '/blog/garanti-bonus-1000tl-kazanma-rehberi.html' },
+                'bonus': { name: 'Garanti Bonus', url: './blog/garanti-bonus-1000tl-kazanma-rehberi.html' },
                 'axess': { name: 'Akbank Axess', url: '/blog/akbank-axess-1000tl-kazanma-rehberi.html' },
                 'max': { name: 'İş Bankası Maximum', url: '/blog/is-bankasi-maximum-1000tl-kazanma-rehberi.html' },
                 'world': { name: 'Yapı Kredi World', url: '/blog/yapi-kredi-world-1000tl-kazanma-rehberi.html' },
@@ -430,12 +430,12 @@
             }
         
             // 3. Yanıt içeriğini hazırla
-            let responseHtml = `<p class="font-bold mb-2">Seçtiğiniz kart(lar) ile ayda 1000 TL üzeri bonus ve iade kazanma stratejilerini inceleyebilirsiniz:</p><ul class="list-disc pl-5 space-y-1">`;
+            let responseHtml = `<p class="font-bold mb-2">Seçtiğiniz kart(lar) ile ayda 1000₺ üzeri bonus ve iade kazanma stratejilerini inceleyebilirsiniz:</p><ul class="list-disc pl-5 space-y-1">`;
         
             activeBanks.forEach(bankKey => {
                 if (blogLinks[bankKey]) {
                     const item = blogLinks[bankKey];
-                    responseHtml += `<li><strong>${item.name}:</strong> <a href="${item.url}" target="_blank" class="text-blue-600 underline font-semibold hover:text-blue-800">${item.name} 1000 TL Kazanma Rehberi →</a></li>`;
+                    responseHtml += `<li><strong>${item.name}:</strong> <a href="${item.url}" target="_blank" class="text-blue-600 underline font-semibold hover:text-blue-800">${item.name} 1000₺ Kazanma Rehberi →</a></li>`;
                 }
             });
         
