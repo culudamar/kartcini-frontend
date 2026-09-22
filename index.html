@@ -173,7 +173,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1127</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1135</span>
                 </div>
             </div>
 
@@ -313,7 +313,7 @@
         // Takip sorusu ile ilgili kodlar:
         // Öneri alanı referansı
         const suggestionArea = document.getElementById('suggestionArea');
-        
+        const aydabinSorusu = 'Kampanyalardan ayda 1000₺ nasıl kazanırım?'
         /**
          * Yanıt beklerken 1-2 takip sorusu gösterir
          */
@@ -334,7 +334,7 @@
                 btn.textContent = s;
                 btn.onclick = () => {
                     // ÖZEL SORU KONTROLÜ
-                    if (s === 'Kampanyalardan ayda 1000₺ nasıl kazanırım?') {
+                    if (s === aydabinSorusu) {
                         handle1000TLQuestion(s);
                         return;
                     }
@@ -360,21 +360,21 @@
         function generateSuggestions(query) {
             const suggestions = [];
             
+            // Sayfa ilk yüklendiğinde veya boş sorgularda özel sorumuzu ilk sırada öner
+            if (!query || query.trim() === "") {
+                suggestions.push(aydabinSorusu);
+                return suggestions;
+            }
+        
             const selectedModel = modelSelect.value; 
             if (selectedModel === "my-agent")
                 // Kendi Ajanım modunda takip soru önerisi gösterme:
                 return suggestions;
 
-            // Sayfa ilk yüklendiğinde veya boş sorgularda özel sorumuzu ilk sırada öner
-            if (!query || query.trim() === "") {
-                suggestions.push('Kampanyalardan ayda 1000₺ nasıl kazanırım?');
-                return suggestions;
-            }
-        
             const q = query.toLowerCase();
         
             // Eğer tıklanan soru özel sorumuz ise ek takip önerileri sunma
-            if (q.includes('1000 lira nasıl kazanırım')) {
+            if (q.includes(aydabinSorusu)) {
                 return suggestions;
             }
         
