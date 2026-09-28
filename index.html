@@ -173,7 +173,7 @@
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-2xl font-bold italic leading-none">KartCini</h1>
                     <!-- Slogan küçültüldü ve başlığın altına alındı -->
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.2255</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1653</span>
                 </div>
             </div>
 
@@ -209,15 +209,16 @@
 
             <!-- Sorgu Giriş Formu -->
             <form id="searchForm" class="flex space-x-2">
-                <input type="text" id="userQuery" placeholder="Hangi kampanyayı arıyorsunuz?" 
-                       class="flex-1 border rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 shadow-inner text-sm" 
-                       required autocomplete="off">
-                <button type="submit" id="sendBtn" class="bg-purple-600 hover:bg-purple-700 text-white p-3 rounded-full transition duration-300 disabled:bg-gray-400">
+                <textarea id="userQuery" placeholder="Hangi kampanyayı arıyorsunuz?" 
+                      rows="1"
+                      class="flex-1 min-w-0 border rounded-2xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-purple-500 shadow-inner text-sm resize-none overflow-y-auto max-h-36 transition-all duration-150" 
+                      required autocomplete="off"></textarea>
+                <button type="submit" id="sendBtn" class="bg-purple-600 hover:bg-purple-700 text-white p-3 rounded-full transition duration-300 disabled:bg-gray-400 flex-shrink-0">
                     <i class="fas fa-paper-plane"></i>
                 </button>
                 
                 <!-- STOP BUTTON -->
-                <button type="button" id="stopBtn" onclick="stopGeneration()" class="hidden bg-red-500 hover:bg-red-600 text-white p-3 rounded-full transition duration-300">
+                <button type="button" id="stopBtn" onclick="stopGeneration()" class="hidden bg-red-500 hover:bg-red-600 text-white p-3 rounded-full transition duration-300 flex-shrink-0">
                     <i class="fas fa-stop"></i>
                 </button>
             </form>
@@ -302,6 +303,20 @@
         const stopBtn = document.getElementById('stopBtn');
         const campaignList = document.getElementById('campaignList');
         const modelSelect = document.getElementById('modelSelect');
+
+        // Auto-resize textarea height as text grows & submit on Enter key
+        userQuery.addEventListener('input', function () {
+            this.style.height = 'auto'; // Reset height to calculate scrollHeight correctly
+            this.style.height = Math.min(this.scrollHeight, 144) + 'px'; // Expand up to max height (~144px / 6 lines)
+        });
+        
+        // Handle 'Enter' to submit and 'Shift + Enter' for a new line
+        userQuery.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                searchForm.dispatchEvent(new Event('submit'));
+            }
+        });
         
         // Stop function
         function stopGeneration() {
