@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G0YC21LXFP"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-G0YC21LXFP');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maximum ile CarrefourSA QR ve Opet Kombinasyonuyla Ayda 1000 TL Tasarruf Rehberi | KartCini</title>
+
+    <!-- SEO Meta Etiketleri -->
+    <meta name="description" content="CarrefourSA'da 2 adet 3.000 TL'lik QR ödemeli market alışverişi ve Opet akaryakıt kampanyası ile toplamda 1.150 TL MaxiPuan kazanma rehberi.">
+    <meta name="keywords" content="maximum kart, carrefoursa qr kod ödeme, opet akaryakıt kampanyası, maxipuan, 1000 tl tasarruf, kartcini, iş bankası kampanyaları">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.kartcini.com/blog/maximum-1000tl-tasarruf-rehberi">
+
+    <!-- Open Graph (Sosyal Medya Paylaşım Uyumu) -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.kartcini.com/blog/maximum-1000tl-tasarruf-rehberi">
+    <meta property="og:title" content="Maximum ile CarrefourSA QR ve Opet Stratejisiyle Ayda 1150 TL Tasarruf">
+    <meta property="og:description" content="CarrefourSA'da 2 x 3.000 TL QR alışverişi ve Opet kampanyası birleşimiyle minimum harcamayla 1.150 TL MaxiPuan kazanma stratejisi.">
+    <meta property="og:image" content="https://www.kartcini.com/social-preview.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:image" content="https://www.kartcini.com/social-preview.png">
+
+    <!-- İkon Tanımlamaları -->
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../favicon.png">
+    
+    <!-- Supabase Auth -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Tailwind CSS ve FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        .bg-gradient-custom { background: linear-gradient(135deg, #003399 0%, #001a4d 100%); }
+        
+        /* Makale İçi HTML Tablo Stilleri */
+        .article-content table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; background: white; }
+        .article-content th, .article-content td { border: 1px solid #e2e8f0; padding: 10px 14px; text-align: left; }
+        .article-content th { background-color: #f8fafc; font-weight: bold; color: #475569; }
+        .article-content tr:nth-child(even) { background-color: #f1f5f9; }
+
+        @media (max-width: 640px) {
+            nav .container {
+                flex-direction: row !important;
+                align-items: center;
+                justify-content: space-between;
+            }
+            nav .flex.items-center.gap-3 {
+                width: auto !important;
+                justify-content: start;
+            }
+            nav span {
+                font-size: 0.6rem !important;
+                width: auto !important;
+                text-align: left !important;
+            }
+            #loginBtn {
+                padding: 4px 10px !important;
+                font-size: 10px !important;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+    <!-- Navigasyon Alanı -->
+    <nav class="bg-gradient-custom p-4 shadow-lg text-white">
+        <div class="container mx-auto flex justify-between items-center">
+            
+            <!-- Sol Taraf: Logo ve Başlık -->
+            <a href="/" class="flex items-center gap-3 no-underline text-white">
+                <img src="../kartcini.svg" alt="KartCini Logo" class="w-10 h-10">
+                <div class="flex flex-col">
+                    <span class="text-xl md:text-2xl font-bold italic leading-none">KartCini</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1718</span>
+                </div>
+            </a>
+
+            <!-- Sağ Taraf: Giriş Alanı -->
+            <div id="authArea">
+                <button id="loginBtn" onclick="loginWithGoogle()" class="bg-white text-blue-900 px-4 py-1.5 rounded-full text-xs font-bold shadow-lg border border-blue-200 transition hover:bg-gray-100">
+                    <i class="fab fa-google mr-1"></i> Giriş Yap
+                </button>
+                <div id="userProfile" class="hidden flex items-center space-x-2 bg-white/10 p-1 px-3 rounded-full backdrop-blur-md border border-white/20">
+                    <span id="usageBadge" class="bg-orange-500 text-white text-[9px] px-2 py-0.5 rounded-full font-bold">...</span>
+                    <button onclick="logout()" class="text-white hover:text-red-300 text-sm"><i class="fas fa-sign-out-alt"></i></button>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+    
+    <!-- Ana İçerik Konteyneri -->
+<main class="max-w-4xl mx-auto px-4 py-10 bg-white my-8 rounded-lg shadow-sm">
+    <article>
+        <header class="mb-8">
+            <span class="text-xs font-semibold tracking-wider text-blue-600 uppercase bg-blue-50 px-3 py-1 rounded-full">Finansal İpuçları</span>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3 mb-4">Maximum Kart ile CarrefourSA QR ve Opet Stratejisi: Ayda 1.150 TL MaxiPuan</h1>
+            <p class="text-gray-500 text-sm">2 Adet Market Alışverişi ve Opet Kampanyasıyla Optimum Harcamayla 1.000 TL Hedefini Aşma Rehberi</p>
+        </header>
+
+        <section class="prose max-w-none text-gray-700 space-y-6">
+            <p>Bütçenizden en az parayı çıkararak ayda 1.000 TL tasarruf hedefine ulaşmanın yolu, kampanyaları en verimli noktada kesip doğru kanallarla birleştirmekten geçer. Maximum Kart'ın market ve akaryakıt alanındaki fırsatlarını optimize ettiğinizde, abartılı harcama yapmadan kolayca hedefin üzerine çıkabilirsiniz.</p>
+
+            <h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Minimum Harcama ile Yüksek Kazanç Stratejisi</h2>
+            <p>CarrefourSA'da ödemeyi QR kod ile birleştirmek ve Opet akaryakıt kampanyasını tamamlamak, toplam harcamanızı oldukça makul bir seviyede tutarken 1.150 TL net MaxiPuan kazandırır.</p>
+
+            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">1. Adım: CarrefourSA QR Kodlu 2 Market Alışverişi (700 TL MaxiPuan)</h3>
+            <p>CarrefourSA mağazalarında veya online platformlarında yapacağınız 3.000 TL ve üzeri her market alışverişi 300 TL MaxiPuan kazandırmaktadır. Bu ödemeleri İşCep veya Maximum Mobil üzerinden <strong>TR Karekod (QR)</strong> ile gerçekleştirdiğinizde işlem başına ilave 50 TL MaxiPuan eklenir ve tek bir 3.000 TL'lik alışverişin getirisi 350 TL MaxiPuan'a ulaşır. Farklı günlerde yapılan 2 adet 3.000 TL'lik market alışverişiyle (toplam 6.000 TL harcama) tam <strong>700 TL MaxiPuan</strong> elde edersiniz.</p>
+
+            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">2. Adım: Opet Akaryakıt Kampanyasının Tamamlanması (450 TL MaxiPuan)</h3>
+            <p>Aracınızın benzin masrafları için Maximum anlaşmalı Opet ve Sunpet istasyonlarında farklı günlerde tek seferde 1.500 TL ve üzeri 4 adet yakıt alımı gerçekleştirdiğinizde 400 TL MaxiPuan kazanırsınız. Bu 4 işlemden en az birini Maximum Mobil veya Pazarama içerisinden <strong>Opet Araçta Ödeme</strong> ile tamamladığınızda toplam ödülünüz <strong>450 TL MaxiPuan</strong> olur.</p>
+
+            <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-6">Minimum Harcama ve Kazanç Tablosu</h2>
+            <p>Tek seferde yapılması gereken harcama tutarlarını makul seviyede tutarak 1.000 TL hedefini rahatlıkla aşmanızı sağlayan öneri tablosu aşağıdadır:</p>
+
+            <div class="overflow-x-auto my-6 article-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Kategori</th>
+                            <th>Harcanacak min tutar</th>
+                            <th>Harcanacak toplam tutar</th>
+                            <th>Kazanç</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a href="https://www.maximum.com.tr/kampanyalar/carrefoursada-maxipuan-firsati2" target="_blank" class="text-blue-600 hover:underline font-semibold">Market</a>
+                            </td>
+                            <td>3.000 TL</td>
+                            <td>6.000 TL (2 x 3.000 TL)</td>
+                            <td class="font-bold text-green-600">700 TL MaxiPuan (2 x 350 TL)</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://www.maximum.com.tr/kampanyalar/opette-maxipuan-ayricaligi" target="_blank" class="text-blue-600 hover:underline font-semibold">Benzin</a>
+                            </td>
+                            <td>1.500 TL</td>
+                            <td>6.000 TL (4 x 1.500 TL)</td>
+                            <td class="font-bold text-green-600">450 TL MaxiPuan</td>
+                        </tr>
+                        <tr class="bg-blue-50 font-bold">
+                            <td>TOPLAM STRATEJİ</td>
+                            <td>-</td>
+                            <td>12.000 TL</td>
+                            <td class="text-green-700">1.150 TL MaxiPuan</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Sonuç ve Püf Noktaları</h2>
+            <p>Toplamda 12.000 TL gibi son derece makul bir harcamayla ayda 1.150 TL MaxiPuan kazanarak bütçenize doğrudan katkı sağlayabilirsiniz. Alışverişlerinize başlamadan önce İşCep veya Maximum Mobil uygulamalarındaki “Kampanyalar” bölümünden <strong>KATIL</strong> butonuna basmayı, CarrefourSA alışverişlerinde kasada QR ile ödeme yapmayı ve Opet alışverişlerinizin en az birini Araçta Ödeme ile gerçekleştirmeyi unutmayın.</p>
+            <p>KartCini ile harcamalarınızı planlamak, bütçeniz üzerindeki yükü azaltırken aylık en az 1.000 TL tasarruf etmenizi sağlar. Burada bahsedilenler dışındaki kampanyaları incelemek için ana sayfamızda KartCini ile sohbet edebilirsiniz. </p>
+        </section>
+    </article>
+</main>
+
+    <!-- SEO Footer Section -->
+    <footer id="seoSection" class="container mx-auto p-4 mt-10 border-t border-gray-200 text-center">
+        <p class="text-xs text-gray-500 mb-2">
+            © 2026 KartCini - Akıllı Kampanya Rehberiniz. Tüm hakları saklıdır.
+        </p>
+        <p class="text-[11px] text-gray-400 max-w-2xl mx-auto">
+            KartCini, bankaların güncel kredi kartı kampanyalarını AI desteğiyle analiz eden bağımsız bir platformdur. Kampanya detayları bankaların resmi web sitelerinden derlenmiştir.
+        </p>
+    </footer>
+
+    <script>
+        const _supabase = supabase.createClient('https://jnphjmycmimgpdnctabe.supabase.co', 'sb_publishable_QNjdf_CpgMbpMwumVn7tiQ__l-IWZD3');
+        const SUPABASE_SCHEMA = "public";
+
+        window.onload = () => {
+            _supabase.auth.getSession().then(({ data: { session } }) => {
+                if (session) {
+                    document.getElementById('loginBtn').classList.add('hidden');
+                    document.getElementById('userProfile').classList.remove('hidden');
+                    updateQuotaDisplay(session.user.id);
+                }
+            });
+        };
+
+        async function updateQuotaDisplay(userId) {
+            const { data } = await _supabase.schema(SUPABASE_SCHEMA).from('Profile').select('*').eq('id', userId).single();
+            if (data) {
+                document.getElementById('usageBadge').innerText = `${data.usage_count} / ${data.max_limit} Hak`;
+            }
+        }
+
+        async function loginWithGoogle() {
+            await _supabase.auth.signInWithOAuth({
+                provider: 'google',
+                options: { redirectTo: window.location.origin + window.location.pathname }
+            });
+        }
+
+        async function logout() {
+            await _supabase.auth.signOut();
+            location.reload();
+        }
+    </script>
+</body>
+</html>

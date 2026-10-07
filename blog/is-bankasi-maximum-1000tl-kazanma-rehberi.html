@@ -1,220 +1,273 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G0YC21LXFP"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-G0YC21LXFP');
-    </script>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maximum ile CarrefourSA QR ve Opet Kombinasyonuyla Ayda 1000 TL Tasarruf Rehberi | KartCini</title>
-
-    <!-- SEO Meta Etiketleri -->
-    <meta name="description" content="CarrefourSA'da 2 adet 3.000 TL'lik QR ödemeli market alışverişi ve Opet akaryakıt kampanyası ile toplamda 1.150 TL MaxiPuan kazanma rehberi.">
-    <meta name="keywords" content="maximum kart, carrefoursa qr kod ödeme, opet akaryakıt kampanyası, maxipuan, 1000 tl tasarruf, kartcini, iş bankası kampanyaları">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://www.kartcini.com/blog/maximum-1000tl-tasarruf-rehberi">
-
-    <!-- Open Graph (Sosyal Medya Paylaşım Uyumu) -->
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://www.kartcini.com/blog/maximum-1000tl-tasarruf-rehberi">
-    <meta property="og:title" content="Maximum ile CarrefourSA QR ve Opet Stratejisiyle Ayda 1150 TL Tasarruf">
-    <meta property="og:description" content="CarrefourSA'da 2 x 3.000 TL QR alışverişi ve Opet kampanyası birleşimiyle minimum harcamayla 1.150 TL MaxiPuan kazanma stratejisi.">
-    <meta property="og:image" content="https://www.kartcini.com/social-preview.png">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:image" content="https://www.kartcini.com/social-preview.png">
-
-    <!-- İkon Tanımlamaları -->
-    <link rel="icon" type="image/png" href="../favicon.png">
-    <link rel="apple-touch-icon" href="../favicon.png">
-    
-    <!-- Supabase Auth -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <!-- Tailwind CSS ve FontAwesome -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
-    <style>
-        .bg-gradient-custom { background: linear-gradient(135deg, #003399 0%, #001a4d 100%); }
-        
-        /* Makale İçi HTML Tablo Stilleri */
-        .article-content table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; background: white; }
-        .article-content th, .article-content td { border: 1px solid #e2e8f0; padding: 10px 14px; text-align: left; }
-        .article-content th { background-color: #f8fafc; font-weight: bold; color: #475569; }
-        .article-content tr:nth-child(even) { background-color: #f1f5f9; }
-
-        @media (max-width: 640px) {
-            nav .container {
-                flex-direction: row !important;
-                align-items: center;
-                justify-content: space-between;
-            }
-            nav .flex.items-center.gap-3 {
-                width: auto !important;
-                justify-content: start;
-            }
-            nav span {
-                font-size: 0.6rem !important;
-                width: auto !important;
-                text-align: left !important;
-            }
-            #loginBtn {
-                padding: 4px 10px !important;
-                font-size: 10px !important;
-                white-space: nowrap;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maximum Kart ile Market Alışverişlerinde Maksimum MaxiPuan Kazanma Rehberi | KartCini</title>
+  <meta name="description" content="İş Bankası Maximum Kart ile market alışverişlerinizde en yüksek MaxiPuan kazanma stratejileri, kampanya analizleri ve A101/Migros hediye çeki ipucu.">
+  <style>
+    :root {
+      --primary-color: #003399; /* İş Bankası / Maximum Mavisi */
+      --secondary-color: #002266;
+      --accent-color: #198754;
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-color: #212529;
+      --border-color: #dee2e6;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    header {
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      margin-bottom: 25px;
+      border-left: 6px solid var(--primary-color);
+    }
+    h1 {
+      color: #0f172a;
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
+    h2 {
+      color: #0f172a;
+      font-size: 1.4rem;
+      margin-top: 30px;
+    }
+    .author-tag {
+      font-weight: bold;
+      color: var(--primary-color);
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .intro {
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+    }
+    .strategy-card {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+    }
+    .strategy-card h2 {
+      margin-top: 0;
+      color: #1e40af;
+      font-size: 1.4rem;
+    }
+    .pro-tip {
+      background: #fff8e6;
+      border-left: 5px solid #f59e0b;
+      border: 1px solid #ffeeba;
+      padding: 18px;
+      border-radius: 8px;
+      margin: 20px 0;
+      color: #856404;
+    }
+    .pro-tip h3 {
+      margin-top: 0;
+      color: #856404;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .highlight-box {
+      background: #d1e7dd;
+      color: #0f5132;
+      padding: 15px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      text-align: center;
+      margin: 20px 0;
+      border: 1px solid #badbcc;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background: var(--card-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+    th {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      font-weight: 600;
+    }
+    tr:hover {
+      background-color: #f1f5f9;
+    }
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .step-list {
+      padding-left: 20px;
+    }
+    .step-list li {
+      margin-bottom: 10px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+<body>
 
-    <!-- Navigasyon Alanı -->
-    <nav class="bg-gradient-custom p-4 shadow-lg text-white">
-        <div class="container mx-auto flex justify-between items-center">
-            
-            <!-- Sol Taraf: Logo ve Başlık -->
-            <a href="/" class="flex items-center gap-3 no-underline text-white">
-                <img src="../kartcini.svg" alt="KartCini Logo" class="w-10 h-10">
-                <div class="flex flex-col">
-                    <span class="text-xl md:text-2xl font-bold italic leading-none">KartCini</span>
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1718</span>
-                </div>
-            </a>
+<div class="container">
+  <article>
+    <header>
+      <span class="author-tag">KartCini Kampanya Uzmanı Analizi</span>
+      <h1>Maximum Kart ile Market Harcamalarınızdan 3.000 TL’ye Varan MaxiPuan Kazanma Rehberi</h1>
+      <p class="intro">
+        İş Bankası Maximum Kart, Ekim ayı boyunca market alışverişleriniz için hem yüksek sepetli harcamalara hem kademeli işlemlere hem de birikimli küçük tutarlı alışverişlere özel zengin fırsatlar sunuyor. İşCep veya Maximum Mobil üzerinden katılabileceğiniz bu kampanyaları doğru birleştirerek <strong>3.000 TL'ye varan MaxiPuan</strong> kazanabilirsiniz.
+      </p>
+    </header>
 
-            <!-- Sağ Taraf: Giriş Alanı -->
-            <div id="authArea">
-                <button id="loginBtn" onclick="loginWithGoogle()" class="bg-white text-blue-900 px-4 py-1.5 rounded-full text-xs font-bold shadow-lg border border-blue-200 transition hover:bg-gray-100">
-                    <i class="fab fa-google mr-1"></i> Giriş Yap
-                </button>
-                <div id="userProfile" class="hidden flex items-center space-x-2 bg-white/10 p-1 px-3 rounded-full backdrop-blur-md border border-white/20">
-                    <span id="usageBadge" class="bg-orange-500 text-white text-[9px] px-2 py-0.5 rounded-full font-bold">...</span>
-                    <button onclick="logout()" class="text-white hover:text-red-300 text-sm"><i class="fas fa-sign-out-alt"></i></button>
-                </div>
-            </div>
+    <div class="strategy-card">
+      <h2>Maksimum MaxiPuan Optimizasyon Stratejisi</h2>
+      <p>
+        İş Bankası'nın sunduğu ana market kampanyaları birleştirilebilir yapıdadır. Farklı harcama alışkanlıklarınıza göre en yüksek % getiri oranını yakalayabileceğiniz adımlar aşağıda özetlenmiştir:
+      </p>
+      
+      <div class="highlight-box">
+        Kombine Kampanya Hedefi: 3.000 TL'ye Varan Toplam MaxiPuan & Getiri Fırsatı!
+      </div>
 
-        </div>
-    </nav>
-    
-    <!-- Ana İçerik Konteyneri -->
-<main class="max-w-4xl mx-auto px-4 py-10 bg-white my-8 rounded-lg shadow-sm">
-    <article>
-        <header class="mb-8">
-            <span class="text-xs font-semibold tracking-wider text-blue-600 uppercase bg-blue-50 px-3 py-1 rounded-full">Finansal İpuçları</span>
-            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3 mb-4">Maximum Kart ile CarrefourSA QR ve Opet Stratejisi: Ayda 1.150 TL MaxiPuan</h1>
-            <p class="text-gray-500 text-sm">2 Adet Market Alışverişi ve Opet Kampanyasıyla Optimum Harcamayla 1.000 TL Hedefini Aşma Rehberi</p>
-        </header>
+      <h3>KartCini Strateji Adımları:</h3>
+      <ol class="step-list">
+        <li>
+          <strong>Tüm Kampanyalara Katılın:</strong> Alışveriş yapmadan önce İşCep veya Maximum Mobil uygulamasından <i>"Market"</i>, <i>"Birikimli Market"</i> ve <i>"Yüksek Sepet Market"</i> kampanyalarının hepsine tek tıkla katılım sağlayın.
+        </li>
+        <li>
+          <strong>TROY Kart Avantajını Kaçırmayın:</strong> TROY logolu bir İş Bankası kartınız varsa, Getir ve GetirBüyük üzerinden yapacağınız market alışverişlerinde anında 1.000 TL'ye varan sepet indirimi elde edebilirsiniz (Örn: GetirBüyük'te 3.500 TL harcamaya 1.000 TL indirim ile anında %28.57 net getiri).
+        </li>
+        <li>
+          <strong>2.000 TL Kademeli Market Harcamaları:</strong> Farklı günlerde yapacağınız ilk 2.000 TL üzeri harcamadan sonraki her 2.000 TL harcama için 125 TL, toplamda 1.250 TL MaxiPuan kazanırsınız.
+        </li>
+        <li>
+          <strong>Birikimli Harcama Kurgusu:</strong> Tek seferde 1.500 TL altındaki küçük harcamalarınız toplamda 15.000 TL'ye ulaştığında ek olarak 750 TL MaxiPuan hesabınıza tanımlanır.
+        </li>
+      </ol>
 
-        <section class="prose max-w-none text-gray-700 space-y-6">
-            <p>Bütçenizden en az parayı çıkararak ayda 1.000 TL tasarruf hedefine ulaşmanın yolu, kampanyaları en verimli noktada kesip doğru kanallarla birleştirmekten geçer. Maximum Kart'ın market ve akaryakıt alanındaki fırsatlarını optimize ettiğinizde, abartılı harcama yapmadan kolayca hedefin üzerine çıkabilirsiniz.</p>
-
-            <h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Minimum Harcama ile Yüksek Kazanç Stratejisi</h2>
-            <p>CarrefourSA'da ödemeyi QR kod ile birleştirmek ve Opet akaryakıt kampanyasını tamamlamak, toplam harcamanızı oldukça makul bir seviyede tutarken 1.150 TL net MaxiPuan kazandırır.</p>
-
-            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">1. Adım: CarrefourSA QR Kodlu 2 Market Alışverişi (700 TL MaxiPuan)</h3>
-            <p>CarrefourSA mağazalarında veya online platformlarında yapacağınız 3.000 TL ve üzeri her market alışverişi 300 TL MaxiPuan kazandırmaktadır. Bu ödemeleri İşCep veya Maximum Mobil üzerinden <strong>TR Karekod (QR)</strong> ile gerçekleştirdiğinizde işlem başına ilave 50 TL MaxiPuan eklenir ve tek bir 3.000 TL'lik alışverişin getirisi 350 TL MaxiPuan'a ulaşır. Farklı günlerde yapılan 2 adet 3.000 TL'lik market alışverişiyle (toplam 6.000 TL harcama) tam <strong>700 TL MaxiPuan</strong> elde edersiniz.</p>
-
-            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">2. Adım: Opet Akaryakıt Kampanyasının Tamamlanması (450 TL MaxiPuan)</h3>
-            <p>Aracınızın benzin masrafları için Maximum anlaşmalı Opet ve Sunpet istasyonlarında farklı günlerde tek seferde 1.500 TL ve üzeri 4 adet yakıt alımı gerçekleştirdiğinizde 400 TL MaxiPuan kazanırsınız. Bu 4 işlemden en az birini Maximum Mobil veya Pazarama içerisinden <strong>Opet Araçta Ödeme</strong> ile tamamladığınızda toplam ödülünüz <strong>450 TL MaxiPuan</strong> olur.</p>
-
-            <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-6">Minimum Harcama ve Kazanç Tablosu</h2>
-            <p>Tek seferde yapılması gereken harcama tutarlarını makul seviyede tutarak 1.000 TL hedefini rahatlıkla aşmanızı sağlayan öneri tablosu aşağıdadır:</p>
-
-            <div class="overflow-x-auto my-6 article-content">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Kategori</th>
-                            <th>Harcanacak min tutar</th>
-                            <th>Harcanacak toplam tutar</th>
-                            <th>Kazanç</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <a href="https://www.maximum.com.tr/kampanyalar/carrefoursada-maxipuan-firsati2" target="_blank" class="text-blue-600 hover:underline font-semibold">Market</a>
-                            </td>
-                            <td>3.000 TL</td>
-                            <td>6.000 TL (2 x 3.000 TL)</td>
-                            <td class="font-bold text-green-600">700 TL MaxiPuan (2 x 350 TL)</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="https://www.maximum.com.tr/kampanyalar/opette-maxipuan-ayricaligi" target="_blank" class="text-blue-600 hover:underline font-semibold">Benzin</a>
-                            </td>
-                            <td>1.500 TL</td>
-                            <td>6.000 TL (4 x 1.500 TL)</td>
-                            <td class="font-bold text-green-600">450 TL MaxiPuan</td>
-                        </tr>
-                        <tr class="bg-blue-50 font-bold">
-                            <td>TOPLAM STRATEJİ</td>
-                            <td>-</td>
-                            <td>12.000 TL</td>
-                            <td class="text-green-700">1.150 TL MaxiPuan</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Sonuç ve Püf Noktaları</h2>
-            <p>Toplamda 12.000 TL gibi son derece makul bir harcamayla ayda 1.150 TL MaxiPuan kazanarak bütçenize doğrudan katkı sağlayabilirsiniz. Alışverişlerinize başlamadan önce İşCep veya Maximum Mobil uygulamalarındaki “Kampanyalar” bölümünden <strong>KATIL</strong> butonuna basmayı, CarrefourSA alışverişlerinde kasada QR ile ödeme yapmayı ve Opet alışverişlerinizin en az birini Araçta Ödeme ile gerçekleştirmeyi unutmayın.</p>
-            <p>KartCini ile harcamalarınızı planlamak, bütçeniz üzerindeki yükü azaltırken aylık en az 1.000 TL tasarruf etmenizi sağlar. Burada bahsedilenler dışındaki kampanyaları incelemek için ana sayfamızda KartCini ile sohbet edebilirsiniz. </p>
-        </section>
-    </article>
-</main>
-
-    <!-- SEO Footer Section -->
-    <footer id="seoSection" class="container mx-auto p-4 mt-10 border-t border-gray-200 text-center">
-        <p class="text-xs text-gray-500 mb-2">
-            © 2026 KartCini - Akıllı Kampanya Rehberiniz. Tüm hakları saklıdır.
+      <div class="pro-tip">
+        <h3>💡 KartCini İpucu: A101 ve Migros Hediye Çeki ile Küçük İşlemleri Kampanyaya Dâhil Edin!</h3>
+        <p>
+          Tek seferde 2.000 TL, 10.000 TL veya 20.000 TL gibi yüksek tutarlı tekil market alışverişi yapmıyor ya da günlük küçük tutarlı alışverişler tercih ediyorsanız; <strong>A101</strong> veya <strong>Migros</strong> kasalarından ileri tarihte kullanmak üzere market hediye çeki / bakiye yüklemesi satın alabilirsiniz.
         </p>
-        <p class="text-[11px] text-gray-400 max-w-2xl mx-auto">
-            KartCini, bankaların güncel kredi kartı kampanyalarını AI desteğiyle analiz eden bağımsız bir platformdur. Kampanya detayları bankaların resmi web sitelerinden derlenmiştir.
+        <p>
+          Bu yöntemle kasada tek seferde yüksek tutarlı tekil harcama alt limitini (örn. 2.000 TL veya 10.000 TL) anında sağlayarak kampanya barajını geçebilir ve MaxiPuan'ınızı garantileyebilirsiniz. Aldığınız hediye çeklerini ise ay içerisindeki küçük tutarlı ihtiyaçlarınızda parça parça harcayarak bütçenizi en verimli şekilde yönetebilirsiniz.
         </p>
-    </footer>
+      </div>
+    </div>
 
-    <script>
-        const _supabase = supabase.createClient('https://jnphjmycmimgpdnctabe.supabase.co', 'sb_publishable_QNjdf_CpgMbpMwumVn7tiQ__l-IWZD3');
-        const SUPABASE_SCHEMA = "public";
+    <h2>Maximum Market Kampanyaları Listesi</h2>
+    <p>
+      Ekim ayı boyunca geçerli olan Maximum market kampanyalarının getiri oranları, asgari harcama koşulları ve toplam ödül detayları:
+    </p>
 
-        window.onload = () => {
-            _supabase.auth.getSession().then(({ data: { session } }) => {
-                if (session) {
-                    document.getElementById('loginBtn').classList.add('hidden');
-                    document.getElementById('userProfile').classList.remove('hidden');
-                    updateQuotaDisplay(session.user.id);
-                }
-            });
-        };
+    <table>
+      <thead>
+        <tr>
+          <th>Banka</th>
+          <th>Kampanya Özeti</th>
+          <th>% Getiri</th>
+          <th>En Az Harcama Tutarı</th>
+          <th>Toplam Getiri</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Maximum</td>
+          <td><a href="https://www.maximum.com.tr/kampanyalar/isbankasi-troy-kart-sahipleri-getir-market-alisverisindede-kazaniyor" target="_blank" rel="noopener">İş Bankası TROY kart sahipleri Getir market alışverişinde 150 TL, GetirBüyük market alışverişinde 500 TL ve 1.000 TL indirim kazanıyor!</a></td>
+          <td>%28.57 (%20.00 - %28.57 arası)</td>
+          <td>750 TL</td>
+          <td>1.000 TL (Anında İndirim)</td>
+        </tr>
+        <tr>
+          <td>Maximum</td>
+          <td><a href="https://www.maximum.com.tr/kampanyalar/pazarama-markete-ozel-pazaramapuan-firsati" target="_blank" rel="noopener">Pazarama Market'e Özel 400 TL PazaramaPuan Fırsatı!</a></td>
+          <td>%13.33</td>
+          <td>750 TL</td>
+          <td>400 TL PazaramaPuan</td>
+        </tr>
+        <tr>
+          <td>Maximum</td>
+          <td><a href="https://www.maximum.com.tr/kampanyalar/maximumdan-bonvenoda-maxipuan-firsati" target="_blank" rel="noopener">bonVeno Marketler'de 50 TL MaxiPuan Fırsatı!</a></td>
+          <td>%10.00</td>
+          <td>500 TL</td>
+          <td>50 TL MaxiPuan</td>
+        </tr>
+        <tr>
+          <td>Maximum</td>
+          <td><a href="https://www.maximum.com.tr/kampanyalar/maximum-kartinizla-market-alisverislerinize-maxipuan-hediye" target="_blank" rel="noopener">2.000 TL ve üzeri Market Alışverişlerinize 1.250 TL'ye varan MaxiPuan!</a></td>
+          <td>%6.25 (Kademeli)</td>
+          <td>2.000 TL</td>
+          <td>1.250 TL MaxiPuan</td>
+        </tr>
+        <tr>
+          <td>Maximum</td>
+          <td><a href="https://www.maximum.com.tr/kampanyalar/maximumdan-birikimli-market-alisverislerinize-maxipuan-kampanyasi" target="_blank" rel="noopener">Market Alışverişlerinize 750 TL MaxiPuan Fırsatı! (Birikimli)</a></td>
+          <td>%5.00</td>
+          <td>1 TL (1.500 TL altı harcamalar)</td>
+          <td>750 TL MaxiPuan</td>
+        </tr>
+        <tr>
+          <td>Maximum</td>
+          <td><a href="https://www.maximum.com.tr/kampanyalar/maximumdan-market-alisverislerinize-1000lira-maxipuan-kampanyasi" target="_blank" rel="noopener">10.000 TL ve Üzeri Market Alışverişinize 1.000 TL'ye Varan MaxiPuan!</a></td>
+          <td>%5.00</td>
+          <td>10.000 TL</td>
+          <td>1.000 TL MaxiPuan</td>
+        </tr>
+        <tr>
+          <td>Maximum</td>
+          <td><a href="https://www.maximum.com.tr/kampanyalar/market-harcamalariniza-maxipuan-firsati" target="_blank" rel="noopener">Market Alışverişlerinize 3.000 TL'ye varan MaxiPuan! (Birleşik Kampanya)</a></td>
+          <td>Değişken (Kombine)</td>
+          <td>1 TL</td>
+          <td>3.000 TL MaxiPuan</td>
+        </tr>
+      </tbody>
+    </table>
 
-        async function updateQuotaDisplay(userId) {
-            const { data } = await _supabase.schema(SUPABASE_SCHEMA).from('Profile').select('*').eq('id', userId).single();
-            if (data) {
-                document.getElementById('usageBadge').innerText = `${data.usage_count} / ${data.max_limit} Hak`;
-            }
-        }
+    <p>
+      <em>*Not: Kampanya getiri oranları, ilgili kampanyalarda kazanılabilecek azami ödülün yapılması gereken asgari harcama tutarlarına oranlanmasıyla hesaplanmıştır. Birikimli ve kademeli kampanyaları birleştirerek toplam getiriyi artırabilirsiniz.</em>
+    </p>
+  </article>
 
-        async function loginWithGoogle() {
-            await _supabase.auth.signInWithOAuth({
-                provider: 'google',
-                options: { redirectTo: window.location.origin + window.location.pathname }
-            });
-        }
+  <footer>
+    <p>&copy; 2026 KartCini Kampanya Danışmanlığı. Tüm hakları saklıdır.</p>
+  </footer>
+</div>
 
-        async function logout() {
-            await _supabase.auth.signOut();
-            location.reload();
-        }
-    </script>
 </body>
 </html>
