@@ -1,216 +1,221 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G0YC21LXFP"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-G0YC21LXFP');
-    </script>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Garanti Bonus ile Market Harcamalarından Ayda 1000 TL Tasarruf Rehberi | KartCini</title>
-
-    <!-- SEO Meta Etiketleri -->
-    <meta name="description" content="Garanti Bonus kredi kartının yüksek getirili market kampanyalarını birleştirerek tek seferde 3.000 TL sınırını aşmadan ayda 1000 TL bonus kazanma stratejileri.">
-    <meta name="keywords" content="garanti bonus, bonus kart kampanyaları, market kampanyası, yüksek getirili market kampanyası, 1000 tl tasarruf, kartcini, bonusflaş, qr ödeme">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://www.kartcini.com/blog/garanti-bonus-1000tl-kazanma-rehberi">
-
-    <!-- Open Graph (Sosyal Medya Paylaşım Uyumu) -->
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://www.kartcini.com/blog/garanti-bonus-1000tl-kazanma-rehberi">
-    <meta property="og:title" content="Garanti Bonus ile Sadece Market Harcamalarıyla Ayda 1000 TL Tasarruf Rehberi">
-    <meta property="og:description" content="Market alışverişlerinde Garanti Bonus fırsatlarını ve ödeme yöntemlerini birleştirerek her ay nasıl 1000 TL net kazanç elde edeceğinizi adım adım açıklıyoruz.">
-    <meta property="og:image" content="https://www.kartcini.com/social-preview.png">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:image" content="https://www.kartcini.com/social-preview.png">
-
-    <!-- İkon Tanımlamaları -->
-    <link rel="icon" type="image/png" href="../favicon.png">
-    <link rel="apple-touch-icon" href="../favicon.png">
-    
-    <!-- Supabase Auth -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <!-- Tailwind CSS ve FontAwesome -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
-    <style>
-        .bg-gradient-custom { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        
-        /* Makale İçi HTML Tablo Stilleri */
-        .article-content table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; background: white; }
-        .article-content th, .article-content td { border: 1px solid #e2e8f0; padding: 10px 14px; text-align: left; }
-        .article-content th { background-color: #f8fafc; font-weight: bold; color: #475569; }
-        .article-content tr:nth-child(even) { background-color: #f1f5f9; }
-
-        @media (max-width: 640px) {
-            nav .container {
-                flex-direction: row !important;
-                align-items: center;
-                justify-content: space-between;
-            }
-            nav .flex.items-center.gap-3 {
-                width: auto !important;
-                justify-content: start;
-            }
-            nav span {
-                font-size: 0.6rem !important;
-                width: auto !important;
-                text-align: left !important;
-            }
-            #loginBtn {
-                padding: 4px 10px !important;
-                font-size: 10px !important;
-                white-space: nowrap;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KartCini ile Minimum Harcamayla Ayda 1.000 TL Bonus/Puan Kazanma Rehberi</title>
+  <meta name="description" content="Minimum harcama ile ayda net 1.000 TL ve üzeri bonus/puan nasıl kazanılır? KartCini uzmanlığında optimize edilmiş harcama stratejisi ve kampanya analizi.">
+  <meta name="keywords" content="KartCini, kredi kartı kampanyaları, bonus kazanma, market kampanyası, az harcayıp çok kazanma, akıllı alışveriş">
+  <style>
+    :root {
+      --primary-color: #0d6efd;
+      --secondary-color: #0b5ed7;
+      --accent-color: #198754;
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-color: #212529;
+      --border-color: #dee2e6;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    header {
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      margin-bottom: 25px;
+      border-left: 6px solid var(--primary-color);
+    }
+    h1 {
+      color: #0f172a;
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
+    .author-tag {
+      font-weight: bold;
+      color: var(--primary-color);
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .intro {
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+    }
+    .strategy-card {
+      background: #eef6ff;
+      border: 1px solid #b6d4fe;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+    }
+    .strategy-card h2 {
+      margin-top: 0;
+      color: #084298;
+      font-size: 1.4rem;
+    }
+    .highlight-box {
+      background: #d1e7dd;
+      color: #0f5132;
+      padding: 15px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      text-align: center;
+      margin: 20px 0;
+      border: 1px solid #badbcc;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background: var(--card-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+    th {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      font-weight: 600;
+    }
+    tr:hover {
+      background-color: #f1f5f9;
+    }
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .step-list {
+      padding-left: 20px;
+    }
+    .step-list li {
+      margin-bottom: 10px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+<body>
 
-    <!-- Navigasyon Alanı -->
-    <nav class="bg-gradient-custom p-4 shadow-lg text-white">
-        <div class="container mx-auto flex justify-between items-center">
-            
-            <!-- Sol Taraf: Logo ve Başlık -->
-            <a href="/" class="flex items-center gap-3 no-underline text-white">
-                <img src="../kartcini.svg" alt="KartCini Logo" class="w-10 h-10">
-                <div class="flex flex-col">
-                    <span class="text-xl md:text-2xl font-bold italic leading-none">KartCini</span>
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1718</span>
-                </div>
-            </a>
+<div class="container">
+  <article>
+    <header>
+      <span class="author-tag"> KartCini Kampanya Uzmanı Analizi</span>
+      <h1>Sadece Minimum Harcamayla Ayda 1.000 TL Bonus/Puan Nasıl Kazanılır?</h1>
+      <p class="intro">
+        Kredi kartı kampanyalarında yüksek tutarlı harcamalar yapmak yerine, <strong>en düşük harcama ile en yüksek getiri (% Return)</strong> oranını yakalamak mümkündür. KartCini uzmanlığıyla hazırladığımız bu rehberde; bütçenizi zorlamadan, düzenli rutin market harcamalarınızla tam <strong>1.000 TL ve üzeri bonusu</strong> nasıl cebinize koyacağınızı adım adım açıklıyoruz.
+      </p>
+    </header>
 
-            <!-- Sağ Taraf: Giriş Alanı -->
-            <div id="authArea">
-                <button id="loginBtn" onclick="loginWithGoogle()" class="bg-white text-purple-700 px-4 py-1.5 rounded-full text-xs font-bold shadow-lg border border-purple-200 transition hover:bg-gray-100">
-                    <i class="fab fa-google mr-1"></i> Giriş Yap
-                </button>
-                <div id="userProfile" class="hidden flex items-center space-x-2 bg-white/10 p-1 px-3 rounded-full backdrop-blur-md border border-white/20">
-                    <span id="usageBadge" class="bg-orange-500 text-white text-[9px] px-2 py-0.5 rounded-full font-bold">...</span>
-                    <button onclick="logout()" class="text-white hover:text-red-300 text-sm"><i class="fas fa-sign-out-alt"></i></button>
-                </div>
-            </div>
+    <div class="strategy-card">
+      <h2> Minimum Harcama - Maksimum Getiri Stratejisi</h2>
+      <p>
+        Ayda 1.000 TL bonus hedefine ulaşmak için yüksek tutarlı yapı market veya beyaz eşya harcaması yapmanıza gerek yok. Sadece rutin mutfak ve market ihtiyaçlarınızı akıllı bir planla bölerek bu ödüle ulaşabilirsiniz.
+      </p>
+      
+      <div class="highlight-box">
+         Minimum Harcama Tutarı: 8.000 TL &nbsp;|&nbsp;  Kazanılacak Net Bonus: 1.000 TL &nbsp;|&nbsp;  Net Getiri Oranı: %12.5
+      </div>
 
-        </div>
-    </nav>
-    
-    <!-- Ana İçerik Konteyneri -->
-<main class="max-w-4xl mx-auto px-4 py-10 bg-white my-8 rounded-lg shadow-sm">
-    <article>
-        <header class="mb-8">
-            <span class="text-xs font-semibold tracking-wider text-red-600 uppercase bg-red-50 px-3 py-1 rounded-full">Finansal İpuçları</span>
-            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3 mb-4">Garanti Bonus ile Sadece Market Harcamalarından Ayda 1.000 TL Nasıl Tasarruf Edilir?</h1>
-            <p class="text-gray-500 text-sm">Güncellenmiş Garanti BBVA Bonus Market Kampanyaları Stratejisi</p>
-        </header>
+      <h3>Adım Adım Harcama Yöntemi:</h3>
+      <ol class="step-list">
+        <li>
+          <strong>4 Farklı Gün/Alışverişte 2.000 TL'lik Market Harcaması Yapın:</strong> Aylık toplam 8.000 TL'lik market ihtiyaçlarınızı tek seferde almak yerine, haftalık veya parça parça <strong>2.000 TL ve üzeri</strong> tutarlarda 4 ayrı işleme bölün. Hatta A101 ve Migros kasalarından alacağınız <strong>hediye çekleri</strong> ile küçük tutarlı alışverişlerinizin de kampanya dahilinde olmasını sağlayabilirsiniz!
+        </li>
+        <li>
+          <strong>Ödemeleri Mutlaka BonusFlaş (QR / Mobil Temassız) ile Yapın:</strong> Her 2.000 TL'lik işlemde ana market kampanyasından 100 TL, BonusFlaş ile ödeme avantajından 25 TL ve Genel Mobil Ödeme kampanyasından 25 TL ekstra olmak üzere <strong>işlem başına 150 TL bonus (Toplam %7.5 getiri)</strong> kazanırsınız. 4 işlemde toplam <strong>600 TL bonus</strong> birikir.
+        </li>
+        <li>
+          <strong>CarrefourSA Online Alışverişi Eklemesi (Sinerji Stratejisi):</strong> Aylık market ihtiyacınızın bir kısmını <i>carrefoursa.com</i> veya CarrefourSA Mobil Uygulaması üzerinden GarantiPay ile 4.000 TL olarak tamamlayarak tek hamlede <strong>400 TL ek bonus</strong> (%10 Getiri) daha elde edebilirsiniz.
+        </li>
+      </ol>
+      <p>
+        <strong>Sonuç:</strong> Toplamda sadece rutin ihtiyaçlarınız için yaptığınız 8.000 TL - 12.000 TL bantlarındaki harcamayla, %10 ile %12.5 arasında değişen rekor bir getiri oranıyla hedeflenen <strong>1.000 TL bonusu</strong> kolayca tutturmuş olursunuz.
+      </p>
+    </div>
 
-        <section class="prose max-w-none text-gray-700 space-y-6">
-            <p>Mutfak ve ev ihtiyaçlarımızı karşılarken doğru kampanya kurgularını uygulamak aile bütçesine doğrudan katkı sağlar. Garanti BBVA Bonus kredi kartının sunduğu esnek market kampanyalarını ve dijital ödeme avantajlarını birleştirerek, <strong>tek seferde 3.000 TL’den fazla harcama yapma zorunluluğunda kalmadan</strong> ve getiriyi %7.5 seviyesine çıkararak ayda tam 1.000 TL net bonus kazanmak mümkündür.</p>
+    <h2> Aktif Kampanya ve Birleşik Getiri Tablosu</h2>
+    <p>
+      Aşağıdaki tabloda, genel mobil ödeme ve sektör kampanyalarının birleştirilmesiyle elde edilen net birleşik getiri oranları ve asgari harcama koşulları listelenmiştir:
+    </p>
 
-            <h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Stratejimizin Temeli: Yüksek Getirili Kampanya Birleşimi (%7.5 Net Getiri)</h2>
-            <p>Sadece tek bir kampanyanın %5'lik baz getirisine bağlı kalmak zorunda değilsiniz. Doğru ödeme yöntemleriyle iki ayrı Garanti Bonus fırsatını aynı anda tetikleyerek verimliliğinizi artırabilirsiniz:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Banka</th>
+          <th>Kampanya Özeti</th>
+          <th>% Getiri</th>
+          <th>En Az Harcama Tutarı</th>
+          <th>Toplam Getiri</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Bonus</td>
+          <td><a href="https://www.bonus.com.tr/kampanyalar/bonus-alisveris-market-kampanyalari" target="_blank" rel="noopener">Market alışverişlerinize 1.200 TL, BonusFlaş ile 1.500 TL bonus!</a>[cite: 1]</td>
+          <td>%6.25 - %7.5</td>
+          <td>2.000 TL[cite: 1]</td>
+          <td>1.500 TL[cite: 1]</td>
+        </tr>
+        <tr>
+          <td>Bonus</td>
+          <td><a href="https://www.bonus.com.tr/kampanyalar/carrefoursa-online-market-kampanyasi" target="_blank" rel="noopener">CarrefourSA Online Market uygulamasında 400 TL'ye varan bonus!</a>[cite: 1]</td>
+          <td>%10.0</td>
+          <td>4.000 TL[cite: 1]</td>
+          <td>400 TL[cite: 1]</td>
+        </tr>
+        <tr>
+          <td>Bonus</td>
+          <td><a href="https://www.bonus.com.tr/kampanyalar/bonus-genc-market-kampanya" target="_blank" rel="noopener">Bonus Genç'le markete 400 TL, Temassız/QR ile 550 TL bonus!</a>[cite: 1]</td>
+          <td>%21.0 (Genç Kart Özel)</td>
+          <td>500 TL[cite: 1]</td>
+          <td>550 TL[cite: 1]</td>
+        </tr>
+        <tr>
+          <td>Bonus</td>
+          <td><a href="https://www.bonus.com.tr/kampanyalar/bonus-alisveris-market-kampanya" target="_blank" rel="noopener">Market alışverişlerinize 1.000 TL, BonusFlaş ile 1.100 TL bonus!</a>[cite: 1]</td>
+          <td>%5.25 - %5.5</td>
+          <td>10.000 TL[cite: 1]</td>
+          <td>1.100 TL[cite: 1]</td>
+        </tr>
+      </tbody>
+    </table>
 
-            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">1. Market + QR/Mobil Temassız Birleşimi</h3>
-            <p>Market kampanyası kapsamında tek seferde 2.000 TL ve üzeri her harcamanıza 100 TL, BonusFlaş kullanımıyla 125 TL verilir. Ödemenizi fiziki POS üzerinde <strong>BonusFlaş QR veya Mobil Temassız</strong> seçeneğiyle tamamlarsanız, Garanti'nin 1.500 TL üzeri her QR/Temassız işleme sunduğu 25 TL'lik genel mobil ödeme kampanyası da devreye girer. Böylece 2.000 TL'lik tek bir market alışverişinden <strong>toplam 150 TL bonus</strong> (net %7.5 getiri) kazanırsınız.</p>
+    <p>
+      <em>*Not: % Getiri hesabı, ilgili özel/sektör kampanyasının kazancı ile genel "Mobil Temassız/QR ile Ödeme" kampanyasının kazançları birleştirilerek asgari harcama tutarına oranlanmasıyla hesaplanmıştır.</em>[cite: 1]
+    </p>
+  </article>
 
-            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">2. Bütçeyi Aşmayan Kademeli Planlama</h3>
-            <p>Tekil harcamanızı 2.000 TL'de sabit tutarak toplamda 1.000 TL net bonusa ulaşabilir, hiçbir alışverişinizde 3.000 TL limitini aşmadan aylık gıda masrafınızı kazanca dönüştürebilirsiniz.</p>
+  <footer>
+    <p>&copy; 2026 KartCini Kampanya Danışmanlığı. Tüm hakları saklıdır.</p>
+  </footer>
+</div>
 
-            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">3. Geçerli Marketler</h3>
-            <p>Türkiye'nin her yerindeki BİM, ŞOK, A101, Migros gibi marketlerin tümü Garanti üye işyeridir. Üstelik A101'lerden cep telefonunuza SMS olarak gönderilen 2000₺'lik bir <strong>sanal hediye çeki</strong> alabilir, böylece alışverişinizi daha küçük tutarlara da bölebilirsiniz.</p>
-
-            <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-6">Kampanya Özeti ve Tasarruf Tablosu</h2>
-            <p>Aşağıdaki tabloda, tek seferde 3.000 TL sınırını kesinlikle aşmadan, tüm bilinen marketlerde geçerli kampanyaları birleştirerek 1.000 TL net kazanç sağlayan optimum plan yer almaktadır:</p>
-
-            <div class="overflow-x-auto my-6 article-content">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Kategori</th>
-                            <th>Harcanacak min tutar</th>
-                            <th>Harcanacak toplam tutar</th>
-                            <th>Kazanç</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <a href="https://www.bonus.com.tr/kampanyalar/bonus-market-kirtasiye-kampanyalari" target="_blank" class="text-red-600 hover:underline">Market (Ana Kampanya + QR/Mobil Temassız Birleşimi)</a>
-                            </td>
-                            <td>2.000 TL</td>
-                            <td>12.000 TL (2.000 TL'lik 6 Parçalı QR/Temassız İşlem)</td>
-                            <td class="font-bold text-green-600">900 TL Bonus (6 x 150 TL - %7.5 Getiri)</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="https://www.bonus.com.tr/kampanyalar/bonus-market-kirtasiye-kampanyalari" target="_blank" class="text-red-600 hover:underline">Market (Standart BonusFlaş Ödemeli Tamamlama)</a>
-                            </td>
-                            <td>2.000 TL</td>
-                            <td>2.000 TL (1 Parçalı İşlem)</td>
-                            <td class="font-bold text-green-600">100 TL Bonus (Hedef Tamamlama)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Sonuç ve Öneriler</h2>
-            <p>KartCini ile harcamalarınızı planlamak, bütçeniz üzerindeki yükü azaltırken aylık en az 1.000 TL tasarruf etmenizi sağlar. Burada bahsedilenler dışındaki kampanyaları incelemek için ana sayfamızda KartCini ile sohbet edebilirsiniz. Alışveriş yapmadan önce BonusFlaş uygulamasından tüm ilgili kampanyalara katılım butonuna tıklamayı ve ödemelerinizi QR/Mobil Temassız ile gerçekleştirmeyi unutmayın!</p>
-        </section>
-    </article>
-</main>
-
-    <!-- SEO Footer Section -->
-    <footer id="seoSection" class="container mx-auto p-4 mt-10 border-t border-gray-200 text-center">
-        <p class="text-xs text-gray-500 mb-2">
-            © 2026 KartCini - Akıllı Kampanya Rehberiniz. Tüm hakları saklıdır.
-        </p>
-        <p class="text-[11px] text-gray-400 max-w-2xl mx-auto">
-            KartCini, bankaların güncel kredi kartı kampanyalarını AI desteğiyle analiz eden bağımsız bir platformdur. Kampanya detayları bankaların resmi web sitelerinden derlenmiştir.
-        </p>
-    </footer>
-
-    <script>
-        const _supabase = supabase.createClient('https://jnphjmycmimgpdnctabe.supabase.co', 'sb_publishable_QNjdf_CpgMbpMwumVn7tiQ__l-IWZD3');
-        const SUPABASE_SCHEMA = "public";
-
-        window.onload = () => {
-            _supabase.auth.getSession().then(({ data: { session } }) => {
-                if (session) {
-                    document.getElementById('loginBtn').classList.add('hidden');
-                    document.getElementById('userProfile').classList.remove('hidden');
-                    updateQuotaDisplay(session.user.id);
-                }
-            });
-        };
-
-        async function updateQuotaDisplay(userId) {
-            const { data } = await _supabase.schema(SUPABASE_SCHEMA).from('Profile').select('*').eq('id', userId).single();
-            if (data) {
-                document.getElementById('usageBadge').innerText = `${data.usage_count} / ${data.max_limit} Hak`;
-            }
-        }
-
-        async function loginWithGoogle() {
-            await _supabase.auth.signInWithOAuth({
-                provider: 'google',
-                options: { redirectTo: window.location.origin + window.location.pathname }
-            });
-        }
-
-        async function logout() {
-            await _supabase.auth.signOut();
-            location.reload();
-        }
-    </script>
 </body>
 </html>
