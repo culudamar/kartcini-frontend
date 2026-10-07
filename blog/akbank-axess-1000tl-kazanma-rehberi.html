@@ -1,236 +1,268 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G0YC21LXFP"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-G0YC21LXFP');
-    </script>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Axess ile Akaryakıt ve Süpermarket Kombinasyonuyla Ayda 1000 TL Tasarruf Rehberi | KartCini</title>
-
-    <!-- SEO Meta Etiketleri -->
-    <meta name="description" content="Getiri oranı yüksek Axess akaryakıt kampanyasını taban alıp, kalan tutarı süpermarket harcamaları ve Juzdan QR ile tamamlayarak ayda 1000 TL chip-para kazanma rehberi.">
-    <meta name="keywords" content="axess, akbank chip para, axess akaryakıt kampanyası, axess market kampanyası, juzdan qr ödeme, 1000 tl tasarruf, kartcini, akbank kampanyaları">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://www.kartcini.com/blog/axess-1000tl-tasarruf-rehberi">
-
-    <!-- Open Graph (Sosyal Medya Paylaşım Uyumu) -->
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://www.kartcini.com/blog/axess-1000tl-tasarruf-rehberi">
-    <meta property="og:title" content="Axess ile Yüksek Oranlı Akaryakıt + Süpermarket Stratejisiyle Ayda 1000 TL Tasarruf">
-    <meta property="og:description" content="%7,5 verimli akaryakıt kampanyasını önceliklendirip, süpermarket harcamaları ve Juzdan QR ile minimum toplam harcamayla ayda 1000 TL chip-para kazanma rehberi.">
-    <meta property="og:image" content="https://www.kartcini.com/social-preview.png">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:image" content="https://www.kartcini.com/social-preview.png">
-
-    <!-- İkon Tanımlamaları -->
-    <link rel="icon" type="image/png" href="../favicon.png">
-    <link rel="apple-touch-icon" href="../favicon.png">
-    
-    <!-- Supabase Auth -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <!-- Tailwind CSS ve FontAwesome -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
-    <style>
-        .bg-gradient-custom { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        
-        /* Makale İçi HTML Tablo Stilleri */
-        .article-content table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; background: white; }
-        .article-content th, .article-content td { border: 1px solid #e2e8f0; padding: 10px 14px; text-align: left; }
-        .article-content th { background-color: #f8fafc; font-weight: bold; color: #475569; }
-        .article-content tr:nth-child(even) { background-color: #f1f5f9; }
-
-        @media (max-width: 640px) {
-            nav .container {
-                flex-direction: row !important;
-                align-items: center;
-                justify-content: space-between;
-            }
-            nav .flex.items-center.gap-3 {
-                width: auto !important;
-                justify-content: start;
-            }
-            nav span {
-                font-size: 0.6rem !important;
-                width: auto !important;
-                text-align: left !important;
-            }
-            #loginBtn {
-                padding: 4px 10px !important;
-                font-size: 10px !important;
-                white-space: nowrap;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Axess ile Minimum Harcamayla Ayda 1.000 TL Chip-para Kazanma Rehberi | KartCini</title>
+  <meta name="description" content="Axess kartla minimum harcama yaparak ayda net 1.000 TL chip-para ve 3 taksit avantajı nasıl elde edilir? KartCini uzmanlığında optimize edilmiş Akbank market kampanya analizi ve hediye çeki ipucu.">
+  <meta name="keywords" content="KartCini, Axess, Akbank, chip-para, market kampanyası, Juzdan, QR ödeme, hediye çeki, A101, Migros, az harcayıp çok kazanma, akıllı alışveriş">
+  <style>
+    :root {
+      --primary-color: #ed1c24; /* Akbank/Axess Kırmızısı */
+      --secondary-color: #c1121f;
+      --accent-color: #198754;
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-color: #212529;
+      --border-color: #dee2e6;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    header {
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      margin-bottom: 25px;
+      border-left: 6px solid var(--primary-color);
+    }
+    h1 {
+      color: #0f172a;
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
+    h2 {
+      color: #0f172a;
+      font-size: 1.4rem;
+      margin-top: 30px;
+    }
+    .author-tag {
+      font-weight: bold;
+      color: var(--primary-color);
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .intro {
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+    }
+    .strategy-card {
+      background: #fff5f5;
+      border: 1px solid #fecdd3;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+    }
+    .strategy-card h2 {
+      margin-top: 0;
+      color: #9f1239;
+      font-size: 1.4rem;
+    }
+    .pro-tip {
+      background: #fff8e6;
+      border-left: 5px solid #ff1239;
+      border: 1px solid #ffeeba;
+      padding: 18px;
+      border-radius: 8px;
+      margin: 20px 0;
+      color: #856404;
+    }
+    .pro-tip h3 {
+      margin-top: 0;
+      color: #856404;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .highlight-box {
+      background: #d1e7dd;
+      color: #0f5132;
+      padding: 15px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      text-align: center;
+      margin: 20px 0;
+      border: 1px solid #badbcc;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background: var(--card-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+    th {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      font-weight: 600;
+    }
+    tr:hover {
+      background-color: #f1f5f9;
+    }
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .step-list {
+      padding-left: 20px;
+    }
+    .step-list li {
+      margin-bottom: 10px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+<body>
 
-    <!-- Navigasyon Alanı -->
-    <nav class="bg-gradient-custom p-4 shadow-lg text-white">
-        <div class="container mx-auto flex justify-between items-center">
-            
-            <!-- Sol Taraf: Logo ve Başlık -->
-            <a href="/" class="flex items-center gap-3 no-underline text-white">
-                <img src="../kartcini.svg" alt="KartCini Logo" class="w-10 h-10">
-                <div class="flex flex-col">
-                    <span class="text-xl md:text-2xl font-bold italic leading-none">KartCini</span>
-                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1718</span>
-                </div>
-            </a>
+<div class="container">
+  <article>
+    <header>
+      <span class="author-tag">KartCini Kampanya Uzmanı Analizi</span>
+      <h1>Axess ile Minimum Harcamayla Ayda 1.000 TL Chip-para Nasıl Kazanılır?</h1>
+      <p class="intro">
+        Kredi kartı kampanyalarında yüksek limitler harcamak yerine, <strong>minimum bütçeyle en yüksek getiri (% Return)</strong> oranını yakalamak asıl uzmanlıktır. KartCini uzmanlığıyla hazırladığımız bu güncel rehberde; yüksek tutarlı tekil harcamalar yerine rutin market ihtiyaçlarınızı akıllı bir stratejiyle bölerek tam <strong>1.000 TL chip-para</strong> ve alışverişlerinize <strong>3 taksit avantajını</strong> nasıl cebinize koyacağınızı açıklıyoruz.
+      </p>
+    </header>
 
-            <!-- Sağ Taraf: Giriş Alanı -->
-            <div id="authArea">
-                <button id="loginBtn" onclick="loginWithGoogle()" class="bg-white text-purple-700 px-4 py-1.5 rounded-full text-xs font-bold shadow-lg border border-purple-200 transition hover:bg-gray-100">
-                    <i class="fab fa-google mr-1"></i> Giriş Yap
-                </button>
-                <div id="userProfile" class="hidden flex items-center space-x-2 bg-white/10 p-1 px-3 rounded-full backdrop-blur-md border border-white/20">
-                    <span id="usageBadge" class="bg-orange-500 text-white text-[9px] px-2 py-0.5 rounded-full font-bold">...</span>
-                    <button onclick="logout()" class="text-white hover:text-red-300 text-sm"><i class="fas fa-sign-out-alt"></i></button>
-                </div>
-            </div>
+    <div class="strategy-card">
+      <h2>Minimum Harcama - Maksimum Getiri Stratejisi</h2>
+      <p>
+        Axess'in sunduğu iki farklı market seçeneği arasında 30.000 TL tek atım harcama yapmak yerine, harcamaları bölerek ilerlemek hem bütçenizi korur hem de getiri oranınızı tavana çıkarır.
+      </p>
+      
+      <div class="highlight-box">
+        Hedeflenen Ekstra Harcama Tutarı: 27.500 TL &nbsp;|&nbsp; Kazanılacak Net Chip-para: 1.000 TL &nbsp;|&nbsp; Net Getiri Oranı: %3.64
+      </div>
 
-        </div>
-    </nav>
-    
-    <!-- Ana İçerik Konteyneri -->
-<main class="max-w-4xl mx-auto px-4 py-10 bg-white my-8 rounded-lg shadow-sm">
-    <article>
-        <header class="mb-8">
-            <span class="text-xs font-semibold tracking-wider text-yellow-600 uppercase bg-yellow-50 px-3 py-1 rounded-full">Finansal İpuçları</span>
-            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3 mb-4">Axess ile Yüksek Oranlı Akaryakıt + Süpermarket Hibrit Stratejisi: Ayda 1.000 TL Chip-para</h1>
-            <p class="text-gray-500 text-sm">Akaryakıt Kampanyasını Taban Alıp Kalan Tutarı Süpermarket ve Juzdan QR ile Tamamlama Rehberi</p>
-        </header>
+      <h3>Adım Adım Harcama Yöntemi:</h3>
+      <ol class="step-list">
+        <li>
+          <strong>Juzdan Uygulamasından Katılın:</strong> Alışverişlerinize başlamadan önce mutlaka <strong>Juzdan</strong> uygulamasını açıp <i>"MARKET"</i> kampanyasına "Hemen Katıl" butonuna tıklayarak kaydolun.
+        </li>
+        <li>
+          <strong>İlk İşlemi Yapın:</strong> Market ve gıda sektörlerinde 2.750 TL ve üzeri ilk harcamanızı gerçekleştirin (İlk harcama baraj harcamasıdır).
+        </li>
+        <li>
+          <strong>Sonraki 10 Harcamayı Juzdan QR ile Yapın:</strong> İlk harcamadan sonraki her 2.750 TL'lik market alışverişinizi <strong>Juzdan QR Ödeme</strong> ile yapın. Her işlemde 75 TL standart + 25 TL QR bonusu olmak üzere <strong>100 TL chip-para (İşlem başı %3.64 getiri)</strong> kazanırsınız.
+        </li>
+        <li>
+          <strong>1.000 TL Limiti Tamamlayın:</strong> Toplamda 10 kez QR ile ödenen 2.750 TL'lik harcama sonunda üst limit olan <strong>1.000 TL chip-para</strong> anında kartınıza yüklenir.
+        </li>
+        <li>
+          <strong>Tekstil / Market Ev İhtiyaçlarına Peşin Fiyatına 3 Taksit:</strong> Online market (Cepteşok, İsteGelsin, Sokmarket Ekstra) üzerindeki tekstil harcamalarınızda ise peşin fiyatına 3 taksit imkanından yararlanarak nakit akışınızı rahatlatın.
+        </li>
+      </ol>
 
-        <section class="prose max-w-none text-gray-700 space-y-6">
-            <p>Kampanya verimliliğinde en kritik husus <strong>getiri oranı yüksek adımları önceliklendirmektir</strong>. Akaryakıt kampanyaları yaklaşık <strong>%7,5</strong> geri dönüş oranıyla süpermarket kampanyalarına (%4 - %5) göre belirgin şekilde daha verimlidir. Dolayısıyla en mantıklı strateji; pahalı benzinci marketlerinden alışveriş yapmak yerine, doğrudan aracın benzin ihtiyacını yüksek verimli akaryakıt kampanyasıyla karşılamak ve kalan chip-para hedefini standart süpermarket harcamalarıyla tamamlamaktır.</p>
-
-            <h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Kampanya Oranları ve Hibrit Mantığı</h2>
-            <p>Sadece süpermarket harcamasıyla 1.000 TL chip-para toplamak için 27.000 TL harcama yapmak gerekirken, yüksek oranlı akaryakıt kampanyasını taban almak toplam harcama tutarını <strong>21.000 TL seviyesine düşürür</strong>.</p>
-
-            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">1. Adım: Taban Verimlilik - Akaryakıt Kampanyası (%7,5 Getiri)</h3>
-            <p>Farklı günlerde yapılan 4 adet 1.500 TL'lik akaryakıt alımıyla 6.000 TL harcama karşılığında net <strong>450 TL chip-para</strong> kazanılır. Tavan sınıra ulaşıldıktan sonra kalan hedef için süpermarket katmanına geçilir.</p>
-
-            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">2. Adım: Tamamlama - Süpermarket + Juzdan QR (%4,16 Getiri)</h3>
-            <p>Süpermarket kampanyasında ilk 3.000 TL'lik harcama sayaç açılışıdır. Ardından gelen her 3.000 TL'lik alışverişte Juzdan QR ödemesi kullanılarak işlem başına 125 TL chip-para elde edilir. 4 işlemde kazanılan 500 TL chip-para ile toplam kazanç 950 TL ~ 1.000 TL bandına ulaştırılır.</p>
-
-            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">3. Geçerli Marketler</h3>
-            <p>Türkiye'nin her yerindeki BİM, ŞOK, A101, Migros gibi marketlerin tümü Axess üye işyeridir. Üstelik A101'lerden cep telefonunuza SMS olarak gönderilen 3000₺'lik bir <strong>sanal hediye çeki</strong> alabilir, böylece alışverişinizi daha küçük tutarlara da bölebilirsiniz.</p>
-
-            <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-6">Hibrit Harcama ve Kazanç Tablosu</h2>
-            <p>Minimum bütçeyle maksimum chip-para kazancına ulaşmanızı sağlayan optimum harcama planı aşağıda özetlenmiştir:</p>
-
-            <div class="overflow-x-auto my-6 article-content">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Kampanya Adımı</th>
-                            <th>İşlem Koşulu</th>
-                            <th>Toplam Harcama</th>
-                            <th>Kazanılan Chip-para</th>
-                            <th>Getiri Oranı</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <a href="https://www.axess.com.tr/axess/kampanyalar/axess-ile-petrol-ofisinde-450-tlye-varan-chip-para" target="_blank" class="text-yellow-600 hover:underline font-semibold">1. Akaryakıt Kampanyası</a>
-                            </td>
-                            <td>Farklı günlerde 4 x 1.500 TL Benzin Alımı</td>
-                            <td>6.000 TL</td>
-                            <td class="font-bold text-green-600">450 TL Chip-para</td>
-                            <td class="font-bold">%7,50</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="https://www.axess.com.tr/axess/kampanyalar/axess-ile-market-ve-gida-alisverislerinize-1875-tl-chip-para-firsati" target="_blank" class="text-yellow-600 hover:underline font-semibold">2. Süpermarket (Sayaç Açılışı)</a>
-                            </td>
-                            <td>1. Market Alışverişi (3.000 TL)</td>
-                            <td>3.000 TL</td>
-                            <td class="font-bold text-gray-500">0 TL (Sayaç Başlatma)</td>
-                            <td>%0,00</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="https://www.axess.com.tr/axess/kampanyalar/axess-ile-market-ve-gida-alisverislerinize-1875-tl-chip-para-firsati" target="_blank" class="text-yellow-600 hover:underline font-semibold">3. Süpermarket (Tamamlama)</a>
-                            </td>
-                            <td>Farklı günlerde 4 x 3.000 TL Juzdan QR İşlemi</td>
-                            <td>12.000 TL</td>
-                            <td class="font-bold text-green-600">500 TL Chip-para (4 x 125 TL)</td>
-                            <td class="font-bold">%4,16</td>
-                        </tr>
-                        <tr class="bg-yellow-100 font-bold">
-                            <td>HİBRİT KOMBİNASYON TOPLAMI</td>
-                            <td>Akaryakıt + Süpermarket Katmanı</td>
-                            <td>21.000 TL</td>
-                            <td class="text-green-700">950 TL ~ 1.000 TL Chip-para</td>
-                            <td>%4,52 (Ortalama)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Sonuç ve İpuçları</h2>
-            <p>Alışverişlerinize başlamadan önce Juzdan uygulaması üzerinden hem akaryakıt hem de market kampanyalarına katılım sağlamayı unutmayın. Süpermarket alışverişlerinde fiziki kart yerine kasada mutlaka Juzdan QR kod ile ödeme yapmaya dikkat edin.</p>
-            <p>KartCini ile harcamalarınızı planlamak, bütçeniz üzerindeki yükü azaltırken aylık en az 1.000 TL tasarruf etmenizi sağlar. Burada bahsedilenler dışındaki kampanyaları incelemek için ana sayfamızda KartCini ile sohbet edebilirsiniz. </p>
-        </section>
-    </article>
-</main>
-
-    <!-- SEO Footer Section -->
-    <footer id="seoSection" class="container mx-auto p-4 mt-10 border-t border-gray-200 text-center">
-        <p class="text-xs text-gray-500 mb-2">
-            © 2026 KartCini - Akıllı Kampanya Rehberiniz. Tüm hakları saklıdır.
+      <div class="pro-tip">
+        <h3>💡 KartCini İpucu: Hediye Çeki Yöntemiyle Küçük İşlemleri Kampanyaya Dâhil Edin!</h3>
+        <p>
+          Tek seferde 2.750 TL'lik market alışverişi yapmıyor veya küçük tutarlı harcamalar yapıyorsanız <strong>A101</strong> ya da <strong>Migros</strong> kasalarından ileride kullanmak üzere market hediye çeki veya bakiye yüklemesi satın alabilirsiniz.
         </p>
-        <p class="text-[11px] text-gray-400 max-w-2xl mx-auto">
-            KartCini, bankaların güncel kredi kartı kampanyalarını AI desteğiyle analiz eden bağımsız bir platformdur. Kampanya detayları bankaların resmi web sitelerinden derlenmiştir.
+        <p>
+          Bu sayede kasada tek seferde 2.750 TL ödeyerek kampanya şartını anında sağlayabilir, kazanılan chip-parayı cebinize koyabilir ve aldığınız hediye çeklerini ay içerisindeki ufak günlük alışverişlerinizde parça parça harcayabilirsiniz.
         </p>
-    </footer>
+      </div>
 
-    <script>
-        const _supabase = supabase.createClient('https://jnphjmycmimgpdnctabe.supabase.co', 'sb_publishable_QNjdf_CpgMbpMwumVn7tiQ__l-IWZD3');
-        const SUPABASE_SCHEMA = "public";
+      <p>
+        <strong>Neden 30.000 TL Tek Harcama Değil?</strong> 30.000 TL tek harcama yerine 2.750 TL'lik dilimlerle ilerlediğinizde, bütçenizi zamana yayabilir ve her harcamada anında chip-para kazanımını doğrulayarak ilerleyebilirsiniz.
+      </p>
+    </div>
 
-        window.onload = () => {
-            _supabase.auth.getSession().then(({ data: { session } }) => {
-                if (session) {
-                    document.getElementById('loginBtn').classList.add('hidden');
-                    document.getElementById('userProfile').classList.remove('hidden');
-                    updateQuotaDisplay(session.user.id);
-                }
-            });
-        };
+    <h2>Aktif Kampanya ve Getiri Tablosu</h2>
+    <p>
+      Sistemde tanımlı güncel Axess market kampanyalarının birleşik getiri oranları ve asgari harcama koşulları aşağıda listelenmiştir:
+    </p>
 
-        async function updateQuotaDisplay(userId) {
-            const { data } = await _supabase.schema(SUPABASE_SCHEMA).from('Profile').select('*').eq('id', userId).single();
-            if (data) {
-                document.getElementById('usageBadge').innerText = `${data.usage_count} / ${data.max_limit} Hak`;
-            }
-        }
+    <table>
+      <thead>
+        <tr>
+          <th>Banka</th>
+          <th>Kampanya Özeti</th>
+          <th>% Getiri</th>
+          <th>En Az Harcama Tutarı</th>
+          <th>Toplam Getiri</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Axess</td>
+          <td><a href="https://www.axess.com.tr/axess/kampanyalar/axess-ile-market-ve-gida-alisverislerinize-1000-tl-chip-para-firsati" target="_blank" rel="noopener">Axess ile Market ve Gıda Alışverişlerinize 1.000 TL Chip-para Fırsatı (Kademeli & QR)</a></td>
+          <td>%3.64 (QR ile)</td>
+          <td>2.750 TL</td>
+          <td>1.000 TL</td>
+        </tr>
+        <tr>
+          <td>Axess</td>
+          <td><a href="https://www.axess.com.tr/axess/kampanyalar/axess-ile-market-ve-gida-alisverislerinize-1000-tl-chip-para-firsati-" target="_blank" rel="noopener">Axess ile Market ve Gıda Alışverişlerinize 1.000 TL Chip-para Fırsatı (Tek Atım)</a></td>
+          <td>%1.67</td>
+          <td>30.000 TL</td>
+          <td>1.000 TL</td>
+        </tr>
+      </tbody>
+    </table>
 
-        async function loginWithGoogle() {
-            await _supabase.auth.signInWithOAuth({
-                provider: 'google',
-                options: { redirectTo: window.location.origin + window.location.pathname }
-            });
-        }
+    <h2>Taksit Kampanyaları Tablosu</h2>
+    <p>
+      Market ve online alışveriş uygulamalarında faydalanabileceğiniz vade farksız taksit imkanı:
+    </p>
 
-        async function logout() {
-            await _supabase.auth.signOut();
-            location.reload();
-        }
-    </script>
+    <table>
+      <thead>
+        <tr>
+          <th>Banka</th>
+          <th>Kampanya Özeti</th>
+          <th>Taksit Sayısı</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Axess</td>
+          <td><a href="https://www.axess.com.tr/axess/kampanyalar/axesse-ozel-ceptesok-istegelsin-uygulamasi-ve-wwwsokmarketcomtrekstrada-pesin-fiyatina-3-taksit" target="_blank" rel="noopener">Axess'e özel Cepteşok İsteGelsin uygulaması ve sokmarket.com.tr/ekstra’da Peşin Fiyatına 3 Taksit!</a></td>
+          <td>3 Taksit</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      <em>*Not: Kademeli kampanya % Getiri hesabı, 2.750 TL tutarındaki her bir harcamada kazanılan 100 TL (75 TL standart + 25 TL Juzdan QR) dikkate alınarak hesaplanmıştır.</em>
+    </p>
+  </article>
+
+  <footer>
+    <p>&copy; 2026 KartCini Kampanya Danışmanlığı. Tüm hakları saklıdır.</p>
+  </footer>
+</div>
+
 </body>
 </html>
