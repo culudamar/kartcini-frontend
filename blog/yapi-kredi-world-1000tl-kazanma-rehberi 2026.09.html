@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G0YC21LXFP"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-G0YC21LXFP');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worldcard ile Market ve Benzin Kampanyalarıyla Ayda 1000 TL Tasarruf Rehberi | KartCini</title>
+
+    <!-- SEO Meta Etiketleri -->
+    <meta name="description" content="Worldcard gıda marketi ve Shell akaryakıt kampanyaları birleşimiyle minimum harcama yaparak ayda 1.000 TL ve üzeri Worldpuan kazanma rehberi.">
+    <meta name="keywords" content="worldcard, yapı kredi world, migros kampanyası, shell akaryakıt kampanyası, worldpuan, 1000 tl tasarruf, kartcini, yapı kredi kampanyaları">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.kartcini.com/blog/worldcard-1000tl-tasarruf-rehberi">
+
+    <!-- Open Graph (Sosyal Medya Paylaşım Uyumu) -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.kartcini.com/blog/worldcard-1000tl-tasarruf-rehberi">
+    <meta property="og:title" content="Worldcard ile Market ve Shell Stratejisiyle Ayda 1000 TL Üzeri Tasarruf">
+    <meta property="og:description" content="Worldcard gıda marketi ve Shell kampanyalarıyla minimum harcamayla 1.000 TL üzeri Worldpuan kazanma stratejisi.">
+    <meta property="og:image" content="https://www.kartcini.com/social-preview.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:image" content="https://www.kartcini.com/social-preview.png">
+
+    <!-- İkon Tanımlamaları -->
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../favicon.png">
+    
+    <!-- Supabase Auth -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Tailwind CSS ve FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        .bg-gradient-custom { background: linear-gradient(135deg, #003399 0%, #001a4d 100%); }
+        
+        /* Makale İçi HTML Tablo Stilleri */
+        .article-content table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; background: white; }
+        .article-content th, .article-content td { border: 1px solid #e2e8f0; padding: 10px 14px; text-align: left; }
+        .article-content th { background-color: #f8fafc; font-weight: bold; color: #475569; }
+        .article-content tr:nth-child(even) { background-color: #f1f5f9; }
+
+        @media (max-width: 640px) {
+            nav .container {
+                flex-direction: row !important;
+                align-items: center;
+                justify-content: space-between;
+            }
+            nav .flex.items-center.gap-3 {
+                width: auto !important;
+                justify-content: start;
+            }
+            nav span {
+                font-size: 0.6rem !important;
+                width: auto !important;
+                text-align: left !important;
+            }
+            #loginBtn {
+                padding: 4px 10px !important;
+                font-size: 10px !important;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+    <!-- Navigasyon Alanı -->
+    <nav class="bg-gradient-custom p-4 shadow-lg text-white">
+        <div class="container mx-auto flex justify-between items-center">
+            
+            <!-- Sol Taraf: Logo ve Başlık -->
+            <a href="/" class="flex items-center gap-3 no-underline text-white">
+                <img src="../kartcini.svg" alt="KartCini Logo" class="w-10 h-10">
+                <div class="flex flex-col">
+                    <span class="text-xl md:text-2xl font-bold italic leading-none">KartCini</span>
+                    <span class="text-[10px] md:text-xs opacity-70 italic mt-1 tracking-tight">Akıllı Kampanya Rehberiniz v1.1718</span>
+                </div>
+            </a>
+
+            <!-- Sağ Taraf: Giriş Alanı -->
+            <div id="authArea">
+                <button id="loginBtn" onclick="loginWithGoogle()" class="bg-white text-blue-900 px-4 py-1.5 rounded-full text-xs font-bold shadow-lg border border-blue-200 transition hover:bg-gray-100">
+                    <i class="fab fa-google mr-1"></i> Giriş Yap
+                </button>
+                <div id="userProfile" class="hidden flex items-center space-x-2 bg-white/10 p-1 px-3 rounded-full backdrop-blur-md border border-white/20">
+                    <span id="usageBadge" class="bg-orange-500 text-white text-[9px] px-2 py-0.5 rounded-full font-bold">...</span>
+                    <button onclick="logout()" class="text-white hover:text-red-300 text-sm"><i class="fas fa-sign-out-alt"></i></button>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+    
+    <!-- Ana İçerik Konteyneri -->
+<main class="max-w-4xl mx-auto px-4 py-10 bg-white my-8 rounded-lg shadow-sm">
+    <article>
+        <header class="mb-8">
+            <span class="text-xs font-semibold tracking-wider text-blue-600 uppercase bg-blue-50 px-3 py-1 rounded-full">Finansal İpuçları</span>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3 mb-4">Worldcard ile Market ve Benzin Stratejisi: Ayda 1.050 TL Worldpuan</h1>
+            <p class="text-gray-500 text-sm">Gıda Marketi ve Shell Akaryakıt Kampanyalarıyla Minimum Harcamayla 1.000 TL Hedefini Aşma Rehberi</p>
+        </header>
+
+        <section class="prose max-w-none text-gray-700 space-y-6">
+            <p>Bütçenizden en az parayı çıkararak ayda 1.000 TL tasarruf hedefine ulaşmanın yolu, Yapı Kredi Worldcard'ın sunduğu fırsatları doğru dijital kanallarla birleştirmekten geçer. Tek seferlik yüksek tutarlı harcamalara girmeden, sadece rutin market ve benzin ihtiyaçlarınızı optimize ederek 1.000 TL hedefini rahatlıkla aşabilirsiniz.</p>
+
+            <h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Minimum Harcama ile Yüksek Kazanç Stratejisi</h2>
+            <p>Yapı Kredi'nin gıda marketi ve Shell akaryakıt kampanyalarını entegre bir şekilde kullandığınızda, aylık bütçenizi zorlamadan toplamda 1.050 TL değerinde Worldpuan kazanabilirsiniz.</p>
+
+            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">1. Adım: Genel Gıda Marketi Kampanyası (600 TL Worldpuan)</h3>
+            <p>Yapı Kredi World Üye İşyerlerindeki gıda marketlerinden tek seferde yapacağınız 2.000 TL ve üzeri her alışverişinizde 100 TL Worldpuan kazanılmaktadır. Bu ödemeleri World Pay (QR veya Mobil Ödeme) ile gerçekleştirdiğinizde ise işlem başına ilave 25 TL, yani toplam 125 TL Worldpuan elde edersiniz. Farklı günlerde yapacağınız 5 adet 2.000 TL'lik gıda marketi alışverişiyle (toplam 10.000 TL harcama) tam <strong>600 TL Worldpuan</strong> kazanırsınız.</p>
+
+            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">2. Adım: Shell Akaryakıt Kampanyası (450 TL Worldpuan)</h3>
+            <p>Anlaşmalı Shell istasyonlarında farklı günlerde ve tek seferde yapacağınız 1.400 TL ve üzeri 4 adet akaryakıt alımına 400 TL Worldpuan sunulmaktadır. Bu 4 işlemden en az birini Yapı Kredi POS cihazında <strong>World Pay ile QR Kod</strong> kullanarak ödediğinizde 50 TL ek puan eklenir ve toplam kazancınız <strong>450 TL Worldpuan</strong> seviyesine ulaşır.</p>
+
+            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">3. Geçerli Marketler</h3>
+            <p>Türkiye'nin her yerindeki BİM, ŞOK, A101, Migros gibi marketlerin tümü World üye işyeridir. Üstelik A101'lerden cep telefonunuza SMS olarak gönderilen 2000₺'lik bir <strong>sanal hediye çeki</strong> alabilir, böylece alışverişinizi daha küçük tutarlara da bölebilirsiniz.</p>
+
+            <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-6">Minimum Harcama ve Kazanç Tablosu</h2>
+            <p>Tek seferde yapılması gereken harcama tutarlarını düşük seviyede tutarak 1.000 TL hedefine ulaşmanızı sağlayan öneri tablosu aşağıdadır:</p>
+
+            <div class="overflow-x-auto my-6 article-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Kategori</th>
+                            <th>Harcanacak min tutar</th>
+                            <th>Harcanacak toplam tutar</th>
+                            <th>Kazanç</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a href="https://www.worldcard.com.tr/kampanyalar/gida-marketi-ve-kirtasiye-alisverislerinize-toplamda-1500-tlye-varan-worldpuan-hediye" target="_blank" class="text-blue-600 hover:underline font-semibold">Market</a>
+                            </td>
+                            <td>2.000 TL</td>
+                            <td>10.000 TL (5 x 2.000 TL)</td>
+                            <td class="font-bold text-green-600">600 TL Worldpuan (5 x 125 TL)</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://www.worldcard.com.tr/kampanyalar/shell-istasyonlarinda-4-adet-1400-tl-ve-uzeri-akaryakit-alimina-yapi-kredi-world-ile-anlasmali-shell" target="_blank" class="text-blue-600 hover:underline font-semibold">Benzin</a>
+                            </td>
+                            <td>1.400 TL</td>
+                            <td>5.600 TL (4 x 1.400 TL)</td>
+                            <td class="font-bold text-green-600">450 TL Worldpuan</td>
+                        </tr>
+                        <tr class="bg-blue-50 font-bold">
+                            <td>TOPLAM STRATEJİ</td>
+                            <td>-</td>
+                            <td>15.600 TL</td>
+                            <td class="text-green-700">1.050 TL Worldpuan</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Sonuç ve Püf Noktaları</h2>
+            <p>Günlük ihtiyaçlarınız doğrultusunda bölünmüş harcamalarla toplam 1.050 TL Worldpuan kazanabilir ve aylık tasarruf hedefinizi kolayca yakalayabilirsiniz. Kampanyalardan faydalanabilmek için harcama yapmadan önce <strong>World Mobil</strong> uygulaması üzerinden ilgili kampanyalara <strong>"Hemen Katıl"</strong> butonuna basarak katılım sağlamayı, market alışverişlerinde ve Shell istasyonunda en az bir ödemenizi QR kod ile yapmayı unutmayın.</p>
+            <p>KartCini ile harcamalarınızı planlamak, bütçeniz üzerindeki yükü azaltırken aylık en az 1.000 TL tasarruf etmenizi sağlar. Buradaki fırsatların yanı sıra diğer güncel Yapı Kredi kampanyalarını incelemek için ana sayfamızda KartCini ile sohbet edebilirsiniz.</p>
+        </section>
+    </article>
+</main>
+
+    <!-- SEO Footer Section -->
+    <footer id="seoSection" class="container mx-auto p-4 mt-10 border-t border-gray-200 text-center">
+        <p class="text-xs text-gray-500 mb-2">
+            © 2026 KartCini - Akıllı Kampanya Rehberiniz. Tüm hakları saklıdır.
+        </p>
+        <p class="text-[11px] text-gray-400 max-w-2xl mx-auto">
+            KartCini, bankaların güncel kredi kartı kampanyalarını AI desteğiyle analiz eden bağımsız bir platformdur. Kampanya detayları bankaların resmi web sitelerinden derlenmiştir.
+        </p>
+    </footer>
+
+    <script>
+        const _supabase = supabase.createClient('https://jnphjmycmimgpdnctabe.supabase.co', 'sb_publishable_QNjdf_CpgMbpMwumVn7tiQ__l-IWZD3');
+        const SUPABASE_SCHEMA = "public";
+
+        window.onload = () => {
+            _supabase.auth.getSession().then(({ data: { session } }) => {
+                if (session) {
+                    document.getElementById('loginBtn').classList.add('hidden');
+                    document.getElementById('userProfile').classList.remove('hidden');
+                    updateQuotaDisplay(session.user.id);
+                }
+            });
+        };
+
+        async function updateQuotaDisplay(userId) {
+            const { data } = await _supabase.schema(SUPABASE_SCHEMA).from('Profile').select('*').eq('id', userId).single();
+            if (data) {
+                document.getElementById('usageBadge').innerText = `${data.usage_count} / ${data.max_limit} Hak`;
+            }
+        }
+
+        async function loginWithGoogle() {
+            await _supabase.auth.signInWithOAuth({
+                provider: 'google',
+                options: { redirectTo: window.location.origin + window.location.pathname }
+            });
+        }
+
+        async function logout() {
+            await _supabase.auth.signOut();
+            location.reload();
+        }
+    </script>
+</body>
+</html>
